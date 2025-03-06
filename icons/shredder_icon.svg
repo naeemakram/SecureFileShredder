@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Document with shredder lines -->
+  <rect x="14" y="8" width="36" height="44" rx="2" ry="2" fill="#f5f5f5" stroke="#444444"/>
+  
+  <!-- Document header lines -->
+  <line x1="20" y1="18" x2="44" y2="18" stroke="#666666"/>
+  <line x1="20" y1="24" x2="44" y2="24" stroke="#666666"/>
+  <line x1="20" y1="30" x2="44" y2="30" stroke="#666666"/>
+  
+  <!-- Shredding lines -->
+  <line x1="14" y1="36" x2="50" y2="36" stroke="#ff0000" stroke-width="1.5"/>
+  
+  <!-- Shredded paper strips -->
+  <path d="M14,36 L14,52" stroke="#444444"/>
+  <path d="M19,36 L19,54" stroke="#444444"/>
+  <path d="M24,36 L24,50" stroke="#444444"/>
+  <path d="M29,36 L29,56" stroke="#444444"/>
+  <path d="M34,36 L34,52" stroke="#444444"/>
+  <path d="M39,36 L39,54" stroke="#444444"/>
+  <path d="M44,36 L44,50" stroke="#444444"/>
+  <path d="M49,36 L49,52" stroke="#444444"/>
+  
+  <!-- Lock icon for security -->
+  <rect x="26" y="8" width="12" height="10" rx="2" ry="2" fill="#ffcc00" stroke="#444444"/>
+  <circle cx="32" cy="13" r="2" fill="#444444" stroke="none"/>
+  
+  <!-- Delete/warning symbol -->
+  <circle cx="48" cy="16" r="8" fill="#ff5555" stroke="#444444"/>
+  <line x1="45" y1="16" x2="51" y2="16" stroke="white" stroke-width="2"/>
+</svg>
