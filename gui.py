@@ -442,6 +442,9 @@ class FileShredderApp:
             f"Successfully shredded: {success_count} files\n"
             f"Failed: {failed_count} files"
         )
+        
+        # Clear the file list
+        self._clear_file_list()
     
     def _cancel_operation(self):
         """Cancel the current operation."""
