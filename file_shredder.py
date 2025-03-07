@@ -20,6 +20,15 @@ logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
+# Add file-based logging
+file_handler = logging.FileHandler("shredder.log", mode="a")
+file_handler.setLevel(logging.INFO)
+file_formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+file_handler.setFormatter(file_formatter)
+logger.addHandler(file_handler)
+
+# ...existing code...
+
 class FileShredder:
     """
     Securely delete files by overwriting their contents multiple times
