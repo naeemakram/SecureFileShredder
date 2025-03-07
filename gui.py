@@ -136,6 +136,13 @@ class FileShredderApp:
         )
         self.cancel_btn.pack(side=tk.LEFT, padx=5, pady=5)
         
+        self.clear_btn = ttk.Button(
+            button_frame, 
+            text="Clear", 
+            command=self._clear_results
+        )
+        self.clear_btn.pack(side=tk.LEFT, padx=5, pady=5)
+        
         # Results frame
         results_frame = ttk.LabelFrame(main_frame, text="Matching Files", padding=10)
         results_frame.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
@@ -281,6 +288,21 @@ class FileShredderApp:
         """Clear the file list treeview."""
         for item in self.files_tree.get_children():
             self.files_tree.delete(item)
+            
+    def _clear_results(self):
+        """Clear the matching files list and reset the UI."""
+        if self.is_shredding:
+            messagebox.showwarning(
+                "Operation in Progress",
+                "Cannot clear results while an operation is in progress."
+            )
+            return
+            
+        self._clear_file_list()
+        self.matching_files = []
+        self.progress_var.set(0)
+        self.status_var.set("Ready")
+        self.shred_btn.configure(state=tk.DISABLED)
     
     def _confirm_shred(self):
         """Show confirmation dialog before shredding files."""
