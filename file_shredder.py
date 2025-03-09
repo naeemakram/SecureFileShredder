@@ -11,6 +11,7 @@ before deletion to prevent recovery.
 import os
 import random
 import fnmatch
+import re
 import time
 import logging
 from typing import List, Tuple, Callable, Optional, Generator
@@ -44,7 +45,7 @@ class FileShredder:
         """
         self.passes = passes
     
-    def find_files(self, directory: str, pattern: str, recursive: bool = False, exclude_pattern: str = "") -> List[str]:
+    def find_files(self, directory: str, pattern: str, recursive: bool = False, exclude_pattern: str = "", use_regex: bool = False) -> List[str]:
         """
         Find files matching the pattern in the specified directory.
         
@@ -53,6 +54,7 @@ class FileShredder:
             pattern: File pattern to match (e.g., "*.txt", "secret*")
             recursive: Whether to search subdirectories
             exclude_pattern: Pattern of files to exclude
+            use_regex: Whether to use regular expressions for exclusion patterns
             
         Returns:
             A list of full paths to matching files
@@ -64,6 +66,16 @@ class FileShredder:
             include_patterns = [p.strip() for p in pattern.split(",")]
             exclude_patterns = [p.strip() for p in exclude_pattern.split(",")] if exclude_pattern else []
             
+            # Compile regex patterns if regex is enabled
+            regex_patterns = []
+            if use_regex and exclude_patterns:
+                for pattern in exclude_patterns:
+                    try:
+                        regex_patterns.append(re.compile(pattern))
+                    except re.error:
+                        # If invalid regex, fall back to using it as a glob pattern
+                        logger.warning(f"Invalid regex pattern: {pattern}. Using as glob pattern instead.")
+            
             if recursive:
                 for root, _, files in os.walk(directory):
                     for filename in files:
@@ -71,7 +83,11 @@ class FileShredder:
                         is_match = any(fnmatch.fnmatch(filename, p) for p in include_patterns)
                         
                         # Check if the file matches any exclude pattern
-                        is_excluded = any(fnmatch.fnmatch(filename, p) for p in exclude_patterns) if exclude_patterns else False
+                        is_excluded = False
+                        if use_regex and regex_patterns:
+                            is_excluded = any(regex.search(filename) for regex in regex_patterns)
+                        else:
+                            is_excluded = any(fnmatch.fnmatch(filename, p) for p in exclude_patterns) if exclude_patterns else False
                         
                         if is_match and not is_excluded:
                             matching_files.append(os.path.join(root, filename))
@@ -83,7 +99,11 @@ class FileShredder:
                         is_match = any(fnmatch.fnmatch(filename, p) for p in include_patterns)
                         
                         # Check if the file matches any exclude pattern
-                        is_excluded = any(fnmatch.fnmatch(filename, p) for p in exclude_patterns) if exclude_patterns else False
+                        is_excluded = False
+                        if use_regex and regex_patterns:
+                            is_excluded = any(regex.search(filename) for regex in regex_patterns)
+                        else:
+                            is_excluded = any(fnmatch.fnmatch(filename, p) for p in exclude_patterns) if exclude_patterns else False
                         
                         if is_match and not is_excluded:
                             matching_files.append(file_path)
