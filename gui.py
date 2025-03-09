@@ -13,10 +13,22 @@ import tkinter as tk
 from tkinter import ttk, filedialog, messagebox
 import threading
 import time
+import importlib.util
 from typing import List, Dict, Any
 
 from file_shredder import FileShredder
 from utils import resource_path
+
+# Check if PyPDF2 is available and try to install it if not
+if importlib.util.find_spec("PyPDF2") is None:
+    try:
+        import subprocess
+        messagebox.showinfo("Installing PDF Support", "Installing PyPDF2 for PDF content search capabilities...")
+        subprocess.check_call([sys.executable, "-m", "pip", "install", "PyPDF2"])
+        messagebox.showinfo("Success", "PDF support installed successfully.")
+    except Exception as e:
+        print(f"Failed to install PyPDF2: {e}")
+        # Continue without PyPDF2
 
 class FileShredderApp:
     """Main application window for File Shredder."""

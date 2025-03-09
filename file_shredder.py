@@ -271,6 +271,7 @@ class FileShredder:
         """
         try:
             # Handle different file types
+            occurrences = 0
             if file_path.lower().endswith('.pdf'):
                 try:
                     import PyPDF2
@@ -280,18 +281,20 @@ class FileShredder:
                         for page in reader.pages:
                             text += page.extract_text()
                         occurrences = text.count(content_pattern)
+                        logger.debug(f"Found {occurrences} occurrences of '{content_pattern}' in PDF {file_path}")
                         return occurrences >= min_occurrences, occurrences
                 except ImportError:
                     logger.warning("PyPDF2 not installed, skipping PDF content search")
+                    return False, 0
+                except Exception as e:
+                    logger.error(f"Error processing PDF {file_path}: {str(e)}")
                     return False, 0
             else:  # For .txt and .csv files
                 with open(file_path, 'r', errors='ignore') as f:
                     text = f.read()
                     occurrences = text.count(content_pattern)
+                    logger.debug(f"Found {occurrences} occurrences of '{content_pattern}' in {file_path}")
                     return occurrences >= min_occurrences, occurrences
-
-            logger.debug(f"Found {occurrences} occurrences of '{content_pattern}' in {file_path}")
-            return occurrences >= min_occurrences
 
         except Exception as e:
             logger.error(f"Error checking file content for {file_path}: {str(e)}")
