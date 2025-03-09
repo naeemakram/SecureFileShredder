@@ -131,25 +131,40 @@ class FileShredder:
                                         # On Windows or if owner can't be determined
                                         pass
 
+                                # Initialize content match info
+                                content_match_info = {}
+
                                 # Check file content if pattern is provided
                                 if content_pattern and not is_excluded:
                                     # Only process text files (.txt, .csv, .pdf for now)
                                     if filename.lower().endswith(('.txt', '.csv')) or (filename.lower().endswith('.pdf') and 'PyPDF2' in sys.modules):
-                                        is_excluded = not self._check_file_content(file_path, content_pattern, content_min_occurrences)
+                                        match_result, occurrences = self._check_file_content(file_path, content_pattern, content_min_occurrences)
+                                        is_excluded = not match_result
+                                        if match_result:
+                                            content_match_info['include'] = {
+                                                'pattern': content_pattern,
+                                                'occurrences': occurrences
+                                            }
 
                                 # Check exclude content pattern if provided
                                 if exclude_content_pattern and not is_excluded:
                                     # Only process text files (.txt, .csv, .pdf for now)
                                     if filename.lower().endswith(('.txt', '.csv')) or (filename.lower().endswith('.pdf') and 'PyPDF2' in sys.modules):
-                                        if self._check_file_content(file_path, exclude_content_pattern, exclude_content_min_occurrences):
+                                        match_result, occurrences = self._check_file_content(file_path, exclude_content_pattern, exclude_content_min_occurrences)
+                                        if match_result:
                                             is_excluded = True
+                                            content_match_info['exclude'] = {
+                                                'pattern': exclude_content_pattern,
+                                                'occurrences': occurrences
+                                            }
                             except (OSError, IOError):
                                 # If we can't get file stats, exclude it
                                 is_excluded = True
 
                         if is_match:
                             if not is_excluded:
-                                matching_files.append(file_path)
+                                # Store file path and content match info
+                                matching_files.append((file_path, content_match_info))
                             else:
                                 excluded_count += 1
             else:
@@ -192,25 +207,40 @@ class FileShredder:
                                         # On Windows or if owner can't be determined
                                         pass
 
+                                # Initialize content match info
+                                content_match_info = {}
+
                                 # Check file content if pattern is provided
                                 if content_pattern and not is_excluded:
                                     # Only process text files (.txt, .csv, .pdf for now)
                                     if filename.lower().endswith(('.txt', '.csv')) or (filename.lower().endswith('.pdf') and 'PyPDF2' in sys.modules):
-                                        is_excluded = not self._check_file_content(file_path, content_pattern, content_min_occurrences)
+                                        match_result, occurrences = self._check_file_content(file_path, content_pattern, content_min_occurrences)
+                                        is_excluded = not match_result
+                                        if match_result:
+                                            content_match_info['include'] = {
+                                                'pattern': content_pattern,
+                                                'occurrences': occurrences
+                                            }
 
                                 # Check exclude content pattern if provided
                                 if exclude_content_pattern and not is_excluded:
                                     # Only process text files (.txt, .csv, .pdf for now)
                                     if filename.lower().endswith(('.txt', '.csv')) or (filename.lower().endswith('.pdf') and 'PyPDF2' in sys.modules):
-                                        if self._check_file_content(file_path, exclude_content_pattern, exclude_content_min_occurrences):
+                                        match_result, occurrences = self._check_file_content(file_path, exclude_content_pattern, exclude_content_min_occurrences)
+                                        if match_result:
                                             is_excluded = True
+                                            content_match_info['exclude'] = {
+                                                'pattern': exclude_content_pattern,
+                                                'occurrences': occurrences
+                                            }
                             except (OSError, IOError):
                                 # If we can't get file stats, exclude it
                                 is_excluded = True
 
                         if is_match:
                             if not is_excluded:
-                                matching_files.append(file_path)
+                                # Store file path and content match info
+                                matching_files.append((file_path, content_match_info))
                             else:
                                 excluded_count += 1
 
@@ -250,20 +280,22 @@ class FileShredder:
                         for page in reader.pages:
                             text += page.extract_text()
                         occurrences = text.count(content_pattern)
+                        return occurrences >= min_occurrences, occurrences
                 except ImportError:
                     logger.warning("PyPDF2 not installed, skipping PDF content search")
-                    return False
+                    return False, 0
             else:  # For .txt and .csv files
                 with open(file_path, 'r', errors='ignore') as f:
                     text = f.read()
                     occurrences = text.count(content_pattern)
+                    return occurrences >= min_occurrences, occurrences
 
             logger.debug(f"Found {occurrences} occurrences of '{content_pattern}' in {file_path}")
             return occurrences >= min_occurrences
 
         except Exception as e:
             logger.error(f"Error checking file content for {file_path}: {str(e)}")
-            return False
+            return False, 0
 
     def shred_file(self, file_path: str, callback: Optional[Callable[[float], None]] = None) -> bool:
         """

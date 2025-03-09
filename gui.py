@@ -227,7 +227,7 @@ class FileShredderApp:
         # Create a treeview for files
         self.files_tree = ttk.Treeview(
             results_frame, 
-            columns=("path", "size", "status"),
+            columns=("path", "size", "status", "matches"),
             show="headings",
             selectmode="browse"  # Allow selecting one item at a time
         )
@@ -236,10 +236,12 @@ class FileShredderApp:
         self.files_tree.heading("path", text="File Path")
         self.files_tree.heading("size", text="Size")
         self.files_tree.heading("status", text="Status")
+        self.files_tree.heading("matches", text="Content Matches")
         
-        self.files_tree.column("path", width=350, stretch=True)
-        self.files_tree.column("size", width=100, anchor=tk.E)
-        self.files_tree.column("status", width=100)
+        self.files_tree.column("path", width=250, stretch=True)
+        self.files_tree.column("size", width=80, anchor=tk.E)
+        self.files_tree.column("status", width=80)
+        self.files_tree.column("matches", width=150)
         
         # Add scrollbars
         y_scroll = ttk.Scrollbar(results_frame, orient=tk.VERTICAL, command=self.files_tree.yview)
@@ -417,7 +419,18 @@ class FileShredderApp:
             return
         
         # Add files to the treeview
-        for file_path in self.matching_files:
+        for file_info in self.matching_files:
+            file_path = file_info[0]  # First element is the file path
+            content_match_info = file_info[1]  # Second element is the match info dictionary
+            
+            # Format content matches information
+            matches_display = ""
+            if content_match_info:
+                if 'include' in content_match_info:
+                    pattern = content_match_info['include']['pattern']
+                    occurrences = content_match_info['include']['occurrences']
+                    matches_display = f"'{pattern}': {occurrences}x"
+            
             try:
                 size = os.path.getsize(file_path)
                 # Format the size
@@ -428,10 +441,10 @@ class FileShredderApp:
                 else:
                     size_str = f"{size / (1024 * 1024):.1f} MB"
                 
-                self.files_tree.insert("", tk.END, values=(file_path, size_str, "Pending"))
+                self.files_tree.insert("", tk.END, values=(file_path, size_str, "Pending", matches_display))
             except Exception:
                 # If we can't get the size (e.g., permission error), show unknown
-                self.files_tree.insert("", tk.END, values=(file_path, "Unknown", "Pending"))
+                self.files_tree.insert("", tk.END, values=(file_path, "Unknown", "Pending", matches_display))
         
         # Update status and enable shred button
         file_count = len(self.matching_files)
@@ -503,8 +516,8 @@ class FileShredderApp:
     def _shred_files_thread(self):
         """Thread function to shred files."""
         try:
-            # Copy the list to avoid modification issues
-            files_to_shred = self.matching_files.copy()
+            # Extract just the file paths from the matching_files list
+            files_to_shred = [file_info[0] for file_info in self.matching_files]
             
             # Shred the files
             self.shredder.shred_files(
@@ -561,10 +574,14 @@ class FileShredderApp:
         for item in self.files_tree.get_children():
             if self.files_tree.item(item)['values'][0] == file_path:
                 status = "Completed" if success else "Failed"
+                values = self.files_tree.item(item)['values']
+                # Preserve the original matches column value
+                matches = values[3] if len(values) > 3 else ""
                 self.files_tree.item(item, values=(
                     file_path,
-                    self.files_tree.item(item)['values'][1],
-                    status
+                    values[1],  # Size
+                    status,
+                    matches
                 ))
                 break
     
@@ -761,6 +778,14 @@ class FileShredderApp:
                 except (ImportError, PermissionError, OSError):
                     pass
                 
+                # Get content matches information
+                matches_info = ""
+                for item in self.files_tree.selection():
+                    values = self.files_tree.item(item)['values']
+                    if values[0] == file_path and values[3]:  # Check path and matches column
+                        matches_info = f"Content Matches: {values[3]}\n"
+                        break
+                
                 # Display file properties in a dialog
                 messagebox.showinfo(
                     "File Properties",
@@ -771,7 +796,8 @@ class FileShredderApp:
                     f"Created: {created_time}\n"
                     f"Modified: {modified_time}\n"
                     f"Accessed: {accessed_time}\n"
-                    f"Permissions: {oct(stat_info.st_mode)[-3:]}"
+                    f"Permissions: {oct(stat_info.st_mode)[-3:]}\n"
+                    f"{matches_info}"
                 )
             else:
                 messagebox.showwarning("File Not Found", "The selected file no longer exists.")
