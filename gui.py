@@ -116,9 +116,25 @@ class FileShredderApp:
         owner_entry = ttk.Entry(metadata_frame, textvariable=self.owner_pattern_var, width=20)
         owner_entry.grid(row=0, column=1, sticky=(tk.W, tk.E), padx=5, pady=5)
         
+        # Content filtering frame
+        content_frame = ttk.Frame(metadata_frame)
+        content_frame.grid(row=1, column=0, columnspan=2, sticky=(tk.W, tk.E), padx=5, pady=5)
+        
+        ttk.Label(content_frame, text="Content Contains:").grid(row=0, column=0, sticky=tk.W, padx=5, pady=5)
+        self.content_pattern_var = tk.StringVar(value="")
+        content_pattern_entry = ttk.Entry(content_frame, textvariable=self.content_pattern_var, width=20)
+        content_pattern_entry.grid(row=0, column=1, sticky=tk.W, padx=5, pady=5)
+        
+        ttk.Label(content_frame, text="Min Occurrences:").grid(row=0, column=2, sticky=tk.W, padx=5, pady=5)
+        self.content_min_occurrences_var = tk.IntVar(value=1)
+        content_min_spinbox = ttk.Spinbox(content_frame, from_=1, to=1000, width=5, textvariable=self.content_min_occurrences_var)
+        content_min_spinbox.grid(row=0, column=3, sticky=tk.W, padx=5, pady=5)
+        
+        ttk.Label(content_frame, text="(Searches .txt, .csv, .pdf files)").grid(row=1, column=0, columnspan=4, sticky=tk.W, padx=5, pady=2)
+        
         # Date filters
         date_frame = ttk.Frame(metadata_frame)
-        date_frame.grid(row=1, column=0, columnspan=2, sticky=(tk.W, tk.E), padx=5, pady=5)
+        date_frame.grid(row=2, column=0, columnspan=2, sticky=(tk.W, tk.E), padx=5, pady=5)
         
         # Created after/before
         ttk.Label(date_frame, text="Created After:").grid(row=0, column=0, sticky=tk.W, padx=5, pady=5)
@@ -337,6 +353,10 @@ class FileShredderApp:
             # Get owner pattern if provided
             owner_pattern = self.owner_pattern_var.get().strip() or None
             
+            # Get content filtering parameters
+            content_pattern = self.content_pattern_var.get().strip() or None
+            content_min_occurrences = self.content_min_occurrences_var.get()
+            
             # Find matching files and get excluded count
             self.matching_files, self.excluded_count = self.shredder.find_files(
                 directory, 
@@ -348,7 +368,9 @@ class FileShredderApp:
                 created_after=created_after,
                 created_before=created_before,
                 modified_after=modified_after,
-                modified_before=modified_before
+                modified_before=modified_before,
+                content_pattern=content_pattern,
+                content_min_occurrences=content_min_occurrences
             )
             
             # Update UI from main thread

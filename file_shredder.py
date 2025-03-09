@@ -9,6 +9,7 @@ before deletion to prevent recovery.
 """
 
 import os
+import sys
 import random
 import fnmatch
 import re
@@ -46,7 +47,8 @@ class FileShredder:
 
     def find_files(self, directory: str, pattern: str, recursive: bool = False, exclude_pattern: str = "", 
               return_excluded_count: bool = False, owner_pattern: str = None, created_after: float = None, 
-              created_before: float = None, modified_after: float = None, modified_before: float = None) -> List[str] or Tuple[List[str], int]:
+              created_before: float = None, modified_after: float = None, modified_before: float = None,
+              content_pattern: str = None, content_min_occurrences: int = 1) -> List[str] or Tuple[List[str], int]:
         """
         Find files matching the pattern in the specified directory.
 
@@ -61,6 +63,8 @@ class FileShredder:
             created_before: Unix timestamp (files created before this time)
             modified_after: Unix timestamp (files modified after this time)
             modified_before: Unix timestamp (files modified before this time)
+            content_pattern: Text pattern to search for within file contents
+            content_min_occurrences: Minimum number of times the pattern must appear
 
         Returns:
             A list of full paths to matching files, or a tuple of (list_of_files, excluded_count) if return_excluded_count is True
@@ -124,6 +128,12 @@ class FileShredder:
                                     except (ImportError, KeyError):
                                         # On Windows or if owner can't be determined
                                         pass
+                                        
+                                # Check file content if pattern is provided
+                                if content_pattern and not is_excluded:
+                                    # Only process text files (.txt, .csv, .pdf for now)
+                                    if filename.lower().endswith(('.txt', '.csv')) or (filename.lower().endswith('.pdf') and 'PyPDF2' in sys.modules):
+                                        is_excluded = not self._check_file_content(file_path, content_pattern, content_min_occurrences)
                             except (OSError, IOError):
                                 # If we can't get file stats, exclude it
                                 is_excluded = True
@@ -172,6 +182,12 @@ class FileShredder:
                                     except (ImportError, KeyError):
                                         # On Windows or if owner can't be determined
                                         pass
+                                
+                                # Check file content if pattern is provided
+                                if content_pattern and not is_excluded:
+                                    # Only process text files (.txt, .csv, .pdf for now)
+                                    if filename.lower().endswith(('.txt', '.csv')) or (filename.lower().endswith('.pdf') and 'PyPDF2' in sys.modules):
+                                        is_excluded = not self._check_file_content(file_path, content_pattern, content_min_occurrences)
                             except (OSError, IOError):
                                 # If we can't get file stats, exclude it
                                 is_excluded = True
@@ -195,6 +211,44 @@ class FileShredder:
             logger.error(f"Error finding files: {str(e)}")
             raise
 
+    def _check_file_content(self, file_path: str, content_pattern: str, min_occurrences: int = 1) -> bool:
+        """
+        Check if a file contains the specified content pattern at least min_occurrences times.
+        
+        Args:
+            file_path: Path to the file to check
+            content_pattern: Text pattern to search for
+            min_occurrences: Minimum number of occurrences required
+            
+        Returns:
+            True if the pattern is found at least min_occurrences times, False otherwise
+        """
+        try:
+            # Handle different file types
+            if file_path.lower().endswith('.pdf'):
+                try:
+                    import PyPDF2
+                    with open(file_path, 'rb') as pdf_file:
+                        reader = PyPDF2.PdfReader(pdf_file)
+                        text = ""
+                        for page in reader.pages:
+                            text += page.extract_text()
+                        occurrences = text.count(content_pattern)
+                except ImportError:
+                    logger.warning("PyPDF2 not installed, skipping PDF content search")
+                    return False
+            else:  # For .txt and .csv files
+                with open(file_path, 'r', errors='ignore') as f:
+                    text = f.read()
+                    occurrences = text.count(content_pattern)
+            
+            logger.debug(f"Found {occurrences} occurrences of '{content_pattern}' in {file_path}")
+            return occurrences >= min_occurrences
+            
+        except Exception as e:
+            logger.error(f"Error checking file content for {file_path}: {str(e)}")
+            return False
+            
     def shred_file(self, file_path: str, callback: Optional[Callable[[float], None]] = None) -> bool:
         """
         Securely shred a single file by overwriting its contents multiple times.
