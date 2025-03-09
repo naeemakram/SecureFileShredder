@@ -117,7 +117,8 @@ class FileShredderApp:
         recursive_chk = ttk.Checkbutton(
             folder_frame, 
             text="Include subdirectories (recursive)",
-            variable=self.recursive_var
+            variable=self.recursive_var,
+            command=self._find_files
         )
         recursive_chk.grid(row=2, column=0, columnspan=3, sticky=tk.W, padx=5, pady=5)
         
