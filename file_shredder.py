@@ -76,9 +76,13 @@ class FileShredder:
                         # If invalid regex, fall back to using it as a glob pattern
                         logger.warning(f"Invalid regex pattern: {pattern}. Using as glob pattern instead.")
             
+            # Handle recursive and non-recursive search differently
             if recursive:
+                # For recursive search, use os.walk to traverse all subdirectories
                 for root, _, files in os.walk(directory):
                     for filename in files:
+                        file_path = os.path.join(root, filename)
+                        
                         # Check if the file matches any include pattern
                         is_match = any(fnmatch.fnmatch(filename, p) for p in include_patterns)
                         
@@ -90,8 +94,9 @@ class FileShredder:
                             is_excluded = any(fnmatch.fnmatch(filename, p) for p in exclude_patterns) if exclude_patterns else False
                         
                         if is_match and not is_excluded:
-                            matching_files.append(os.path.join(root, filename))
+                            matching_files.append(file_path)
             else:
+                # For non-recursive search, only check files in the top directory
                 for filename in os.listdir(directory):
                     file_path = os.path.join(directory, filename)
                     if os.path.isfile(file_path):
