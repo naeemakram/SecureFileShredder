@@ -106,14 +106,7 @@ class FileShredderApp:
         ttk.Label(options_frame, text="(e.g., *.log, *.exe)").grid(
             row=1, column=2, sticky=tk.W, padx=5, pady=5)
         
-        # Use regex for exclude patterns
-        self.use_regex_var = tk.BooleanVar(value=False)
-        regex_chk = ttk.Checkbutton(
-            options_frame,
-            text="Use regular expressions for exclude patterns",
-            variable=self.use_regex_var
-        )
-        regex_chk.grid(row=2, column=0, columnspan=3, sticky=tk.W, padx=5, pady=5)
+        
         
     
         
@@ -272,11 +265,8 @@ class FileShredderApp:
             # Update the shredder passes
             self.shredder.passes = self.passes_var.get()
             
-            # Get regex option
-            use_regex = self.use_regex_var.get()
-            
             # Find matching files and get excluded count
-            self.matching_files, self.excluded_count = self.shredder.find_files(directory, pattern, recursive, exclude_pattern, use_regex, return_excluded_count=True)
+            self.matching_files, self.excluded_count = self.shredder.find_files(directory, pattern, recursive, exclude_pattern, return_excluded_count=True)
             
             # Update UI from main thread
             self.root.after(0, self._update_file_list)
