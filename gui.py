@@ -107,6 +107,7 @@ class FileShredderApp:
         self.folder_path = tk.StringVar()
         folder_entry = ttk.Entry(folder_frame, textvariable=self.folder_path, width=50)
         folder_entry.grid(row=0, column=1, sticky=(tk.W, tk.E), padx=5, pady=5)
+        folder_entry.bind("<Return>", lambda e: self._find_files())
         
         browse_btn = ttk.Button(folder_frame, text="📂 Browse...", command=self._browse_folder)
         browse_btn.grid(row=0, column=2, sticky=tk.E, padx=5, pady=5)
@@ -128,6 +129,7 @@ class FileShredderApp:
         self.pattern_var = tk.StringVar(value="*.*")
         pattern_entry = ttk.Entry(options_frame, textvariable=self.pattern_var, width=20)
         pattern_entry.grid(row=0, column=1, sticky=(tk.W, tk.E), padx=5, pady=5)
+        pattern_entry.bind("<Return>", lambda e: self._find_files())
         
         ttk.Label(options_frame, text="(e.g., *.txt, secret*, document?.pdf)").grid(
             row=0, column=2, sticky=tk.W, padx=5, pady=5)
@@ -137,6 +139,7 @@ class FileShredderApp:
         self.exclude_pattern_var = tk.StringVar(value="")
         exclude_pattern_entry = ttk.Entry(options_frame, textvariable=self.exclude_pattern_var, width=20)
         exclude_pattern_entry.grid(row=1, column=1, sticky=(tk.W, tk.E), padx=5, pady=5)
+        exclude_pattern_entry.bind("<Return>", lambda e: self._find_files())
         
         # Adjust the row for the recursive option
         ttk.Label(options_frame, text="(e.g., *.log, *.exe)").grid(
@@ -151,6 +154,7 @@ class FileShredderApp:
         self.owner_pattern_var = tk.StringVar(value="")
         owner_entry = ttk.Entry(metadata_frame, textvariable=self.owner_pattern_var, width=20)
         owner_entry.grid(row=0, column=1, sticky=(tk.W, tk.E), padx=5, pady=5)
+        owner_entry.bind("<Return>", lambda e: self._find_files())
         
         # Content filtering frame
         content_frame = ttk.Frame(metadata_frame)
@@ -160,6 +164,7 @@ class FileShredderApp:
         self.content_pattern_var = tk.StringVar(value="")
         content_pattern_entry = ttk.Entry(content_frame, textvariable=self.content_pattern_var, width=20)
         content_pattern_entry.grid(row=0, column=1, sticky=tk.W, padx=5, pady=5)
+        content_pattern_entry.bind("<Return>", lambda e: self._find_files())
         
         ttk.Label(content_frame, text="Min Occurrences:").grid(row=0, column=2, sticky=tk.W, padx=5, pady=5)
         self.content_min_occurrences_var = tk.IntVar(value=1)
@@ -171,6 +176,7 @@ class FileShredderApp:
         self.exclude_content_pattern_var = tk.StringVar(value="")
         exclude_content_pattern_entry = ttk.Entry(content_frame, textvariable=self.exclude_content_pattern_var, width=20)
         exclude_content_pattern_entry.grid(row=1, column=1, sticky=tk.W, padx=5, pady=5)
+        exclude_content_pattern_entry.bind("<Return>", lambda e: self._find_files())
         
         ttk.Label(content_frame, text="Min Occurrences:").grid(row=1, column=2, sticky=tk.W, padx=5, pady=5)
         self.exclude_content_min_occurrences_var = tk.IntVar(value=1)
@@ -188,22 +194,26 @@ class FileShredderApp:
         self.created_after_var = tk.StringVar(value="")
         created_after_entry = ttk.Entry(date_frame, textvariable=self.created_after_var, width=16)
         created_after_entry.grid(row=0, column=1, sticky=tk.W, padx=5, pady=5)
+        created_after_entry.bind("<Return>", lambda e: self._find_files())
         
         ttk.Label(date_frame, text="Created Before:").grid(row=0, column=2, sticky=tk.W, padx=5, pady=5)
         self.created_before_var = tk.StringVar(value="")
         created_before_entry = ttk.Entry(date_frame, textvariable=self.created_before_var, width=16)
         created_before_entry.grid(row=0, column=3, sticky=tk.W, padx=5, pady=5)
+        created_before_entry.bind("<Return>", lambda e: self._find_files())
         
         # Modified after/before
         ttk.Label(date_frame, text="Modified After:").grid(row=1, column=0, sticky=tk.W, padx=5, pady=5)
         self.modified_after_var = tk.StringVar(value="")
         modified_after_entry = ttk.Entry(date_frame, textvariable=self.modified_after_var, width=16)
         modified_after_entry.grid(row=1, column=1, sticky=tk.W, padx=5, pady=5)
+        modified_after_entry.bind("<Return>", lambda e: self._find_files())
         
         ttk.Label(date_frame, text="Modified Before:").grid(row=1, column=2, sticky=tk.W, padx=5, pady=5)
         self.modified_before_var = tk.StringVar(value="")
         modified_before_entry = ttk.Entry(date_frame, textvariable=self.modified_before_var, width=16)
         modified_before_entry.grid(row=1, column=3, sticky=tk.W, padx=5, pady=5)
+        modified_before_entry.bind("<Return>", lambda e: self._find_files())
         
         ttk.Label(date_frame, text="(Format: YYYY-MM-DD)").grid(row=2, column=0, columnspan=4, sticky=tk.W, padx=5, pady=2)
         
