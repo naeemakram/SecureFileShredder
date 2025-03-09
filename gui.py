@@ -38,7 +38,7 @@ class FileShredderApp:
         
         # Set application icon
         try:
-            icon_path = resource_path("icons/shredder_icon.svg")
+            icon_path = resource_path(os.path.join("icons", "shredder_icon.svg"))
             self.root.iconbitmap(icon_path)
         except Exception:
             # Icon not critical, continue without it
