@@ -168,6 +168,11 @@ class FileShredderApp:
         results_frame = ttk.LabelFrame(main_frame, text="Matching Files", padding=10)
         results_frame.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
         
+        # Files found label
+        self.files_found_var = tk.StringVar(value="Files found: 0")
+        files_found_label = ttk.Label(results_frame, textvariable=self.files_found_var)
+        files_found_label.grid(row=0, column=0, sticky=tk.W, padx=5, pady=2)
+        
         # Create a treeview for files
         self.files_tree = ttk.Treeview(
             results_frame, 
@@ -193,9 +198,9 @@ class FileShredderApp:
         self.files_tree.configure(xscrollcommand=x_scroll.set)
         
         # Grid layout for treeview and scrollbars
-        self.files_tree.grid(row=0, column=0, sticky=(tk.N, tk.S, tk.E, tk.W))
-        y_scroll.grid(row=0, column=1, sticky=(tk.N, tk.S))
-        x_scroll.grid(row=1, column=0, sticky=(tk.E, tk.W))
+        self.files_tree.grid(row=1, column=0, sticky=(tk.N, tk.S, tk.E, tk.W))
+        y_scroll.grid(row=1, column=1, sticky=(tk.N, tk.S))
+        x_scroll.grid(row=2, column=0, sticky=(tk.E, tk.W))
         
         results_frame.grid_columnconfigure(0, weight=1)
         results_frame.grid_rowconfigure(0, weight=1)
@@ -219,10 +224,12 @@ class FileShredderApp:
         main_frame.columnconfigure(0, weight=1)
     
     def _browse_folder(self):
-        """Open a directory browser dialog."""
+        """Open a directory browser dialog and automatically load matching files."""
         folder = filedialog.askdirectory(title="Select Directory")
         if folder:
             self.folder_path.set(folder)
+            # Automatically find matching files after selecting a directory
+            self._find_files()
     
     def _find_files(self):
         """Find files matching the pattern in the selected directory."""
@@ -308,14 +315,18 @@ class FileShredderApp:
                 # If we can't get the size (e.g., permission error), show unknown
                 self.files_tree.insert("", tk.END, values=(file_path, "Unknown", "Pending"))
         
-        # Update status and enable shred button
-        self.status_var.set(f"Found {len(self.matching_files)} matching files.")
+        # Update status, file count label and enable shred button
+        file_count = len(self.matching_files)
+        self.status_var.set(f"Found {file_count} matching files.")
+        self.files_found_var.set(f"Files found: {file_count}")
         self.shred_btn.configure(state=tk.NORMAL)
     
     def _clear_file_list(self):
         """Clear the file list treeview."""
         for item in self.files_tree.get_children():
             self.files_tree.delete(item)
+        # Reset files found count
+        self.files_found_var.set("Files found: 0")
             
     def _clear_results(self):
         """Clear the matching files list and reset the UI."""
