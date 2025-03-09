@@ -85,6 +85,16 @@ class FileShredderApp:
         
         ttk.Label(options_frame, text="(e.g., *.txt, secret*, document?.pdf)").grid(
             row=0, column=2, sticky=tk.W, padx=5, pady=5)
+            
+        # Exclude pattern
+        ttk.Label(options_frame, text="Exclude File Pattern:").grid(row=1, column=0, sticky=tk.W, padx=5, pady=5)
+        self.exclude_pattern_var = tk.StringVar(value="")
+        exclude_pattern_entry = ttk.Entry(options_frame, textvariable=self.exclude_pattern_var, width=20)
+        exclude_pattern_entry.grid(row=1, column=1, sticky=(tk.W, tk.E), padx=5, pady=5)
+        
+        # Adjust the row for the recursive option
+        ttk.Label(options_frame, text="(e.g., *.log, *.exe)").grid(
+            row=1, column=2, sticky=tk.W, padx=5, pady=5)
         
         # Recursive option
         self.recursive_var = tk.BooleanVar(value=False)
@@ -93,10 +103,10 @@ class FileShredderApp:
             text="Include subdirectories (recursive)",
             variable=self.recursive_var
         )
-        recursive_chk.grid(row=1, column=0, columnspan=3, sticky=tk.W, padx=5, pady=5)
+        recursive_chk.grid(row=2, column=0, columnspan=3, sticky=tk.W, padx=5, pady=5)
         
         # Number of passes
-        ttk.Label(options_frame, text="Shredding Passes:").grid(row=2, column=0, sticky=tk.W, padx=5, pady=5)
+        ttk.Label(options_frame, text="Shredding Passes:").grid(row=3, column=0, sticky=tk.W, padx=5, pady=5)
         self.passes_var = tk.IntVar(value=3)
         passes_combo = ttk.Combobox(
             options_frame, 
@@ -105,9 +115,9 @@ class FileShredderApp:
             width=5,
             state="readonly"
         )
-        passes_combo.grid(row=2, column=1, sticky=tk.W, padx=5, pady=5)
+        passes_combo.grid(row=3, column=1, sticky=tk.W, padx=5, pady=5)
         ttk.Label(options_frame, text="(higher = more secure, but slower)").grid(
-            row=2, column=2, sticky=tk.W, padx=5, pady=5)
+            row=3, column=2, sticky=tk.W, padx=5, pady=5)
         
         # Action buttons
         button_frame = ttk.Frame(main_frame)
@@ -207,6 +217,7 @@ class FileShredderApp:
         """Find files matching the pattern in the selected directory."""
         directory = self.folder_path.get().strip()
         pattern = self.pattern_var.get().strip()
+        exclude_pattern = self.exclude_pattern_var.get().strip()
         recursive = self.recursive_var.get()
         
         # Validate inputs
@@ -229,9 +240,11 @@ class FileShredderApp:
         self.root.update()
         
         # Find matching files in a separate thread
-        threading.Thread(target=self._find_files_thread, args=(directory, pattern, recursive), daemon=True).start()
+        threading.Thread(target=self._find_files_thread, 
+                         args=(directory, pattern, recursive, exclude_pattern), 
+                         daemon=True).start()
     
-    def _find_files_thread(self, directory: str, pattern: str, recursive: bool):
+    def _find_files_thread(self, directory: str, pattern: str, recursive: bool, exclude_pattern: str = ""):
         """
         Thread function to find matching files.
         
@@ -239,13 +252,14 @@ class FileShredderApp:
             directory: Directory to search
             pattern: File pattern to match
             recursive: Whether to search recursively
+            exclude_pattern: Pattern of files to exclude
         """
         try:
             # Update the shredder passes
             self.shredder.passes = self.passes_var.get()
             
             # Find matching files
-            self.matching_files = self.shredder.find_files(directory, pattern, recursive)
+            self.matching_files = self.shredder.find_files(directory, pattern, recursive, exclude_pattern)
             
             # Update UI from main thread
             self.root.after(0, self._update_file_list)

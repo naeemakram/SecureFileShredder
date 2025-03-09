@@ -44,7 +44,7 @@ class FileShredder:
         """
         self.passes = passes
     
-    def find_files(self, directory: str, pattern: str, recursive: bool = False) -> List[str]:
+    def find_files(self, directory: str, pattern: str, recursive: bool = False, exclude_pattern: str = "") -> List[str]:
         """
         Find files matching the pattern in the specified directory.
         
@@ -52,6 +52,7 @@ class FileShredder:
             directory: The directory to search in
             pattern: File pattern to match (e.g., "*.txt", "secret*")
             recursive: Whether to search subdirectories
+            exclude_pattern: Pattern of files to exclude
             
         Returns:
             A list of full paths to matching files
@@ -59,17 +60,38 @@ class FileShredder:
         matching_files = []
         
         try:
+            # Split multiple patterns if provided (comma-separated)
+            include_patterns = [p.strip() for p in pattern.split(",")]
+            exclude_patterns = [p.strip() for p in exclude_pattern.split(",")] if exclude_pattern else []
+            
             if recursive:
                 for root, _, files in os.walk(directory):
-                    for filename in fnmatch.filter(files, pattern):
-                        matching_files.append(os.path.join(root, filename))
+                    for filename in files:
+                        # Check if the file matches any include pattern
+                        is_match = any(fnmatch.fnmatch(filename, p) for p in include_patterns)
+                        
+                        # Check if the file matches any exclude pattern
+                        is_excluded = any(fnmatch.fnmatch(filename, p) for p in exclude_patterns) if exclude_patterns else False
+                        
+                        if is_match and not is_excluded:
+                            matching_files.append(os.path.join(root, filename))
             else:
-                for filename in fnmatch.filter(os.listdir(directory), pattern):
+                for filename in os.listdir(directory):
                     file_path = os.path.join(directory, filename)
                     if os.path.isfile(file_path):
-                        matching_files.append(file_path)
+                        # Check if the file matches any include pattern
+                        is_match = any(fnmatch.fnmatch(filename, p) for p in include_patterns)
                         
-            logger.info(f"Found {len(matching_files)} files matching pattern '{pattern}'")
+                        # Check if the file matches any exclude pattern
+                        is_excluded = any(fnmatch.fnmatch(filename, p) for p in exclude_patterns) if exclude_patterns else False
+                        
+                        if is_match and not is_excluded:
+                            matching_files.append(file_path)
+            
+            log_message = f"Found {len(matching_files)} files matching pattern '{pattern}'"
+            if exclude_pattern:
+                log_message += f" (excluding '{exclude_pattern}')"
+            logger.info(log_message)
             return matching_files
         
         except Exception as e:
