@@ -72,7 +72,7 @@ class FileShredderApp:
         folder_entry = ttk.Entry(folder_frame, textvariable=self.folder_path, width=50)
         folder_entry.grid(row=0, column=1, sticky=(tk.W, tk.E), padx=5, pady=5)
         
-        browse_btn = ttk.Button(folder_frame, text="Browse...", command=self._browse_folder)
+        browse_btn = ttk.Button(folder_frame, text="📂 Browse...", command=self._browse_folder)
         browse_btn.grid(row=0, column=2, sticky=tk.E, padx=5, pady=5)
 
             # Recursive option
@@ -137,14 +137,14 @@ class FileShredderApp:
         
         self.find_btn = ttk.Button(
             button_frame, 
-            text="Find Matching Files", 
+            text="🔍 Find Matching Files", 
             command=self._find_files
         )
         self.find_btn.pack(side=tk.LEFT, padx=5, pady=5)
         
         self.shred_btn = ttk.Button(
             button_frame, 
-            text="Shred Files", 
+            text="🗑️ Shred Files", 
             command=self._confirm_shred,
             state=tk.DISABLED
         )
@@ -152,7 +152,7 @@ class FileShredderApp:
         
         self.cancel_btn = ttk.Button(
             button_frame, 
-            text="Cancel", 
+            text="❌ Cancel", 
             command=self._cancel_operation,
             state=tk.DISABLED
         )
@@ -160,7 +160,7 @@ class FileShredderApp:
         
         self.clear_btn = ttk.Button(
             button_frame, 
-            text="Clear", 
+            text="🧹 Clear", 
             command=self._clear_results
         )
         self.clear_btn.pack(side=tk.LEFT, padx=5, pady=5)
