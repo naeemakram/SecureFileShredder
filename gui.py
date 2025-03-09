@@ -69,6 +69,29 @@ class FileShredderApp:
         
         # Bind window close event to clean exit
         self.root.protocol("WM_DELETE_WINDOW", self._on_close)
+        
+        # Create menu bar
+        self._create_menu()
+    
+    def _create_menu(self):
+        """Create the application menu bar."""
+        menu_bar = tk.Menu(self.root)
+        self.root.config(menu=menu_bar)
+        
+        # About menu
+        about_menu = tk.Menu(menu_bar, tearoff=0)
+        menu_bar.add_cascade(label="Help", menu=about_menu)
+        about_menu.add_command(label="About", command=self._show_about)
+    
+    def _show_about(self):
+        """Display the About dialog with version and author information."""
+        about_text = (
+            "Secure File Shredder v1.1\n\n"
+            "Created by Naeem Akram Malik, Sr. Test Engineer\n\n"
+            "LinkedIn: https://www.linkedin.com/in/naeemakrammalik/\n"
+            "Gmail: naeem.akram.malik@gmail.com"
+        )
+        messagebox.showinfo("About Secure File Shredder", about_text)
     
     def _create_ui(self):
         """Create and layout the UI components."""
