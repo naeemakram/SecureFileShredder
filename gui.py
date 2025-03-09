@@ -73,6 +73,15 @@ class FileShredderApp:
         
         browse_btn = ttk.Button(folder_frame, text="Browse...", command=self._browse_folder)
         browse_btn.grid(row=0, column=2, sticky=tk.E, padx=5, pady=5)
+
+            # Recursive option
+        self.recursive_var = tk.BooleanVar(value=False)
+        recursive_chk = ttk.Checkbutton(
+            folder_frame, 
+            text="Include subdirectories (recursive)",
+            variable=self.recursive_var
+        )
+        recursive_chk.grid(row=2, column=0, columnspan=3, sticky=tk.W, padx=5, pady=5)
         
         # Create pattern and options frame
         options_frame = ttk.LabelFrame(main_frame, text="Shredding Options", padding=10)
@@ -105,14 +114,7 @@ class FileShredderApp:
         )
         regex_chk.grid(row=2, column=0, columnspan=3, sticky=tk.W, padx=5, pady=5)
         
-        # Recursive option
-        self.recursive_var = tk.BooleanVar(value=False)
-        recursive_chk = ttk.Checkbutton(
-            options_frame, 
-            text="Include subdirectories (recursive)",
-            variable=self.recursive_var
-        )
-        recursive_chk.grid(row=3, column=0, columnspan=3, sticky=tk.W, padx=5, pady=5)
+    
         
         # Number of passes
         ttk.Label(options_frame, text="Shredding Passes:").grid(row=3, column=0, sticky=tk.W, padx=5, pady=5)
@@ -124,9 +126,9 @@ class FileShredderApp:
             width=5,
             state="readonly"
         )
-        passes_combo.grid(row=3, column=1, sticky=tk.W, padx=5, pady=5)
+        passes_combo.grid(row=3, column=1, sticky=tk.W, padx=1, pady=5)
         ttk.Label(options_frame, text="(higher = more secure, but slower)").grid(
-            row=3, column=2, sticky=tk.W, padx=5, pady=5)
+            row=3, column=2, sticky=tk.W, padx=1, pady=5)
         
         # Action buttons
         button_frame = ttk.Frame(main_frame)

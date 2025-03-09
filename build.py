@@ -18,7 +18,7 @@ def build_executable():
     
     # Determine the icon format based on platform
     icon_path = "icons/shredder_icon.svg"
-    icon_path_win = "icons/shredder_icon.ico"
+    icon_path_win = "icons/file-shredder.ico"
     if platform.system() == "Windows":
         icon_option = f"--icon={icon_path_win}"
     elif platform.system() == "Darwin":  # macOS
