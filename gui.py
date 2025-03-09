@@ -481,8 +481,7 @@ class FileShredderApp:
             "Shredding Complete", 
             f"Shredding operation complete.\n\n"
             f"Successfully shredded: {success_count} files\n"
-            f"Failed: {failed_count} files\n"
-            f"Excluded: {self.excluded_count} files"
+            f"Failed: {failed_count} files"
         )
         
         # Clear the file list
