@@ -8,6 +8,7 @@ A user interface for the file shredding application.
 """
 
 import os
+import sys
 import tkinter as tk
 from tkinter import ttk, filedialog, messagebox
 import threading
