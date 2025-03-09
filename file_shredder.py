@@ -48,7 +48,7 @@ class FileShredder:
     def find_files(self, directory: str, pattern: str, recursive: bool = False, exclude_pattern: str = "", 
               return_excluded_count: bool = False, owner_pattern: str = None, created_after: float = None, 
               created_before: float = None, modified_after: float = None, modified_before: float = None,
-              content_pattern: str = None, content_min_occurrences: int = 1) -> List[str] or Tuple[List[str], int]:
+              content_pattern: str = None, content_min_occurrences: int = 1, exclude_content_pattern: str = None, exclude_content_min_occurrences: int = 1) -> List[str] or Tuple[List[str], int]:
         """
         Find files matching the pattern in the specified directory.
 
@@ -65,13 +65,15 @@ class FileShredder:
             modified_before: Unix timestamp (files modified before this time)
             content_pattern: Text pattern to search for within file contents
             content_min_occurrences: Minimum number of times the pattern must appear
+            exclude_content_pattern: Text pattern to exclude files based on content
+            exclude_content_min_occurrences: Minimum occurrences of exclude_content_pattern to trigger exclusion
 
         Returns:
             A list of full paths to matching files, or a tuple of (list_of_files, excluded_count) if return_excluded_count is True
         """
         matching_files = []
         excluded_count = 0
-        
+
         # Compile owner regex pattern if provided
         owner_regex = None
         if owner_pattern:
@@ -99,25 +101,25 @@ class FileShredder:
 
                         # Check if the file matches any exclude pattern
                         is_excluded = any(fnmatch.fnmatch(filename, p) for p in exclude_patterns) if exclude_patterns else False
-                        
+
                         # If basic pattern match, check metadata criteria
                         if is_match and not is_excluded:
                             # Get file stats for metadata filtering
                             try:
                                 file_stat = os.stat(file_path)
-                                
+
                                 # Check creation time (ctime)
                                 if created_after and file_stat.st_ctime < created_after:
                                     is_excluded = True
                                 if created_before and file_stat.st_ctime > created_before:
                                     is_excluded = True
-                                    
+
                                 # Check modification time (mtime)
                                 if modified_after and file_stat.st_mtime < modified_after:
                                     is_excluded = True
                                 if modified_before and file_stat.st_mtime > modified_before:
                                     is_excluded = True
-                                
+
                                 # Check owner (platform-specific)
                                 if owner_regex:
                                     try:
@@ -128,16 +130,23 @@ class FileShredder:
                                     except (ImportError, KeyError):
                                         # On Windows or if owner can't be determined
                                         pass
-                                        
+
                                 # Check file content if pattern is provided
                                 if content_pattern and not is_excluded:
                                     # Only process text files (.txt, .csv, .pdf for now)
                                     if filename.lower().endswith(('.txt', '.csv')) or (filename.lower().endswith('.pdf') and 'PyPDF2' in sys.modules):
                                         is_excluded = not self._check_file_content(file_path, content_pattern, content_min_occurrences)
+
+                                # Check exclude content pattern if provided
+                                if exclude_content_pattern and not is_excluded:
+                                    # Only process text files (.txt, .csv, .pdf for now)
+                                    if filename.lower().endswith(('.txt', '.csv')) or (filename.lower().endswith('.pdf') and 'PyPDF2' in sys.modules):
+                                        if self._check_file_content(file_path, exclude_content_pattern, exclude_content_min_occurrences):
+                                            is_excluded = True
                             except (OSError, IOError):
                                 # If we can't get file stats, exclude it
                                 is_excluded = True
-                        
+
                         if is_match:
                             if not is_excluded:
                                 matching_files.append(file_path)
@@ -153,25 +162,25 @@ class FileShredder:
 
                         # Check if the file matches any exclude pattern
                         is_excluded = any(fnmatch.fnmatch(filename, p) for p in exclude_patterns) if exclude_patterns else False
-                        
+
                         # If basic pattern match, check metadata criteria
                         if is_match and not is_excluded:
                             # Get file stats for metadata filtering
                             try:
                                 file_stat = os.stat(file_path)
-                                
+
                                 # Check creation time (ctime)
                                 if created_after and file_stat.st_ctime < created_after:
                                     is_excluded = True
                                 if created_before and file_stat.st_ctime > created_before:
                                     is_excluded = True
-                                    
+
                                 # Check modification time (mtime)
                                 if modified_after and file_stat.st_mtime < modified_after:
                                     is_excluded = True
                                 if modified_before and file_stat.st_mtime > modified_before:
                                     is_excluded = True
-                                
+
                                 # Check owner (platform-specific)
                                 if owner_regex:
                                     try:
@@ -182,16 +191,23 @@ class FileShredder:
                                     except (ImportError, KeyError):
                                         # On Windows or if owner can't be determined
                                         pass
-                                
+
                                 # Check file content if pattern is provided
                                 if content_pattern and not is_excluded:
                                     # Only process text files (.txt, .csv, .pdf for now)
                                     if filename.lower().endswith(('.txt', '.csv')) or (filename.lower().endswith('.pdf') and 'PyPDF2' in sys.modules):
                                         is_excluded = not self._check_file_content(file_path, content_pattern, content_min_occurrences)
+
+                                # Check exclude content pattern if provided
+                                if exclude_content_pattern and not is_excluded:
+                                    # Only process text files (.txt, .csv, .pdf for now)
+                                    if filename.lower().endswith(('.txt', '.csv')) or (filename.lower().endswith('.pdf') and 'PyPDF2' in sys.modules):
+                                        if self._check_file_content(file_path, exclude_content_pattern, exclude_content_min_occurrences):
+                                            is_excluded = True
                             except (OSError, IOError):
                                 # If we can't get file stats, exclude it
                                 is_excluded = True
-                        
+
                         if is_match:
                             if not is_excluded:
                                 matching_files.append(file_path)
@@ -214,12 +230,12 @@ class FileShredder:
     def _check_file_content(self, file_path: str, content_pattern: str, min_occurrences: int = 1) -> bool:
         """
         Check if a file contains the specified content pattern at least min_occurrences times.
-        
+
         Args:
             file_path: Path to the file to check
             content_pattern: Text pattern to search for
             min_occurrences: Minimum number of occurrences required
-            
+
         Returns:
             True if the pattern is found at least min_occurrences times, False otherwise
         """
@@ -241,14 +257,14 @@ class FileShredder:
                 with open(file_path, 'r', errors='ignore') as f:
                     text = f.read()
                     occurrences = text.count(content_pattern)
-            
+
             logger.debug(f"Found {occurrences} occurrences of '{content_pattern}' in {file_path}")
             return occurrences >= min_occurrences
-            
+
         except Exception as e:
             logger.error(f"Error checking file content for {file_path}: {str(e)}")
             return False
-            
+
     def shred_file(self, file_path: str, callback: Optional[Callable[[float], None]] = None) -> bool:
         """
         Securely shred a single file by overwriting its contents multiple times.
