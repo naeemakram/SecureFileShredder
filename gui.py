@@ -49,6 +49,7 @@ class FileShredderApp:
         self.progress_var = tk.DoubleVar(value=0.0)
         self.is_shredding = False
         self.matching_files = []
+        self.excluded_count = 0
         
         # UI Components
         self._create_ui()
@@ -279,8 +280,8 @@ class FileShredderApp:
             # Get regex option
             use_regex = self.use_regex_var.get()
             
-            # Find matching files
-            self.matching_files = self.shredder.find_files(directory, pattern, recursive, exclude_pattern, use_regex)
+            # Find matching files and get excluded count
+            self.matching_files, self.excluded_count = self.shredder.find_files(directory, pattern, recursive, exclude_pattern, use_regex, return_excluded_count=True)
             
             # Update UI from main thread
             self.root.after(0, self._update_file_list)
@@ -339,6 +340,7 @@ class FileShredderApp:
             
         self._clear_file_list()
         self.matching_files = []
+        self.excluded_count = 0
         self.progress_var.set(0)
         self.status_var.set("Ready")
         self.shred_btn.configure(state=tk.DISABLED)
@@ -479,7 +481,8 @@ class FileShredderApp:
             "Shredding Complete", 
             f"Shredding operation complete.\n\n"
             f"Successfully shredded: {success_count} files\n"
-            f"Failed: {failed_count} files"
+            f"Failed: {failed_count} files\n"
+            f"Excluded: {self.excluded_count} files"
         )
         
         # Clear the file list

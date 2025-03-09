@@ -45,7 +45,7 @@ class FileShredder:
         """
         self.passes = passes
     
-    def find_files(self, directory: str, pattern: str, recursive: bool = False, exclude_pattern: str = "", use_regex: bool = False) -> List[str]:
+    def find_files(self, directory: str, pattern: str, recursive: bool = False, exclude_pattern: str = "", use_regex: bool = False, return_excluded_count: bool = False) -> List[str] or Tuple[List[str], int]:
         """
         Find files matching the pattern in the specified directory.
         
@@ -55,11 +55,13 @@ class FileShredder:
             recursive: Whether to search subdirectories
             exclude_pattern: Pattern of files to exclude
             use_regex: Whether to use regular expressions for exclusion patterns
+            return_excluded_count: Whether to return the count of excluded files
             
         Returns:
-            A list of full paths to matching files
+            A list of full paths to matching files, or a tuple of (list_of_files, excluded_count) if return_excluded_count is True
         """
         matching_files = []
+        excluded_count = 0
         
         try:
             # Split multiple patterns if provided (comma-separated)
@@ -93,8 +95,11 @@ class FileShredder:
                         else:
                             is_excluded = any(fnmatch.fnmatch(filename, p) for p in exclude_patterns) if exclude_patterns else False
                         
-                        if is_match and not is_excluded:
-                            matching_files.append(file_path)
+                        if is_match:
+                            if not is_excluded:
+                                matching_files.append(file_path)
+                            else:
+                                excluded_count += 1
             else:
                 # For non-recursive search, only check files in the top directory
                 for filename in os.listdir(directory):
@@ -110,13 +115,19 @@ class FileShredder:
                         else:
                             is_excluded = any(fnmatch.fnmatch(filename, p) for p in exclude_patterns) if exclude_patterns else False
                         
-                        if is_match and not is_excluded:
-                            matching_files.append(file_path)
+                        if is_match:
+                            if not is_excluded:
+                                matching_files.append(file_path)
+                            else:
+                                excluded_count += 1
             
             log_message = f"Found {len(matching_files)} files matching pattern '{pattern}'"
             if exclude_pattern:
-                log_message += f" (excluding '{exclude_pattern}')"
+                log_message += f" (excluding {excluded_count} files matching '{exclude_pattern}')"
             logger.info(log_message)
+            
+            if return_excluded_count:
+                return matching_files, excluded_count
             return matching_files
         
         except Exception as e:
