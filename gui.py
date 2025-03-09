@@ -217,7 +217,7 @@ class FileShredderApp:
             results_frame, 
             columns=("path", "size", "status"),
             show="headings",
-            selectmode="none"
+            selectmode="browse"  # Allow selecting one item at a time
         )
         
         # Define columns
@@ -235,6 +235,15 @@ class FileShredderApp:
         
         x_scroll = ttk.Scrollbar(results_frame, orient=tk.HORIZONTAL, command=self.files_tree.xview)
         self.files_tree.configure(xscrollcommand=x_scroll.set)
+        
+        # Set up right-click context menu
+        self.context_menu = tk.Menu(self.root, tearoff=0)
+        self.context_menu.add_command(label="📂 Open File Location", command=self._open_file_location)
+        self.context_menu.add_command(label="📄 Open File", command=self._open_file)
+        self.context_menu.add_command(label="ℹ️ File Properties", command=self._show_file_properties)
+        
+        # Bind right-click event to show context menu
+        self.files_tree.bind("<Button-3>", self._show_context_menu)
         
         # Grid layout for treeview and scrollbars
         self.files_tree.grid(row=0, column=0, sticky=(tk.N, tk.S, tk.E, tk.W))
@@ -624,6 +633,133 @@ class FileShredderApp:
         self.find_btn.configure(state=tk.NORMAL)
         self.shred_btn.configure(state=tk.DISABLED)
         self.cancel_btn.configure(state=tk.DISABLED)
+    
+    def _show_context_menu(self, event):
+        """Display the context menu on right-click."""
+        # Get the selected item
+        item = self.files_tree.identify_row(event.y)
+        if item:
+            # Select the item user right-clicked on
+            self.files_tree.selection_set(item)
+            # Show context menu
+            self.context_menu.post(event.x_root, event.y_root)
+    
+    def _get_selected_file_path(self):
+        """Get the file path of the selected item in the treeview."""
+        selected_items = self.files_tree.selection()
+        if not selected_items:
+            return None
+        
+        # Get the file path from the first column of the selected item
+        item_values = self.files_tree.item(selected_items[0])['values']
+        if item_values:
+            return item_values[0]
+        return None
+    
+    def _open_file_location(self):
+        """Open the containing folder of the selected file."""
+        file_path = self._get_selected_file_path()
+        if not file_path:
+            return
+            
+        try:
+            if os.path.exists(file_path):
+                # Get the directory containing the file
+                directory = os.path.dirname(file_path)
+                
+                # Open the directory in the file explorer
+                if sys.platform == 'win32':
+                    os.startfile(directory)
+                elif sys.platform == 'darwin':  # macOS
+                    import subprocess
+                    subprocess.run(['open', directory])
+                else:  # Linux
+                    import subprocess
+                    subprocess.run(['xdg-open', directory])
+                    
+        except Exception as e:
+            messagebox.showerror("Error", f"Could not open file location: {str(e)}")
+    
+    def _open_file(self):
+        """Open the selected file with the default application."""
+        file_path = self._get_selected_file_path()
+        if not file_path:
+            return
+            
+        try:
+            if os.path.exists(file_path):
+                if sys.platform == 'win32':
+                    os.startfile(file_path)
+                elif sys.platform == 'darwin':  # macOS
+                    import subprocess
+                    subprocess.run(['open', file_path])
+                else:  # Linux
+                    import subprocess
+                    subprocess.run(['xdg-open', file_path])
+                    
+        except Exception as e:
+            messagebox.showerror("Error", f"Could not open file: {str(e)}")
+    
+    def _show_file_properties(self):
+        """Display properties of the selected file."""
+        file_path = self._get_selected_file_path()
+        if not file_path:
+            return
+            
+        try:
+            if os.path.exists(file_path):
+                # Get file statistics
+                stat_info = os.stat(file_path)
+                
+                # Format creation and modification times
+                from datetime import datetime
+                created_time = datetime.fromtimestamp(stat_info.st_ctime).strftime('%Y-%m-%d %H:%M:%S')
+                modified_time = datetime.fromtimestamp(stat_info.st_mtime).strftime('%Y-%m-%d %H:%M:%S')
+                accessed_time = datetime.fromtimestamp(stat_info.st_atime).strftime('%Y-%m-%d %H:%M:%S')
+                
+                # Format file size
+                size_bytes = stat_info.st_size
+                if size_bytes < 1024:
+                    size_str = f"{size_bytes} bytes"
+                elif size_bytes < 1024 * 1024:
+                    size_str = f"{size_bytes / 1024:.2f} KB"
+                elif size_bytes < 1024 * 1024 * 1024:
+                    size_str = f"{size_bytes / (1024 * 1024):.2f} MB"
+                else:
+                    size_str = f"{size_bytes / (1024 * 1024 * 1024):.2f} GB"
+                
+                # Try to get owner information (platform-specific)
+                owner = "Unknown"
+                try:
+                    if sys.platform != 'win32':
+                        import pwd
+                        owner = pwd.getpwuid(stat_info.st_uid).pw_name
+                    else:
+                        import win32security
+                        sd = win32security.GetFileSecurity(file_path, win32security.OWNER_SECURITY_INFORMATION)
+                        owner_sid = sd.GetSecurityDescriptorOwner()
+                        name, domain, type = win32security.LookupAccountSid(None, owner_sid)
+                        owner = f"{domain}\\{name}"
+                except (ImportError, PermissionError, OSError):
+                    pass
+                
+                # Display file properties in a dialog
+                messagebox.showinfo(
+                    "File Properties",
+                    f"File: {os.path.basename(file_path)}\n"
+                    f"Location: {os.path.dirname(file_path)}\n"
+                    f"Size: {size_str} ({stat_info.st_size:,} bytes)\n"
+                    f"Owner: {owner}\n"
+                    f"Created: {created_time}\n"
+                    f"Modified: {modified_time}\n"
+                    f"Accessed: {accessed_time}\n"
+                    f"Permissions: {oct(stat_info.st_mode)[-3:]}"
+                )
+            else:
+                messagebox.showwarning("File Not Found", "The selected file no longer exists.")
+                
+        except Exception as e:
+            messagebox.showerror("Error", f"Could not get file properties: {str(e)}")
     
     def _on_close(self):
         """Handle window close event."""
