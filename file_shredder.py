@@ -44,7 +44,9 @@ class FileShredder:
         """
         self.passes = passes
 
-    def find_files(self, directory: str, pattern: str, recursive: bool = False, exclude_pattern: str = "", return_excluded_count: bool = False) -> List[str] or Tuple[List[str], int]:
+    def find_files(self, directory: str, pattern: str, recursive: bool = False, exclude_pattern: str = "", 
+              return_excluded_count: bool = False, owner_pattern: str = None, created_after: float = None, 
+              created_before: float = None, modified_after: float = None, modified_before: float = None) -> List[str] or Tuple[List[str], int]:
         """
         Find files matching the pattern in the specified directory.
 
@@ -54,12 +56,26 @@ class FileShredder:
             recursive: Whether to search subdirectories
             exclude_pattern: Pattern of files to exclude
             return_excluded_count: Whether to return the count of excluded files
+            owner_pattern: Regex pattern to match file owner/user
+            created_after: Unix timestamp (files created after this time)
+            created_before: Unix timestamp (files created before this time)
+            modified_after: Unix timestamp (files modified after this time)
+            modified_before: Unix timestamp (files modified before this time)
 
         Returns:
             A list of full paths to matching files, or a tuple of (list_of_files, excluded_count) if return_excluded_count is True
         """
         matching_files = []
         excluded_count = 0
+        
+        # Compile owner regex pattern if provided
+        owner_regex = None
+        if owner_pattern:
+            try:
+                owner_regex = re.compile(owner_pattern)
+            except re.error:
+                logger.error(f"Invalid owner pattern regex: {owner_pattern}")
+                raise ValueError(f"Invalid owner pattern regex: {owner_pattern}")
 
         try:
             # Split multiple patterns if provided (comma-separated)
@@ -78,9 +94,40 @@ class FileShredder:
                         is_match = any(fnmatch.fnmatch(filename, p) for p in include_patterns)
 
                         # Check if the file matches any exclude pattern
-                        is_excluded = False
                         is_excluded = any(fnmatch.fnmatch(filename, p) for p in exclude_patterns) if exclude_patterns else False
-
+                        
+                        # If basic pattern match, check metadata criteria
+                        if is_match and not is_excluded:
+                            # Get file stats for metadata filtering
+                            try:
+                                file_stat = os.stat(file_path)
+                                
+                                # Check creation time (ctime)
+                                if created_after and file_stat.st_ctime < created_after:
+                                    is_excluded = True
+                                if created_before and file_stat.st_ctime > created_before:
+                                    is_excluded = True
+                                    
+                                # Check modification time (mtime)
+                                if modified_after and file_stat.st_mtime < modified_after:
+                                    is_excluded = True
+                                if modified_before and file_stat.st_mtime > modified_before:
+                                    is_excluded = True
+                                
+                                # Check owner (platform-specific)
+                                if owner_regex:
+                                    try:
+                                        import pwd
+                                        owner = pwd.getpwuid(file_stat.st_uid).pw_name
+                                        if not owner_regex.search(owner):
+                                            is_excluded = True
+                                    except (ImportError, KeyError):
+                                        # On Windows or if owner can't be determined
+                                        pass
+                            except (OSError, IOError):
+                                # If we can't get file stats, exclude it
+                                is_excluded = True
+                        
                         if is_match:
                             if not is_excluded:
                                 matching_files.append(file_path)
@@ -96,7 +143,39 @@ class FileShredder:
 
                         # Check if the file matches any exclude pattern
                         is_excluded = any(fnmatch.fnmatch(filename, p) for p in exclude_patterns) if exclude_patterns else False
-
+                        
+                        # If basic pattern match, check metadata criteria
+                        if is_match and not is_excluded:
+                            # Get file stats for metadata filtering
+                            try:
+                                file_stat = os.stat(file_path)
+                                
+                                # Check creation time (ctime)
+                                if created_after and file_stat.st_ctime < created_after:
+                                    is_excluded = True
+                                if created_before and file_stat.st_ctime > created_before:
+                                    is_excluded = True
+                                    
+                                # Check modification time (mtime)
+                                if modified_after and file_stat.st_mtime < modified_after:
+                                    is_excluded = True
+                                if modified_before and file_stat.st_mtime > modified_before:
+                                    is_excluded = True
+                                
+                                # Check owner (platform-specific)
+                                if owner_regex:
+                                    try:
+                                        import pwd
+                                        owner = pwd.getpwuid(file_stat.st_uid).pw_name
+                                        if not owner_regex.search(owner):
+                                            is_excluded = True
+                                    except (ImportError, KeyError):
+                                        # On Windows or if owner can't be determined
+                                        pass
+                            except (OSError, IOError):
+                                # If we can't get file stats, exclude it
+                                is_excluded = True
+                        
                         if is_match:
                             if not is_excluded:
                                 matching_files.append(file_path)

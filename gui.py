@@ -106,9 +106,43 @@ class FileShredderApp:
         ttk.Label(options_frame, text="(e.g., *.log, *.exe)").grid(
             row=1, column=2, sticky=tk.W, padx=5, pady=5)
         
+        # Add metadata filtering section
+        metadata_frame = ttk.LabelFrame(options_frame, text="Metadata Filters", padding=5)
+        metadata_frame.grid(row=2, column=0, columnspan=3, sticky=(tk.W, tk.E), padx=5, pady=5)
         
+        # Owner regex pattern
+        ttk.Label(metadata_frame, text="Owner Name (regex):").grid(row=0, column=0, sticky=tk.W, padx=5, pady=5)
+        self.owner_pattern_var = tk.StringVar(value="")
+        owner_entry = ttk.Entry(metadata_frame, textvariable=self.owner_pattern_var, width=20)
+        owner_entry.grid(row=0, column=1, sticky=(tk.W, tk.E), padx=5, pady=5)
         
-    
+        # Date filters
+        date_frame = ttk.Frame(metadata_frame)
+        date_frame.grid(row=1, column=0, columnspan=2, sticky=(tk.W, tk.E), padx=5, pady=5)
+        
+        # Created after/before
+        ttk.Label(date_frame, text="Created After:").grid(row=0, column=0, sticky=tk.W, padx=5, pady=5)
+        self.created_after_var = tk.StringVar(value="")
+        created_after_entry = ttk.Entry(date_frame, textvariable=self.created_after_var, width=16)
+        created_after_entry.grid(row=0, column=1, sticky=tk.W, padx=5, pady=5)
+        
+        ttk.Label(date_frame, text="Created Before:").grid(row=0, column=2, sticky=tk.W, padx=5, pady=5)
+        self.created_before_var = tk.StringVar(value="")
+        created_before_entry = ttk.Entry(date_frame, textvariable=self.created_before_var, width=16)
+        created_before_entry.grid(row=0, column=3, sticky=tk.W, padx=5, pady=5)
+        
+        # Modified after/before
+        ttk.Label(date_frame, text="Modified After:").grid(row=1, column=0, sticky=tk.W, padx=5, pady=5)
+        self.modified_after_var = tk.StringVar(value="")
+        modified_after_entry = ttk.Entry(date_frame, textvariable=self.modified_after_var, width=16)
+        modified_after_entry.grid(row=1, column=1, sticky=tk.W, padx=5, pady=5)
+        
+        ttk.Label(date_frame, text="Modified Before:").grid(row=1, column=2, sticky=tk.W, padx=5, pady=5)
+        self.modified_before_var = tk.StringVar(value="")
+        modified_before_entry = ttk.Entry(date_frame, textvariable=self.modified_before_var, width=16)
+        modified_before_entry.grid(row=1, column=3, sticky=tk.W, padx=5, pady=5)
+        
+        ttk.Label(date_frame, text="(Format: YYYY-MM-DD)").grid(row=2, column=0, columnspan=4, sticky=tk.W, padx=5, pady=2)
         
         # Number of passes
         ttk.Label(options_frame, text="Shredding Passes:").grid(row=3, column=0, sticky=tk.W, padx=5, pady=5)
@@ -265,8 +299,57 @@ class FileShredderApp:
             # Update the shredder passes
             self.shredder.passes = self.passes_var.get()
             
+            # Parse date filters
+            created_after = None
+            created_before = None
+            modified_after = None
+            modified_before = None
+            
+            # Convert date strings to timestamps if provided
+            if self.created_after_var.get().strip():
+                try:
+                    created_after = self._parse_date(self.created_after_var.get())
+                except ValueError as e:
+                    self.root.after(0, lambda: self._show_error(f"Invalid 'Created After' date: {str(e)}"))
+                    return
+                    
+            if self.created_before_var.get().strip():
+                try:
+                    created_before = self._parse_date(self.created_before_var.get())
+                except ValueError as e:
+                    self.root.after(0, lambda: self._show_error(f"Invalid 'Created Before' date: {str(e)}"))
+                    return
+                    
+            if self.modified_after_var.get().strip():
+                try:
+                    modified_after = self._parse_date(self.modified_after_var.get())
+                except ValueError as e:
+                    self.root.after(0, lambda: self._show_error(f"Invalid 'Modified After' date: {str(e)}"))
+                    return
+                    
+            if self.modified_before_var.get().strip():
+                try:
+                    modified_before = self._parse_date(self.modified_before_var.get())
+                except ValueError as e:
+                    self.root.after(0, lambda: self._show_error(f"Invalid 'Modified Before' date: {str(e)}"))
+                    return
+            
+            # Get owner pattern if provided
+            owner_pattern = self.owner_pattern_var.get().strip() or None
+            
             # Find matching files and get excluded count
-            self.matching_files, self.excluded_count = self.shredder.find_files(directory, pattern, recursive, exclude_pattern, return_excluded_count=True)
+            self.matching_files, self.excluded_count = self.shredder.find_files(
+                directory, 
+                pattern, 
+                recursive, 
+                exclude_pattern, 
+                return_excluded_count=True,
+                owner_pattern=owner_pattern,
+                created_after=created_after,
+                created_before=created_before,
+                modified_after=modified_after,
+                modified_before=modified_before
+            )
             
             # Update UI from main thread
             self.root.after(0, self._update_file_list)
@@ -444,6 +527,30 @@ class FileShredderApp:
         self.cancel_btn.configure(state=tk.DISABLED)
         self.progress_var.set(100)
         self.status_var.set("Shredding complete")
+
+    def _parse_date(self, date_str: str) -> float:
+        """
+        Parse a date string in YYYY-MM-DD format and return Unix timestamp.
+        
+        Args:
+            date_str: Date string in YYYY-MM-DD format
+            
+        Returns:
+            Unix timestamp
+            
+        Raises:
+            ValueError: If the date string is invalid
+        """
+        import datetime
+        try:
+            # Parse the date string
+            date_obj = datetime.datetime.strptime(date_str.strip(), "%Y-%m-%d")
+            # Convert to timestamp
+            return date_obj.timestamp()
+        except ValueError:
+            raise ValueError("Date must be in YYYY-MM-DD format")
+
+
         
         # Count successful and failed files
         success_count = 0
