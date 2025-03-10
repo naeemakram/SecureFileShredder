@@ -261,8 +261,17 @@ class FileShredderApp:
         )
         self.clear_btn.pack(side=tk.LEFT, padx=5, pady=5)
         
+        self.excluded_btn = ttk.Button(
+            button_frame, 
+            text="👁️ View Excluded Files", 
+            command=self._show_excluded_files,
+            state=tk.DISABLED
+        )
+        self.excluded_btn.pack(side=tk.LEFT, padx=5, pady=5)
+        
         # Results frame
-        results_frame = ttk.LabelFrame(main_frame, text="Matching Files", padding=10)
+        self.results_frame_text = tk.StringVar(value="Matching Files (0)")
+        results_frame = ttk.LabelFrame(main_frame, textvariable=self.results_frame_text, padding=10)
         results_frame.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
         
         # Create a treeview for files
@@ -487,15 +496,23 @@ class FileShredderApp:
                 # If we can't get the size (e.g., permission error), show unknown
                 self.files_tree.insert("", tk.END, values=(file_path, "Unknown", "Pending", matches_display))
         
-        # Update status and enable shred button
+        # Update status, results frame title, and enable shred button
         file_count = len(self.matching_files)
-        self.status_var.set(f"Found {file_count} matching files.")
+        self.status_var.set(f"Found {file_count} matching files. Excluded: {self.excluded_count}")
+        self.results_frame_text.set(f"Matching Files ({file_count})")
         self.shred_btn.configure(state=tk.NORMAL)
+        
+        # Enable excluded files button if there are excluded files
+        if self.excluded_count > 0:
+            self.excluded_btn.configure(state=tk.NORMAL)
+        else:
+            self.excluded_btn.configure(state=tk.DISABLED)
     
     def _clear_file_list(self):
         """Clear the file list treeview."""
         for item in self.files_tree.get_children():
             self.files_tree.delete(item)
+        self.results_frame_text.set("Matching Files (0)")
             
     def _clear_results(self):
         """Clear the matching files list and reset the UI."""
@@ -845,6 +862,74 @@ class FileShredderApp:
                 
         except Exception as e:
             messagebox.showerror("Error", f"Could not get file properties: {str(e)}")
+    
+    def _show_excluded_files(self):
+        """Display a modal dialog showing files that were excluded from the search."""
+        if self.excluded_count <= 0:
+            messagebox.showinfo("No Excluded Files", "No files were excluded by the search criteria.")
+            return
+            
+        # Create a modal dialog
+        dialog = tk.Toplevel(self.root)
+        dialog.title("Excluded Files")
+        dialog.geometry("600x400")
+        dialog.transient(self.root)  # Make dialog modal
+        dialog.grab_set()  # Modal behavior
+        
+        # Make it resizable
+        dialog.resizable(True, True)
+        dialog.minsize(500, 300)
+        
+        # Explanation text
+        ttk.Label(dialog, text="Files excluded by the search criteria:", padding=10).pack(fill=tk.X)
+        
+        # Create a frame for the explanation of exclusion criteria
+        criteria_frame = ttk.LabelFrame(dialog, text="Exclusion Criteria Used", padding=5)
+        criteria_frame.pack(fill=tk.X, padx=10, pady=5)
+        
+        criteria_text = ""
+        if self.exclude_pattern_var.get().strip():
+            criteria_text += f"• File pattern: {self.exclude_pattern_var.get()}\n"
+        if self.owner_pattern_var.get().strip():
+            criteria_text += f"• Owner pattern: {self.owner_pattern_var.get()}\n"
+        if self.exclude_content_pattern_var.get().strip():
+            criteria_text += f"• Content contains: '{self.exclude_content_pattern_var.get()}' (min {self.exclude_content_min_occurrences_var.get()} times)\n"
+        if self.content_pattern_var.get().strip():
+            criteria_text += f"• Does NOT contain: '{self.content_pattern_var.get()}' (min {self.content_min_occurrences_var.get()} times)\n"
+        if self.created_after_var.get().strip():
+            criteria_text += f"• Created before: {self.created_after_var.get()}\n"
+        if self.created_before_var.get().strip():
+            criteria_text += f"• Created after: {self.created_before_var.get()}\n"
+        if self.modified_after_var.get().strip():
+            criteria_text += f"• Modified before: {self.modified_after_var.get()}\n"
+        if self.modified_before_var.get().strip():
+            criteria_text += f"• Modified after: {self.modified_before_var.get()}\n"
+            
+        if not criteria_text:
+            criteria_text = "No specific exclusion criteria applied."
+            
+        ttk.Label(criteria_frame, text=criteria_text, justify=tk.LEFT, padding=5).pack(fill=tk.X)
+        
+        # Add disclaimer
+        ttk.Label(dialog, text="Note: The specific list of excluded files is not available due to efficiency reasons.", 
+                 foreground="gray", padding=10).pack(fill=tk.X)
+        
+        # Summary
+        ttk.Label(dialog, text=f"Total excluded files: {self.excluded_count}", 
+                 font=("", 10, "bold"), padding=5).pack(fill=tk.X)
+        
+        # Close button
+        close_btn = ttk.Button(dialog, text="Close", command=dialog.destroy)
+        close_btn.pack(pady=10)
+        
+        # Center the dialog relative to the main window
+        dialog.update_idletasks()
+        x = self.root.winfo_x() + (self.root.winfo_width() // 2) - (dialog.winfo_width() // 2)
+        y = self.root.winfo_y() + (self.root.winfo_height() // 2) - (dialog.winfo_height() // 2)
+        dialog.geometry(f"+{x}+{y}")
+        
+        # Wait until the dialog is closed
+        dialog.wait_window()
     
     def _on_close(self):
         """Handle window close event."""
