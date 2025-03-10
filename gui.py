@@ -367,7 +367,7 @@ class FileShredderApp:
         
         # Results frame
         self.results_frame_text = tk.StringVar(value="Matching Files (0)")
-        results_frame = ttk.LabelFrame(main_frame, textvariable=self.results_frame_text, padding=10)
+        results_frame = ttk.LabelFrame(main_frame, text="Matching Files (0)", padding=10)
         results_frame.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
         
         # Create a treeview for files
@@ -596,6 +596,7 @@ class FileShredderApp:
         file_count = len(self.matching_files)
         self.status_var.set(f"Found {file_count} matching files. Excluded: {self.excluded_count}")
         self.results_frame_text.set(f"Matching Files ({file_count})")
+        results_frame.configure(text=f"Matching Files ({file_count})")
         self.shred_btn.configure(state=tk.NORMAL)
         
         # Enable excluded files button if there are excluded files
@@ -609,6 +610,13 @@ class FileShredderApp:
         for item in self.files_tree.get_children():
             self.files_tree.delete(item)
         self.results_frame_text.set("Matching Files (0)")
+        # Update the actual frame text
+        for widget in self.root.winfo_children():
+            if isinstance(widget, ttk.Frame):
+                for child in widget.winfo_children():
+                    if isinstance(child, ttk.LabelFrame):
+                        child.configure(text="Matching Files (0)")
+                        break
             
     def _clear_results(self):
         """Clear the matching files list and reset the UI."""
