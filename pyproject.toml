@@ -1,0 +1,25 @@
+
+[tool.poetry]
+name = "secure-file-shredder"
+version = "1.1.0"
+description = "A secure file deletion application that implements pattern-based file shredding"
+authors = ["Naeem Akram Malik <naeem.akram.malik@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+PyPDF2 = "^3.0.0"
+# For Windows support
+pywin32 = {version = "^306", platform = "win32"}
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.0.0"
+black = "^23.0.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+file-shredder = "main:main"
