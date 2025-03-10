@@ -501,13 +501,15 @@ class FileShredderApp:
         self.status_var.set(f"Found {file_count} matching files. Excluded: {self.excluded_count}")
         self.results_frame_text.set(f"Matching Files ({file_count})")
         
-        # Update the frame text directly
+        # Update the frame text directly - search through the main frame to find our results LabelFrame
         for widget in self.root.winfo_children():
-            if isinstance(widget, ttk.Frame):
+            if isinstance(widget, ttk.Frame):  # This is the main_frame
                 for child in widget.winfo_children():
                     if isinstance(child, ttk.LabelFrame):
-                        child.configure(text=f"Matching Files ({file_count})")
-                        break
+                        # Check if this is the results frame by checking if it contains a Treeview
+                        if any(isinstance(c, ttk.Treeview) for c in child.winfo_children()):
+                            child.configure(text=f"Matching Files ({file_count})")
+                            break
         
         self.shred_btn.configure(state=tk.NORMAL)
         
@@ -522,6 +524,16 @@ class FileShredderApp:
         for item in self.files_tree.get_children():
             self.files_tree.delete(item)
         self.results_frame_text.set("Matching Files (0)")
+        
+        # Also update the actual frame title
+        for widget in self.root.winfo_children():
+            if isinstance(widget, ttk.Frame):  # This is the main_frame
+                for child in widget.winfo_children():
+                    if isinstance(child, ttk.LabelFrame):
+                        # Check if this is the results frame by checking if it contains a Treeview
+                        if any(isinstance(c, ttk.Treeview) for c in child.winfo_children()):
+                            child.configure(text="Matching Files (0)")
+                            break
             
     def _clear_results(self):
         """Clear the matching files list and reset the UI."""
