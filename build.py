@@ -30,7 +30,7 @@ def build_executable():
     cmd = [
         "pyinstaller",
         "--name=SecureFileShredder",
-        "--onefile",
+        # "--onefile",
         "--windowed",
         "main.py"
     ]
