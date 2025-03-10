@@ -19,16 +19,11 @@ from typing import List, Dict, Any
 from file_shredder import FileShredder
 from utils import resource_path
 
-# Check if PyPDF2 is available and try to install it if not
-if importlib.util.find_spec("PyPDF2") is None:
-    try:
-        import subprocess
-        messagebox.showinfo("Installing PDF Support", "Installing PyPDF2 for PDF content search capabilities...")
-        subprocess.check_call([sys.executable, "-m", "pip", "install", "PyPDF2"])
-        messagebox.showinfo("Success", "PDF support installed successfully.")
-    except Exception as e:
-        print(f"Failed to install PyPDF2: {e}")
-        # Continue without PyPDF2
+# Check if PyPDF2 is available
+pdf_support_available = importlib.util.find_spec("PyPDF2") is not None
+if not pdf_support_available:
+    print("PyPDF2 is not available. PDF content search will be disabled.")
+    # You might want to log this or display a notification that PDF search is disabled
 
 class FileShredderApp:
     """Main application window for File Shredder."""
