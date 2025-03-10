@@ -14,19 +14,10 @@ from tkinter import ttk, filedialog, messagebox
 import threading
 import time
 import importlib.util
-import datetime
 from typing import List, Dict, Any
 
 from file_shredder import FileShredder
 from utils import resource_path
-
-# Check if tkcalendar is available, if not show error message
-try:
-    from tkcalendar import DateEntry
-    calendar_available = True
-except ImportError:
-    calendar_available = False
-    print("tkcalendar is not available. Date picker will be disabled.")
 
 # Check if PyPDF2 is available
 pdf_support_available = importlib.util.find_spec("PyPDF2") is not None
@@ -197,129 +188,30 @@ class FileShredderApp:
         # Created after/before
         ttk.Label(date_frame, text="Created After:").grid(row=0, column=0, sticky=tk.W, padx=5, pady=5)
         self.created_after_var = tk.StringVar(value="")
-        
-        if calendar_available:
-            created_after_entry = DateEntry(
-                date_frame, 
-                selectmode='day', 
-                textvariable=self.created_after_var,
-                date_pattern='yyyy-mm-dd',
-                width=14,
-                state="readonly",
-                command=lambda e: self._on_date_selected(self.created_after_var)
-            )
-            # Set initial value to empty
-            self.created_after_var.set("")
-            
-            # Clear button for date fields
-            created_after_clear = ttk.Button(
-                date_frame, 
-                text="×", 
-                width=2, 
-                command=lambda: self._clear_date(created_after_entry, self.created_after_var)
-            )
-            created_after_clear.grid(row=0, column=1, sticky=tk.E, padx=(0, 5), pady=5)
-        else:
-            created_after_entry = ttk.Entry(date_frame, textvariable=self.created_after_var, width=16)
-            created_after_entry.bind("<Return>", lambda e: self._find_files())
-        
+        created_after_entry = ttk.Entry(date_frame, textvariable=self.created_after_var, width=16)
         created_after_entry.grid(row=0, column=1, sticky=tk.W, padx=5, pady=5)
+        created_after_entry.bind("<Return>", lambda e: self._find_files())
         
         ttk.Label(date_frame, text="Created Before:").grid(row=0, column=2, sticky=tk.W, padx=5, pady=5)
         self.created_before_var = tk.StringVar(value="")
-        
-        if calendar_available:
-            created_before_entry = DateEntry(
-                date_frame, 
-                selectmode='day', 
-                textvariable=self.created_before_var,
-                date_pattern='yyyy-mm-dd',
-                width=14,
-                state="readonly",
-                command=lambda e: self._on_date_selected(self.created_before_var)
-            )
-            # Set initial value to empty
-            self.created_before_var.set("")
-            
-            # Clear button for date fields
-            created_before_clear = ttk.Button(
-                date_frame, 
-                text="×", 
-                width=2, 
-                command=lambda: self._clear_date(created_before_entry, self.created_before_var)
-            )
-            created_before_clear.grid(row=0, column=3, sticky=tk.E, padx=(0, 5), pady=5)
-        else:
-            created_before_entry = ttk.Entry(date_frame, textvariable=self.created_before_var, width=16)
-            created_before_entry.bind("<Return>", lambda e: self._find_files())
-            
+        created_before_entry = ttk.Entry(date_frame, textvariable=self.created_before_var, width=16)
         created_before_entry.grid(row=0, column=3, sticky=tk.W, padx=5, pady=5)
+        created_before_entry.bind("<Return>", lambda e: self._find_files())
         
         # Modified after/before
         ttk.Label(date_frame, text="Modified After:").grid(row=1, column=0, sticky=tk.W, padx=5, pady=5)
         self.modified_after_var = tk.StringVar(value="")
-        
-        if calendar_available:
-            modified_after_entry = DateEntry(
-                date_frame, 
-                selectmode='day', 
-                textvariable=self.modified_after_var,
-                date_pattern='yyyy-mm-dd',
-                width=14,
-                state="readonly",
-                command=lambda e: self._on_date_selected(self.modified_after_var)
-            )
-            # Set initial value to empty
-            self.modified_after_var.set("")
-            
-            # Clear button for date fields
-            modified_after_clear = ttk.Button(
-                date_frame, 
-                text="×", 
-                width=2, 
-                command=lambda: self._clear_date(modified_after_entry, self.modified_after_var)
-            )
-            modified_after_clear.grid(row=1, column=1, sticky=tk.E, padx=(0, 5), pady=5)
-        else:
-            modified_after_entry = ttk.Entry(date_frame, textvariable=self.modified_after_var, width=16)
-            modified_after_entry.bind("<Return>", lambda e: self._find_files())
-            
+        modified_after_entry = ttk.Entry(date_frame, textvariable=self.modified_after_var, width=16)
         modified_after_entry.grid(row=1, column=1, sticky=tk.W, padx=5, pady=5)
+        modified_after_entry.bind("<Return>", lambda e: self._find_files())
         
         ttk.Label(date_frame, text="Modified Before:").grid(row=1, column=2, sticky=tk.W, padx=5, pady=5)
         self.modified_before_var = tk.StringVar(value="")
-        
-        if calendar_available:
-            modified_before_entry = DateEntry(
-                date_frame, 
-                selectmode='day', 
-                textvariable=self.modified_before_var,
-                date_pattern='yyyy-mm-dd',
-                width=14,
-                state="readonly",
-                command=lambda e: self._on_date_selected(self.modified_before_var)
-            )
-            # Set initial value to empty
-            self.modified_before_var.set("")
-            
-            # Clear button for date fields
-            modified_before_clear = ttk.Button(
-                date_frame, 
-                text="×", 
-                width=2, 
-                command=lambda: self._clear_date(modified_before_entry, self.modified_before_var)
-            )
-            modified_before_clear.grid(row=1, column=3, sticky=tk.E, padx=(0, 5), pady=5)
-        else:
-            modified_before_entry = ttk.Entry(date_frame, textvariable=self.modified_before_var, width=16)
-            modified_before_entry.bind("<Return>", lambda e: self._find_files())
-            
+        modified_before_entry = ttk.Entry(date_frame, textvariable=self.modified_before_var, width=16)
         modified_before_entry.grid(row=1, column=3, sticky=tk.W, padx=5, pady=5)
+        modified_before_entry.bind("<Return>", lambda e: self._find_files())
         
-        if calendar_available:
-            ttk.Label(date_frame, text="(Click calendar icon to select date)").grid(row=2, column=0, columnspan=4, sticky=tk.W, padx=5, pady=2)
-        else:
-            ttk.Label(date_frame, text="(Format: YYYY-MM-DD)").grid(row=2, column=0, columnspan=4, sticky=tk.W, padx=5, pady=2)
+        ttk.Label(date_frame, text="(Format: YYYY-MM-DD)").grid(row=2, column=0, columnspan=4, sticky=tk.W, padx=5, pady=2)
         
         # Number of passes
         ttk.Label(options_frame, text="Shredding Passes:").grid(row=3, column=0, sticky=tk.W, padx=5, pady=5)
@@ -379,7 +271,7 @@ class FileShredderApp:
         
         # Results frame
         self.results_frame_text = tk.StringVar(value="Matching Files (0)")
-        results_frame = ttk.LabelFrame(main_frame, text="Matching Files (0)", padding=10)
+        results_frame = ttk.LabelFrame(main_frame, textvariable=self.results_frame_text, padding=10)
         results_frame.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
         
         # Create a treeview for files
@@ -608,7 +500,6 @@ class FileShredderApp:
         file_count = len(self.matching_files)
         self.status_var.set(f"Found {file_count} matching files. Excluded: {self.excluded_count}")
         self.results_frame_text.set(f"Matching Files ({file_count})")
-        results_frame.configure(text=f"Matching Files ({file_count})")
         self.shred_btn.configure(state=tk.NORMAL)
         
         # Enable excluded files button if there are excluded files
@@ -622,13 +513,6 @@ class FileShredderApp:
         for item in self.files_tree.get_children():
             self.files_tree.delete(item)
         self.results_frame_text.set("Matching Files (0)")
-        # Update the actual frame text
-        for widget in self.root.winfo_children():
-            if isinstance(widget, ttk.Frame):
-                for child in widget.winfo_children():
-                    if isinstance(child, ttk.LabelFrame):
-                        child.configure(text="Matching Files (0)")
-                        break
             
     def _clear_results(self):
         """Clear the matching files list and reset the UI."""
@@ -1046,19 +930,6 @@ class FileShredderApp:
         
         # Wait until the dialog is closed
         dialog.wait_window()
-    
-    def _on_date_selected(self, var):
-        """Callback when a date is selected from the date picker."""
-        # Trigger a file search when a date is selected
-        self._find_files()
-        
-    def _clear_date(self, date_entry, var):
-        """Clear a date field."""
-        var.set("")
-        if calendar_available:
-            # Reset to current date (but don't set the var)
-            date_entry.set_date(datetime.datetime.now().date())
-        self._find_files()
     
     def _on_close(self):
         """Handle window close event."""
