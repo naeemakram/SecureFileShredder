@@ -208,6 +208,9 @@ class FileShredderApp:
                 state="readonly",
                 command=lambda e: self._on_date_selected(self.created_after_var)
             )
+            # Set initial value to empty
+            self.created_after_var.set("")
+            
             # Clear button for date fields
             created_after_clear = ttk.Button(
                 date_frame, 
@@ -235,6 +238,9 @@ class FileShredderApp:
                 state="readonly",
                 command=lambda e: self._on_date_selected(self.created_before_var)
             )
+            # Set initial value to empty
+            self.created_before_var.set("")
+            
             # Clear button for date fields
             created_before_clear = ttk.Button(
                 date_frame, 
@@ -263,6 +269,9 @@ class FileShredderApp:
                 state="readonly",
                 command=lambda e: self._on_date_selected(self.modified_after_var)
             )
+            # Set initial value to empty
+            self.modified_after_var.set("")
+            
             # Clear button for date fields
             modified_after_clear = ttk.Button(
                 date_frame, 
@@ -290,6 +299,9 @@ class FileShredderApp:
                 state="readonly",
                 command=lambda e: self._on_date_selected(self.modified_before_var)
             )
+            # Set initial value to empty
+            self.modified_before_var.set("")
+            
             # Clear button for date fields
             modified_before_clear = ttk.Button(
                 date_frame, 
