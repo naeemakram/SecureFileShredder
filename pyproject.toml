@@ -11,6 +11,7 @@ package-mode = false
 [tool.poetry.dependencies]
 python = ">=3.8,<3.13"
 PyPDF2 = "^3.0.0"
+tkcalendar = "^1.6.1"
 # For Windows support
 pywin32 = {version = "^306", platform = "win32"}
 
