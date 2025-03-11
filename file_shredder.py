@@ -135,8 +135,7 @@ class FileShredder:
                                 content_match_info = {}
 
                                 # Check file content if pattern is provided
-                                if content_pattern and not is_excluded:
-                                    # Process text files (.txt, .csv), PDFs and images (.jpg, .png)
+                                if content_pattern and not is_excluded:                                  # Process text files (.txt, .csv), PDFs and images (.jpg, .png)
                                     if (filename.lower().endswith(('.txt', '.csv')) or 
                                         (filename.lower().endswith('.pdf') and 'PyPDF2' in sys.modules) or
                                         (filename.lower().endswith(('.jpg', '.jpeg', '.png')) and pil_available and tesseract_available)):
@@ -278,6 +277,7 @@ class FileShredder:
             True if the pattern is found at least min_occurrences times, False otherwise
         """
         try:
+            logger.info(f"File in process {file_path}")
             # Handle different file types
             occurrences = 0
             if file_path.lower().endswith('.pdf'):
