@@ -74,6 +74,9 @@ class FileShredderApp:
         self.is_shredding = False
         self.matching_files = []
         self.excluded_count = 0
+        
+        # User preferences
+        self.ocr_enabled = tk.BooleanVar(value=True)  # Default: OCR enabled if available
 
         # UI Components
         self._create_ui()
@@ -88,11 +91,38 @@ class FileShredderApp:
         """Create the application menu bar."""
         menu_bar = tk.Menu(self.root)
         self.root.config(menu=menu_bar)
+        
+        # Options menu
+        options_menu = tk.Menu(menu_bar, tearoff=0)
+        menu_bar.add_cascade(label="Options", menu=options_menu)
+        
+        # OCR Toggle option
+        options_menu.add_checkbutton(
+            label="Enable OCR for image files",
+            variable=self.ocr_enabled,
+            command=self._toggle_ocr
+        )
+        
+        # Set initial state based on OCR availability
+        if not ocr_lib_available:
+            options_menu.entryconfig("Enable OCR for image files", state=tk.DISABLED)
+            self.ocr_enabled.set(False)
 
         # About menu
         about_menu = tk.Menu(menu_bar, tearoff=0)
         menu_bar.add_cascade(label="Help", menu=about_menu)
         about_menu.add_command(label="About", command=self._show_about)
+    
+    def _toggle_ocr(self):
+        """Handle OCR toggle and update UI accordingly."""
+        ocr_status = "enabled" if self.ocr_enabled.get() else "disabled"
+        self.status_var.set(f"OCR is now {ocr_status}")
+        
+        # Update context menu for OCR extraction
+        if self.ocr_enabled.get() and ocr_lib_available:
+            self.context_menu.entryconfig("🔍 Extract Text (OCR)", state=tk.NORMAL)
+        else:
+            self.context_menu.entryconfig("🔍 Extract Text (OCR)", state=tk.DISABLED)
 
     def _show_about(self):
         """Display the About dialog with version and author information."""
@@ -466,7 +496,8 @@ class FileShredderApp:
                 content_pattern=content_pattern,
                 content_min_occurrences=content_min_occurrences,
                 exclude_content_pattern=exclude_content_pattern,
-                exclude_content_min_occurrences=exclude_content_min_occurrences
+                exclude_content_min_occurrences=exclude_content_min_occurrences,
+                ocr_enabled=self.ocr_enabled.get()
             )
 
             # Update UI from main thread
@@ -805,8 +836,8 @@ class FileShredderApp:
             if file_path:
                 # Get file extension
                 _, ext = os.path.splitext(file_path.lower())
-                # Check if it's a supported image format and OCR is available
-                ocr_supported = ocr_lib_available and ext in ['.jpg', '.jpeg', '.png', '.bmp', '.tiff', '.gif']
+                # Check if it's a supported image format and OCR is available and enabled
+                ocr_supported = ocr_lib_available and self.ocr_enabled.get() and ext in ['.jpg', '.jpeg', '.png', '.bmp', '.tiff', '.gif']
 
                 # Update menu state
                 self.context_menu.entryconfig("🔍 Extract Text (OCR)", 
@@ -946,6 +977,11 @@ class FileShredderApp:
         if not ocr_lib_available:
             messagebox.showwarning("OCR Not Available", 
                                  "OCR functionality is not available. Please install pytesseract and PIL.")
+            return
+            
+        if not self.ocr_enabled.get():
+            messagebox.showinfo("OCR Disabled", 
+                               "OCR is currently disabled. Enable it in the Options menu.")
             return
 
         file_path = self._get_selected_file_path()

@@ -56,7 +56,8 @@ class FileShredder:
     def find_files(self, directory: str, pattern: str, recursive: bool = False, exclude_pattern: str = "", 
               return_excluded_count: bool = False, owner_pattern: str = None, created_after: float = None, 
               created_before: float = None, modified_after: float = None, modified_before: float = None,
-              content_pattern: str = None, content_min_occurrences: int = 1, exclude_content_pattern: str = None, exclude_content_min_occurrences: int = 1) -> List[str] or Tuple[List[str], int]:
+              content_pattern: str = None, content_min_occurrences: int = 1, exclude_content_pattern: str = None, 
+              exclude_content_min_occurrences: int = 1, ocr_enabled: bool = True) -> List[str] or Tuple[List[str], int]:
         """
         Find files matching the pattern in the specified directory.
 
@@ -144,8 +145,13 @@ class FileShredder:
 
                                 # Check file content if pattern is provided
                                 if content_pattern and not is_excluded:
-                                    # Only process text files (.txt, .csv, .pdf for now)
-                                    if filename.lower().endswith(('.txt', '.csv', '.png', '.bmp', '.jpg', '.jpeg')) or (filename.lower().endswith('.pdf')):
+                                    # Determine which files to process based on OCR setting
+                                    is_image = filename.lower().endswith(('.png', '.bmp', '.jpg', '.jpeg', '.tiff', '.gif'))
+                                    is_text = filename.lower().endswith(('.txt', '.csv'))
+                                    is_pdf = filename.lower().endswith('.pdf') and 'PyPDF2' in sys.modules
+                                    
+                                    # Process only if text file or if it's an image and OCR is enabled
+                                    if is_text or is_pdf or (is_image and ocr_enabled and ocr_support_available):
                                         match_result, occurrences = self._check_file_content(file_path, content_pattern, content_min_occurrences)
                                         is_excluded = not match_result
                                         if match_result:
@@ -156,8 +162,13 @@ class FileShredder:
 
                                 # Check exclude content pattern if provided
                                 if exclude_content_pattern and not is_excluded:
-                                    # Only process text files (.txt, .csv, .pdf for now)
-                                    if filename.lower().endswith(('.txt', '.csv', '.png','.bmp', '.jpg', '.jpeg')) or (filename.lower().endswith('.pdf') and 'PyPDF2' in sys.modules):
+                                    # Determine which files to process based on OCR setting
+                                    is_image = filename.lower().endswith(('.png', '.bmp', '.jpg', '.jpeg', '.tiff', '.gif'))
+                                    is_text = filename.lower().endswith(('.txt', '.csv'))
+                                    is_pdf = filename.lower().endswith('.pdf') and 'PyPDF2' in sys.modules
+                                    
+                                    # Process only if text file or if it's an image and OCR is enabled
+                                    if is_text or is_pdf or (is_image and ocr_enabled and ocr_support_available):
                                         match_result, occurrences = self._check_file_content(file_path, exclude_content_pattern, exclude_content_min_occurrences)
                                         if match_result:
                                             is_excluded = True
@@ -220,8 +231,13 @@ class FileShredder:
 
                                 # Check file content if pattern is provided
                                 if content_pattern and not is_excluded:
-                                    # Only process text files (.txt, .csv, .pdf for now)
-                                    if filename.lower().endswith(('.txt', '.csv')) or (filename.lower().endswith('.pdf') and 'PyPDF2' in sys.modules):
+                                    # Determine which files to process based on OCR setting
+                                    is_image = filename.lower().endswith(('.png', '.bmp', '.jpg', '.jpeg', '.tiff', '.gif'))
+                                    is_text = filename.lower().endswith(('.txt', '.csv'))
+                                    is_pdf = filename.lower().endswith('.pdf') and 'PyPDF2' in sys.modules
+                                    
+                                    # Process only if text file or if it's an image and OCR is enabled
+                                    if is_text or is_pdf or (is_image and ocr_enabled and ocr_support_available):
                                         match_result, occurrences = self._check_file_content(file_path, content_pattern, content_min_occurrences)
                                         is_excluded = not match_result
                                         if match_result:
@@ -232,8 +248,13 @@ class FileShredder:
 
                                 # Check exclude content pattern if provided
                                 if exclude_content_pattern and not is_excluded:
-                                    # Only process text files (.txt, .csv, .pdf for now)
-                                    if filename.lower().endswith(('.txt', '.csv')) or (filename.lower().endswith('.pdf') and 'PyPDF2' in sys.modules):
+                                    # Determine which files to process based on OCR setting
+                                    is_image = filename.lower().endswith(('.png', '.bmp', '.jpg', '.jpeg', '.tiff', '.gif'))
+                                    is_text = filename.lower().endswith(('.txt', '.csv'))
+                                    is_pdf = filename.lower().endswith('.pdf') and 'PyPDF2' in sys.modules
+                                    
+                                    # Process only if text file or if it's an image and OCR is enabled
+                                    if is_text or is_pdf or (is_image and ocr_enabled and ocr_support_available):
                                         match_result, occurrences = self._check_file_content(file_path, exclude_content_pattern, exclude_content_min_occurrences)
                                         if match_result:
                                             is_excluded = True

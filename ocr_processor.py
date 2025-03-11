@@ -101,6 +101,9 @@ class OCRProcessor:
                 - Whether the pattern was found (bool)
                 - Number of occurrences found (int)
         """
+        # If OCR is disabled through options, skip processing
+        if not OCRProcessor.is_ocr_available():
+            return False, 0
         success, text, _ = OCRProcessor.extract_text_from_image(image_path)
         
         if not success or not text:
