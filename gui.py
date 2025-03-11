@@ -321,6 +321,7 @@ class FileShredderApp:
         self.context_menu.add_command(label="📂 Open File Location", command=self._open_file_location)
         self.context_menu.add_command(label="📄 Open File", command=self._open_file)
         self.context_menu.add_command(label="ℹ️ File Properties", command=self._show_file_properties)
+        self.context_menu.add_command(label="🔍 Extract Text (OCR)", command=self._show_extracted_text, state=tk.DISABLED)
 
         # Bind right-click event to show context menu
         self.files_tree.bind("<Button-3>", self._show_context_menu)
@@ -799,6 +800,19 @@ class FileShredderApp:
         if item:
             # Select the item user right-clicked on
             self.files_tree.selection_set(item)
+            
+            # Check if the selected file is an image to enable/disable OCR option
+            file_path = self._get_selected_file_path()
+            if file_path:
+                # Get file extension
+                _, ext = os.path.splitext(file_path.lower())
+                # Check if it's a supported image format and OCR is available
+                ocr_supported = ocr_lib_available and ext in ['.jpg', '.jpeg', '.png', '.bmp', '.tiff', '.gif']
+                
+                # Update menu state
+                self.context_menu.entryconfig("🔍 Extract Text (OCR)", 
+                                             state=tk.NORMAL if ocr_supported else tk.DISABLED)
+            
             # Show context menu
             self.context_menu.post(event.x_root, event.y_root)
 
@@ -888,6 +902,158 @@ class FileShredderApp:
 
                 # Try to get owner information (platform-specific)
                 owner = "Unknown"
+
+    def _show_extracted_text(self):
+        """Show extracted text from an image using OCR in a modal dialog."""
+        if not ocr_lib_available:
+            messagebox.showwarning("OCR Not Available", 
+                                 "OCR functionality is not available. Please install pytesseract and PIL.")
+            return
+            
+        file_path = self._get_selected_file_path()
+        if not file_path:
+            return
+            
+        # Check if it's an image file
+        _, ext = os.path.splitext(file_path.lower())
+        if ext not in ['.jpg', '.jpeg', '.png', '.bmp', '.tiff', '.gif']:
+            messagebox.showinfo("Not an Image", "The selected file is not a supported image format.")
+            return
+            
+        # Show a loading indicator
+        self.status_var.set("Extracting text from image...")
+        self.root.update()
+        
+        # Create and configure the modal dialog
+        dialog = tk.Toplevel(self.root)
+        dialog.title(f"OCR Text: {os.path.basename(file_path)}")
+        dialog.geometry("600x500")
+        dialog.transient(self.root)  # Make dialog modal
+        dialog.grab_set()  # Modal behavior
+        dialog.resizable(True, True)
+        dialog.minsize(400, 300)
+        
+        # Run OCR in a separate thread to avoid freezing the UI
+        def extract_text_thread():
+            try:
+                from ocr_processor import OCRProcessor
+                success, text, char_count = OCRProcessor.extract_text_from_image(file_path)
+                
+                # Update UI from main thread
+                self.root.after(0, lambda: self._update_ocr_dialog(dialog, success, text, char_count, file_path))
+            except Exception as e:
+                self.root.after(0, lambda: self._update_ocr_dialog(
+                    dialog, False, f"Error extracting text: {str(e)}", None, file_path))
+        
+        # Show loading indicator in dialog
+        frame = ttk.Frame(dialog, padding=10)
+        frame.pack(fill=tk.BOTH, expand=True)
+        
+        ttk.Label(frame, text="Extracting text, please wait...", font=("", 12)).pack(pady=20)
+        
+        progress = ttk.Progressbar(frame, mode="indeterminate")
+        progress.pack(fill=tk.X, padx=50, pady=10)
+        progress.start()
+        
+        # Start extraction in separate thread
+        threading.Thread(target=extract_text_thread, daemon=True).start()
+        
+        # Reset status after dialog is closed
+        dialog.protocol("WM_DELETE_WINDOW", lambda: self._on_ocr_dialog_close(dialog))
+        
+        # Center the dialog relative to the main window
+        dialog.update_idletasks()
+        x = self.root.winfo_x() + (self.root.winfo_width() // 2) - (dialog.winfo_width() // 2)
+        y = self.root.winfo_y() + (self.root.winfo_height() // 2) - (dialog.winfo_height() // 2)
+        dialog.geometry(f"+{x}+{y}")
+    
+    def _update_ocr_dialog(self, dialog, success, text, char_count, file_path):
+        """Update the OCR dialog with extracted text."""
+        # Clear the dialog
+        for widget in dialog.winfo_children():
+            widget.destroy()
+        
+        frame = ttk.Frame(dialog, padding=10)
+        frame.pack(fill=tk.BOTH, expand=True)
+        
+        if success:
+            # Header with file info
+            header_frame = ttk.Frame(frame)
+            header_frame.pack(fill=tk.X, pady=5)
+            
+            ttk.Label(header_frame, text=f"File: {os.path.basename(file_path)}", 
+                     font=("", 10, "bold")).pack(side=tk.LEFT)
+            
+            if char_count is not None:
+                ttk.Label(header_frame, text=f"Characters: {char_count}", 
+                         font=("", 10)).pack(side=tk.RIGHT)
+            
+            # Create a text area with scrollbar for the extracted text
+            text_frame = ttk.Frame(frame)
+            text_frame.pack(fill=tk.BOTH, expand=True, pady=5)
+            
+            # Add scrollbars
+            y_scroll = ttk.Scrollbar(text_frame, orient=tk.VERTICAL)
+            y_scroll.pack(side=tk.RIGHT, fill=tk.Y)
+            
+            x_scroll = ttk.Scrollbar(text_frame, orient=tk.HORIZONTAL)
+            x_scroll.pack(side=tk.BOTTOM, fill=tk.X)
+            
+            # Add text widget
+            text_widget = tk.Text(text_frame, wrap=tk.NONE, yscrollcommand=y_scroll.set, 
+                                 xscrollcommand=x_scroll.set)
+            text_widget.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+            
+            # Connect scrollbars to text widget
+            y_scroll.config(command=text_widget.yview)
+            x_scroll.config(command=text_widget.xview)
+            
+            # Insert the extracted text
+            if text and text.strip():
+                text_widget.insert(tk.END, text)
+            else:
+                text_widget.insert(tk.END, "No text was extracted from this image.")
+                
+            # Focus on text for immediate keyboard navigation
+            text_widget.focus_set()
+            
+            # Button frame
+            button_frame = ttk.Frame(frame)
+            button_frame.pack(fill=tk.X, pady=10)
+            
+            # Copy button
+            def copy_text():
+                dialog.clipboard_clear()
+                dialog.clipboard_append(text_widget.get("1.0", tk.END))
+                self.status_var.set("Text copied to clipboard")
+            
+            copy_btn = ttk.Button(button_frame, text="📋 Copy Text", command=copy_text)
+            copy_btn.pack(side=tk.LEFT, padx=5)
+            
+            # Close button
+            close_btn = ttk.Button(button_frame, text="Close", command=dialog.destroy)
+            close_btn.pack(side=tk.RIGHT, padx=5)
+            
+        else:
+            # Error message
+            ttk.Label(frame, text="Error Extracting Text", 
+                     font=("", 12, "bold")).pack(pady=10)
+            
+            error_text = ttk.Label(frame, text=text, wraplength=400, justify=tk.LEFT)
+            error_text.pack(fill=tk.BOTH, expand=True, pady=10)
+            
+            # Close button
+            close_btn = ttk.Button(frame, text="Close", command=dialog.destroy)
+            close_btn.pack(pady=10)
+        
+        # Reset status
+        self.status_var.set("Ready")
+    
+    def _on_ocr_dialog_close(self, dialog):
+        """Handle OCR dialog close event."""
+        self.status_var.set("Ready")
+        dialog.destroy()
+
                 try:
                     if sys.platform != 'win32':
                         import pwd
