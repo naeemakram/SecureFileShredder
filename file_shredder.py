@@ -135,10 +135,9 @@ class FileShredder:
                                 content_match_info = {}
 
                                 # Check file content if pattern is provided
-                                if content_pattern and not is_excluded:                                  # Process text files (.txt, .csv), PDFs and images (.jpg, .png)
-                                    if (filename.lower().endswith(('.txt', '.csv')) or 
-                                        (filename.lower().endswith('.pdf') and 'PyPDF2' in sys.modules) or
-                                        (filename.lower().endswith(('.jpg', '.jpeg', '.png')) and pil_available and tesseract_available)):
+                                if content_pattern and not is_excluded:
+                                    # Only process text files (.txt, .csv, .pdf for now)
+                                    if filename.lower().endswith(('.txt', '.csv')) or (filename.lower().endswith('.pdf')):
                                         match_result, occurrences = self._check_file_content(file_path, content_pattern, content_min_occurrences)
                                         is_excluded = not match_result
                                         if match_result:
@@ -149,10 +148,8 @@ class FileShredder:
 
                                 # Check exclude content pattern if provided
                                 if exclude_content_pattern and not is_excluded:
-                                    # Process text files (.txt, .csv), PDFs and images (.jpg, .png)
-                                    if (filename.lower().endswith(('.txt', '.csv')) or 
-                                        (filename.lower().endswith('.pdf') and 'PyPDF2' in sys.modules) or
-                                        (filename.lower().endswith(('.jpg', '.jpeg', '.png')) and pil_available and tesseract_available)):
+                                    # Only process text files (.txt, .csv, .pdf for now)
+                                    if filename.lower().endswith(('.txt', '.csv')) or (filename.lower().endswith('.pdf') and 'PyPDF2' in sys.modules):
                                         match_result, occurrences = self._check_file_content(file_path, exclude_content_pattern, exclude_content_min_occurrences)
                                         if match_result:
                                             is_excluded = True
@@ -215,10 +212,8 @@ class FileShredder:
 
                                 # Check file content if pattern is provided
                                 if content_pattern and not is_excluded:
-                                    # Process text files (.txt, .csv), PDFs and images (.jpg, .png)
-                                    if (filename.lower().endswith(('.txt', '.csv')) or 
-                                        (filename.lower().endswith('.pdf') and 'PyPDF2' in sys.modules) or
-                                        (filename.lower().endswith(('.jpg', '.jpeg', '.png')) and pil_available and tesseract_available)):
+                                    # Only process text files (.txt, .csv, .pdf for now)
+                                    if filename.lower().endswith(('.txt', '.csv')) or (filename.lower().endswith('.pdf') and 'PyPDF2' in sys.modules):
                                         match_result, occurrences = self._check_file_content(file_path, content_pattern, content_min_occurrences)
                                         is_excluded = not match_result
                                         if match_result:
@@ -229,10 +224,8 @@ class FileShredder:
 
                                 # Check exclude content pattern if provided
                                 if exclude_content_pattern and not is_excluded:
-                                    # Process text files (.txt, .csv), PDFs and images (.jpg, .png)
-                                    if (filename.lower().endswith(('.txt', '.csv')) or 
-                                        (filename.lower().endswith('.pdf') and 'PyPDF2' in sys.modules) or
-                                        (filename.lower().endswith(('.jpg', '.jpeg', '.png')) and pil_available and tesseract_available)):
+                                    # Only process text files (.txt, .csv, .pdf for now)
+                                    if filename.lower().endswith(('.txt', '.csv')) or (filename.lower().endswith('.pdf') and 'PyPDF2' in sys.modules):
                                         match_result, occurrences = self._check_file_content(file_path, exclude_content_pattern, exclude_content_min_occurrences)
                                         if match_result:
                                             is_excluded = True
@@ -296,21 +289,6 @@ class FileShredder:
                     return False, 0
                 except Exception as e:
                     logger.error(f"Error processing PDF {file_path}: {str(e)}")
-                    return False, 0
-            elif file_path.lower().endswith(('.jpg', '.jpeg', '.png')):
-                try:
-                    from PIL import Image
-                    import pytesseract
-                    img = Image.open(file_path)
-                    text = pytesseract.image_to_string(img)
-                    occurrences = text.count(content_pattern)
-                    logger.debug(f"Found {occurrences} occurrences of '{content_pattern}' in image {file_path}")
-                    return occurrences >= min_occurrences, occurrences
-                except ImportError:
-                    logger.warning("Pillow or pytesseract not installed, skipping image content search")
-                    return False, 0
-                except Exception as e:
-                    logger.error(f"Error processing image {file_path}: {str(e)}")
                     return False, 0
             else:  # For .txt and .csv files
                 with open(file_path, 'r', errors='ignore') as f:
@@ -457,15 +435,3 @@ class FileShredder:
 
         logger.info(f"Shredding complete. Success: {successful}, Failed: {failed}")
         return successful, failed
-
-pil_available = True
-try:
-    from PIL import Image
-except ImportError:
-    pil_available = False
-
-tesseract_available = True
-try:
-    import pytesseract
-except ImportError:
-    tesseract_available = False
