@@ -145,7 +145,7 @@ class FileShredder:
                                 # Check file content if pattern is provided
                                 if content_pattern and not is_excluded:
                                     # Only process text files (.txt, .csv, .pdf for now)
-                                    if filename.lower().endswith(('.txt', '.csv')) or (filename.lower().endswith('.pdf')):
+                                    if filename.lower().endswith(('.txt', '.csv', '.png', '.bmp', '.jpg', '.jpeg')) or (filename.lower().endswith('.pdf')):
                                         match_result, occurrences = self._check_file_content(file_path, content_pattern, content_min_occurrences)
                                         is_excluded = not match_result
                                         if match_result:
@@ -157,7 +157,7 @@ class FileShredder:
                                 # Check exclude content pattern if provided
                                 if exclude_content_pattern and not is_excluded:
                                     # Only process text files (.txt, .csv, .pdf for now)
-                                    if filename.lower().endswith(('.txt', '.csv')) or (filename.lower().endswith('.pdf') and 'PyPDF2' in sys.modules):
+                                    if filename.lower().endswith(('.txt', '.csv', '.png','.bmp', '.jpg', '.jpeg')) or (filename.lower().endswith('.pdf') and 'PyPDF2' in sys.modules):
                                         match_result, occurrences = self._check_file_content(file_path, exclude_content_pattern, exclude_content_min_occurrences)
                                         if match_result:
                                             is_excluded = True

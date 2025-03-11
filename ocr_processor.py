@@ -108,4 +108,5 @@ class OCRProcessor:
         
         # Count occurrences of the pattern in the extracted text
         occurrences = text.lower().count(search_pattern.lower())
+        logger.info(f"{text} - {search_pattern} - {occurrences}")        
         return occurrences > 0, occurrences
