@@ -13,9 +13,8 @@ import sys
 import random
 import fnmatch
 import re
-import time
 import logging
-from typing import List, Tuple, Callable, Optional, Generator
+from typing import List, Tuple, Callable, Optional
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, 
@@ -267,7 +266,8 @@ class FileShredder:
             min_occurrences: Minimum number of occurrences required
 
         Returns:
-            True if the pattern is found at least min_occurrences times, False otherwise
+            A tuple consisting of a boolean indicating if the minimum occurrences of the pattern were found,
+            and the count of occurrences of the pattern within the file.
         """
         try:
             logger.info(f"File in process {file_path}")
