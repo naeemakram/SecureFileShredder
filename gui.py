@@ -1231,7 +1231,10 @@ class FileShredderApp:
                 else:
                     dep_text += f"• {package}: {version}\n"
 
-            dep_text += f"\n\nPre-requisite: Tesseract must be on your machine for OCR.\n"
+            dep_text += f"""\n\nPre-requisite: Tesseract must be on your machine for OCR.
+The URL for downloading Tesseract is give below:
+https://github.com/tesseract-ocr/tesseract/releases
+"""
             # Add development dependencies if present
             dev_dependencies = pyproject_data.get("tool", {}).get("poetry", {}).get("group", {}).get("dev", {}).get("dependencies", {})
             if dev_dependencies:
