@@ -112,7 +112,6 @@ class FileShredderApp:
         about_menu = tk.Menu(menu_bar, tearoff=0)
         menu_bar.add_cascade(label="Help", menu=about_menu)
         about_menu.add_command(label="About", command=self._show_about)
-        about_menu.add_command(label="Version", command=self._show_version)
         about_menu.add_command(label="Packages", command=self._show_packages)
 
     def _toggle_ocr(self):
@@ -1210,53 +1209,7 @@ class FileShredderApp:
 
         self.root.destroy()
 
-    def _show_version(self):
-        """Display the Version dialog with package information."""
-        try:
-            # Parse pyproject.toml to extract dependencies
-            import tomli
-
-            with open("pyproject.toml", "rb") as f:
-                pyproject_data = tomli.load(f)
-
-            # Extract dependencies
-            dependencies = pyproject_data.get("tool", {}).get("poetry", {}).get("dependencies", {})
-
-            # Format dependencies for display
-            dep_text = "Packages:\n\n"
-            for package, version in dependencies.items():
-                if package != "python":  # Skip Python itself
-                    dep_text += f"• {package}: {version}\n"
-
-            # Add app version
-            app_version = pyproject_data.get("tool", {}).get("poetry", {}).get("version", "Unknown")
-            version_text = f"Secure File Shredder v{app_version}\n\n{dep_text}"
-
-            messagebox.showinfo("Version Information", version_text)
-        except Exception as e:
-            messagebox.showerror("Error", f"Could not retrieve package information: {str(e)}")
-            # If tomli is not available, try using toml
-            try:
-                import toml
-                with open("pyproject.toml", "r") as f:
-                    pyproject_data = toml.load(f)
-
-                # Extract dependencies
-                dependencies = pyproject_data.get("tool", {}).get("poetry", {}).get("dependencies", {})
-
-                # Format dependencies for display
-                dep_text = "Packages:\n\n"
-                for package, version in dependencies.items():
-                    if package != "python":  # Skip Python itself
-                        dep_text += f"• {package}: {version}\n"
-
-                # Add app version
-                app_version = pyproject_data.get("tool", {}).get("poetry", {}).get("version", "Unknown")
-                version_text = f"Secure File Shredder v{app_version}\n\n{dep_text}"
-
-                messagebox.showinfo("Version Information", version_text)
-            except Exception as e:
-                messagebox.showerror("Error", f"Could not retrieve package information: {str(e)}")
+    
 
     def _show_packages(self):
         """Display the Packages dialog with detailed package information."""
