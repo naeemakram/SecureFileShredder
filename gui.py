@@ -76,7 +76,7 @@ class FileShredderApp:
         self.excluded_count = 0
         
         # User preferences
-        self.ocr_enabled = tk.BooleanVar(value=True)  # Default: OCR enabled if available
+        self.ocr_enabled = tk.BooleanVar(value=False)  # Default: OCR disabled
 
         # UI Components
         self._create_ui()
