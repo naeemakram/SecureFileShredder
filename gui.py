@@ -1231,6 +1231,7 @@ class FileShredderApp:
                 else:
                     dep_text += f"• {package}: {version}\n"
 
+            dep_text += f"\n\nPre-requisite: Tesseract must be on your machine for OCR.\n"
             # Add development dependencies if present
             dev_dependencies = pyproject_data.get("tool", {}).get("poetry", {}).get("group", {}).get("dev", {}).get("dependencies", {})
             if dev_dependencies:
@@ -1317,6 +1318,8 @@ class FileShredderApp:
                     for package, version in dev_dependencies.items():
                         dep_text += f"• {package}: {version}\n"
 
+                
+                
                 messagebox.showinfo("Package Information", dep_text)
 
             except Exception as e:
