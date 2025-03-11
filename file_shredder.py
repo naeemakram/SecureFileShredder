@@ -14,6 +14,7 @@ import random
 import fnmatch
 import re
 import logging
+import importlib.util
 from typing import List, Tuple, Callable, Optional
 
 # Configure logging
@@ -27,6 +28,14 @@ file_handler.setLevel(logging.INFO)
 file_formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 file_handler.setFormatter(file_formatter)
 logger.addHandler(file_handler)
+
+# Check if OCR support is available
+ocr_support_available = importlib.util.find_spec("ocr_processor") is not None
+if ocr_support_available:
+    from ocr_processor import OCRProcessor
+    logger.info("OCR module found. Image content search will be enabled.")
+else:
+    logger.warning("OCR module not found. Image content search will be disabled.")
 
 
 class FileShredder:
@@ -256,7 +265,7 @@ class FileShredder:
             logger.error(f"Error finding files: {str(e)}")
             raise
 
-    def _check_file_content(self, file_path: str, content_pattern: str, min_occurrences: int = 1) -> bool:
+    def _check_file_content(self, file_path: str, content_pattern: str, min_occurrences: int = 1) -> Tuple[bool, int]:
         """
         Check if a file contains the specified content pattern at least min_occurrences times.
 
@@ -271,9 +280,11 @@ class FileShredder:
         """
         try:
             logger.info(f"File in process {file_path}")
-            # Handle different file types
-            occurrences = 0
-            if file_path.lower().endswith('.pdf'):
+            # Get the file extension
+            file_ext = os.path.splitext(file_path.lower())[1]
+            
+            # Handle PDF files
+            if file_ext == '.pdf':
                 try:
                     import PyPDF2
                     with open(file_path, 'rb') as pdf_file:
@@ -290,12 +301,25 @@ class FileShredder:
                 except Exception as e:
                     logger.error(f"Error processing PDF {file_path}: {str(e)}")
                     return False, 0
-            else:  # For .txt and .csv files
+            
+            # Handle image files with OCR
+            elif ocr_support_available and file_ext in OCRProcessor.get_supported_formats():
+                found, occurrences = OCRProcessor.search_text_in_image(file_path, content_pattern)
+                logger.debug(f"OCR found {occurrences} occurrences of '{content_pattern}' in image {file_path}")
+                return occurrences >= min_occurrences, occurrences
+            
+            # Handle text files (.txt, .csv, etc.)
+            elif file_ext in ['.txt', '.csv', '.json', '.xml', '.html', '.js', '.py', '.md']:
                 with open(file_path, 'r', errors='ignore') as f:
                     text = f.read()
                     occurrences = text.count(content_pattern)
                     logger.debug(f"Found {occurrences} occurrences of '{content_pattern}' in {file_path}")
                     return occurrences >= min_occurrences, occurrences
+            
+            # Skip other file types
+            else:
+                logger.debug(f"Skipping content search for unsupported file type: {file_path}")
+                return False, 0
 
         except Exception as e:
             logger.error(f"Error checking file content for {file_path}: {str(e)}")
