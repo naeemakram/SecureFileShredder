@@ -74,7 +74,7 @@ class FileShredderApp:
         self.is_shredding = False
         self.matching_files = []
         self.excluded_count = 0
-        
+
         # User preferences
         self.ocr_enabled = tk.BooleanVar(value=False)  # Default: OCR disabled
 
@@ -91,18 +91,18 @@ class FileShredderApp:
         """Create the application menu bar."""
         menu_bar = tk.Menu(self.root)
         self.root.config(menu=menu_bar)
-        
+
         # Options menu
         options_menu = tk.Menu(menu_bar, tearoff=0)
         menu_bar.add_cascade(label="Options", menu=options_menu)
-        
+
         # OCR Toggle option
         options_menu.add_checkbutton(
             label="Enable OCR for image files",
             variable=self.ocr_enabled,
             command=self._toggle_ocr
         )
-        
+
         # Set initial state based on OCR availability
         if not ocr_lib_available:
             options_menu.entryconfig("Enable OCR for image files", state=tk.DISABLED)
@@ -112,12 +112,14 @@ class FileShredderApp:
         about_menu = tk.Menu(menu_bar, tearoff=0)
         menu_bar.add_cascade(label="Help", menu=about_menu)
         about_menu.add_command(label="About", command=self._show_about)
-    
+        about_menu.add_command(label="Version", command=self._show_version)
+        about_menu.add_command(label="Packages", command=self._show_packages)
+
     def _toggle_ocr(self):
         """Handle OCR toggle and update UI accordingly."""
         ocr_status = "enabled" if self.ocr_enabled.get() else "disabled"
         self.status_var.set(f"OCR is now {ocr_status}")
-        
+
         # Update context menu for OCR extraction
         if self.ocr_enabled.get() and ocr_lib_available:
             self.context_menu.entryconfig("🔍 Extract Text (OCR)", state=tk.NORMAL)
@@ -978,7 +980,7 @@ class FileShredderApp:
             messagebox.showwarning("OCR Not Available", 
                                  "OCR functionality is not available. Please install pytesseract and PIL.")
             return
-            
+
         if not self.ocr_enabled.get():
             messagebox.showinfo("OCR Disabled", 
                                "OCR is currently disabled. Enable it in the Options menu.")
@@ -1207,6 +1209,165 @@ class FileShredderApp:
                 return
 
         self.root.destroy()
+
+    def _show_version(self):
+        """Display the Version dialog with package information."""
+        try:
+            # Parse pyproject.toml to extract dependencies
+            import tomli
+
+            with open("pyproject.toml", "rb") as f:
+                pyproject_data = tomli.load(f)
+
+            # Extract dependencies
+            dependencies = pyproject_data.get("tool", {}).get("poetry", {}).get("dependencies", {})
+
+            # Format dependencies for display
+            dep_text = "Packages:\n\n"
+            for package, version in dependencies.items():
+                if package != "python":  # Skip Python itself
+                    dep_text += f"• {package}: {version}\n"
+
+            # Add app version
+            app_version = pyproject_data.get("tool", {}).get("poetry", {}).get("version", "Unknown")
+            version_text = f"Secure File Shredder v{app_version}\n\n{dep_text}"
+
+            messagebox.showinfo("Version Information", version_text)
+        except Exception as e:
+            messagebox.showerror("Error", f"Could not retrieve package information: {str(e)}")
+            # If tomli is not available, try using toml
+            try:
+                import toml
+                with open("pyproject.toml", "r") as f:
+                    pyproject_data = toml.load(f)
+
+                # Extract dependencies
+                dependencies = pyproject_data.get("tool", {}).get("poetry", {}).get("dependencies", {})
+
+                # Format dependencies for display
+                dep_text = "Packages:\n\n"
+                for package, version in dependencies.items():
+                    if package != "python":  # Skip Python itself
+                        dep_text += f"• {package}: {version}\n"
+
+                # Add app version
+                app_version = pyproject_data.get("tool", {}).get("poetry", {}).get("version", "Unknown")
+                version_text = f"Secure File Shredder v{app_version}\n\n{dep_text}"
+
+                messagebox.showinfo("Version Information", version_text)
+            except Exception as e:
+                messagebox.showerror("Error", f"Could not retrieve package information: {str(e)}")
+
+    def _show_packages(self):
+        """Display the Packages dialog with detailed package information."""
+        try:
+            # Parse pyproject.toml to extract dependencies
+            import tomli
+
+            with open("pyproject.toml", "rb") as f:
+                pyproject_data = tomli.load(f)
+
+            # Extract dependencies
+            dependencies = pyproject_data.get("tool", {}).get("poetry", {}).get("dependencies", {})
+
+            # Format dependencies for display
+            dep_text = ""
+            for package, version in dependencies.items():
+                if package == "python":  # Format Python version separately
+                    dep_text += f"Python Runtime: {version}\n\n"
+                else:
+                    dep_text += f"• {package}: {version}\n"
+
+            # Add development dependencies if present
+            dev_dependencies = pyproject_data.get("tool", {}).get("poetry", {}).get("group", {}).get("dev", {}).get("dependencies", {})
+            if dev_dependencies:
+                dep_text += "\nDevelopment Packages:\n\n"
+                for package, version in dev_dependencies.items():
+                    dep_text += f"• {package}: {version}\n"
+
+            # Create a custom dialog for better formatting
+            dialog = tk.Toplevel(self.root)
+            dialog.title("Package Information")
+            dialog.geometry("500x400")
+            dialog.transient(self.root)  # Make dialog modal
+            dialog.grab_set()  # Modal behavior
+            dialog.resizable(True, True)
+
+            # Create a scrollable text area
+            frame = ttk.Frame(dialog, padding=10)
+            frame.pack(fill=tk.BOTH, expand=True)
+
+            # Add a header
+            app_name = pyproject_data.get("tool", {}).get("poetry", {}).get("name", "Secure File Shredder")
+            app_description = pyproject_data.get("tool", {}).get("poetry", {}).get("description", "")
+
+            header = ttk.Label(frame, text=f"{app_name}", font=("", 12, "bold"))
+            header.pack(anchor=tk.W, pady=(0, 5))
+
+            if app_description:
+                desc = ttk.Label(frame, text=app_description, wraplength=480)
+                desc.pack(anchor=tk.W, pady=(0, 10))
+
+            # Add scrolled text widget
+            text_frame = ttk.Frame(frame)
+            text_frame.pack(fill=tk.BOTH, expand=True)
+
+            scrollbar = ttk.Scrollbar(text_frame)
+            scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+
+            text_widget = tk.Text(text_frame, wrap=tk.WORD, yscrollcommand=scrollbar.set)
+            text_widget.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+            scrollbar.config(command=text_widget.yview)
+
+            # Insert package data
+            text_widget.insert(tk.END, "Project Dependencies:\n\n", "heading")
+            text_widget.insert(tk.END, dep_text)
+
+            # Configure tags
+            text_widget.tag_configure("heading", font=("", 10, "bold"))
+
+            # Make text read-only
+            text_widget.configure(state=tk.DISABLED)
+
+            # Add a close button
+            close_btn = ttk.Button(frame, text="Close", command=dialog.destroy)
+            close_btn.pack(pady=10)
+
+            # Center dialog on parent window
+            dialog.update_idletasks()
+            x = self.root.winfo_x() + (self.root.winfo_width() - dialog.winfo_width()) // 2
+            y = self.root.winfo_y() + (self.root.winfo_height() - dialog.winfo_height()) // 2
+            dialog.geometry(f"+{x}+{y}")
+
+        except Exception as e:
+            # If tomli is not available, try using toml
+            try:
+                import toml
+                with open("pyproject.toml", "r") as f:
+                    pyproject_data = toml.load(f)
+
+                # Extract dependencies
+                dependencies = pyproject_data.get("tool", {}).get("poetry", {}).get("dependencies", {})
+
+                # Format dependencies for display
+                dep_text = ""
+                for package, version in dependencies.items():
+                    if package == "python":  # Format Python version separately
+                        dep_text += f"Python Runtime: {version}\n\n"
+                    else:
+                        dep_text += f"• {package}: {version}\n"
+
+                # Add development dependencies if present
+                dev_dependencies = pyproject_data.get("tool", {}).get("poetry", {}).get("group", {}).get("dev", {}).get("dependencies", {})
+                if dev_dependencies:
+                    dep_text += "\nDevelopment Packages:\n\n"
+                    for package, version in dev_dependencies.items():
+                        dep_text += f"• {package}: {version}\n"
+
+                messagebox.showinfo("Package Information", dep_text)
+
+            except Exception as e:
+                messagebox.showerror("Error", f"Could not retrieve package information: {str(e)}")
 
 
 def main():
