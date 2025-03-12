@@ -16,7 +16,7 @@ import time
 import importlib.util
 from typing import List, Dict, Any
 
-from file_shredder import FileShredder
+from file_shredder import FileShredder, ShreddingMethod
 from utils import resource_path
 
 # Check if PyPDF2 is available
@@ -57,8 +57,8 @@ class FileShredderApp:
         self.root.resizable(True, True)
         self.root.minsize(600, 450)
 
-        # Initialize file shredder
-        self.shredder = FileShredder(passes=3)
+        # Initialize file shredder with default method
+        self.shredder = FileShredder(method=ShreddingMethod.BASIC, passes=3)
 
         # Set application icon
         try:
@@ -168,29 +168,53 @@ class FileShredderApp:
         options_frame = ttk.LabelFrame(main_frame, text="Shredding Options", padding=10)
         options_frame.pack(fill=tk.X, padx=5, pady=5)
 
-        ttk.Label(options_frame, text="File Pattern:").grid(row=0, column=0, sticky=tk.W, padx=5, pady=5)
+        # Add shredding method selection
+        method_frame = ttk.Frame(options_frame)
+        method_frame.grid(row=0, column=0, columnspan=3, sticky=(tk.W, tk.E), padx=5, pady=5)
+
+        ttk.Label(method_frame, text="Shredding Method:").grid(row=0, column=0, sticky=tk.W, padx=5, pady=5)
+        self.method_var = tk.StringVar(value=ShreddingMethod.BASIC.value)
+        method_combo = ttk.Combobox(method_frame, textvariable=self.method_var, state="readonly", width=30)
+        method_combo["values"] = [
+            f"Basic (Multi-pass Random) - {ShreddingMethod.BASIC.value}",
+            f"DoD 5220.22-M (7-pass) - {ShreddingMethod.DOD_5220_22_M.value}"
+        ]
+        method_combo.grid(row=0, column=1, sticky=(tk.W, tk.E), padx=5, pady=5)
+        method_combo.bind("<<ComboboxSelected>>", self._on_method_change)
+
+        # Add passes spinbox (only for Basic method)
+        self.passes_frame = ttk.Frame(method_frame)
+        self.passes_frame.grid(row=1, column=0, columnspan=2, sticky=(tk.W, tk.E), padx=5, pady=5)
+        
+        ttk.Label(self.passes_frame, text="Number of Passes:").grid(row=0, column=0, sticky=tk.W, padx=5, pady=5)
+        self.passes_var = tk.IntVar(value=3)
+        passes_spinbox = ttk.Spinbox(self.passes_frame, from_=1, to=100, width=5, textvariable=self.passes_var)
+        passes_spinbox.grid(row=0, column=1, sticky=tk.W, padx=5, pady=5)
+        passes_spinbox.bind("<Return>", lambda e: self._update_shredder_config())
+
+        ttk.Label(options_frame, text="File Pattern:").grid(row=1, column=0, sticky=tk.W, padx=5, pady=5)
         self.pattern_var = tk.StringVar(value="*.*")
         pattern_entry = ttk.Entry(options_frame, textvariable=self.pattern_var, width=20)
-        pattern_entry.grid(row=0, column=1, sticky=(tk.W, tk.E), padx=5, pady=5)
+        pattern_entry.grid(row=1, column=1, sticky=(tk.W, tk.E), padx=5, pady=5)
         pattern_entry.bind("<Return>", lambda e: self._find_files())
 
         ttk.Label(options_frame, text="(e.g., *.txt, secret*, document?.pdf)").grid(
-            row=0, column=2, sticky=tk.W, padx=5, pady=5)
+            row=1, column=2, sticky=tk.W, padx=5, pady=5)
 
         # Exclude pattern
-        ttk.Label(options_frame, text="Exclude File Pattern:").grid(row=1, column=0, sticky=tk.W, padx=5, pady=5)
+        ttk.Label(options_frame, text="Exclude File Pattern:").grid(row=2, column=0, sticky=tk.W, padx=5, pady=5)
         self.exclude_pattern_var = tk.StringVar(value="")
         exclude_pattern_entry = ttk.Entry(options_frame, textvariable=self.exclude_pattern_var, width=20)
-        exclude_pattern_entry.grid(row=1, column=1, sticky=(tk.W, tk.E), padx=5, pady=5)
+        exclude_pattern_entry.grid(row=2, column=1, sticky=(tk.W, tk.E), padx=5, pady=5)
         exclude_pattern_entry.bind("<Return>", lambda e: self._find_files())
 
         # Adjust the row for the recursive option
         ttk.Label(options_frame, text="(e.g., *.log, *.exe)").grid(
-            row=1, column=2, sticky=tk.W, padx=5, pady=5)
+            row=2, column=2, sticky=tk.W, padx=5, pady=5)
 
         # Add metadata filtering section
         metadata_frame = ttk.LabelFrame(options_frame, text="Metadata Filters", padding=5)
-        metadata_frame.grid(row=2, column=0, columnspan=3, sticky=(tk.W, tk.E), padx=5, pady=5)
+        metadata_frame.grid(row=3, column=0, columnspan=3, sticky=(tk.W, tk.E), padx=5, pady=5)
 
         # Owner regex pattern
         ttk.Label(metadata_frame, text="Owner Name (regex):").grid(row=0, column=0, sticky=tk.W, padx=5, pady=5)
@@ -230,7 +254,7 @@ class FileShredderApp:
 
         # Date filters
         date_frame = ttk.Frame(metadata_frame)
-        date_frame.grid(row=2, column=0, columnspan=2, sticky=(tk.W, tk.E), padx=5, pady=5)
+        date_frame.grid(row=3, column=0, columnspan=2, sticky=(tk.W, tk.E), padx=5, pady=5)
 
         # Created after/before
         ttk.Label(date_frame, text="Created After:").grid(row=0, column=0, sticky=tk.W, padx=5, pady=5)
@@ -261,7 +285,7 @@ class FileShredderApp:
         ttk.Label(date_frame, text="(Format: YYYY-MM-DD)").grid(row=2, column=0, columnspan=4, sticky=tk.W, padx=5, pady=2)
 
         # Number of passes
-        ttk.Label(options_frame, text="Shredding Passes:").grid(row=3, column=0, sticky=tk.W, padx=5, pady=5)
+        ttk.Label(options_frame, text="Shredding Passes:").grid(row=4, column=0, sticky=tk.W, padx=5, pady=5)
         self.passes_var = tk.IntVar(value=3)
         passes_combo = ttk.Combobox(
             options_frame, 
@@ -270,9 +294,9 @@ class FileShredderApp:
             width=5,
             state="readonly"
         )
-        passes_combo.grid(row=3, column=1, sticky=tk.W, padx=1, pady=5)
+        passes_combo.grid(row=4, column=1, sticky=tk.W, padx=1, pady=5)
         ttk.Label(options_frame, text="(higher = more secure, but slower)").grid(
-            row=3, column=2, sticky=tk.W, padx=1, pady=5)
+            row=4, column=2, sticky=tk.W, padx=1, pady=5)
 
         # Action buttons
         button_frame = ttk.Frame(main_frame)
@@ -771,31 +795,28 @@ class FileShredderApp:
         except ValueError:
             raise ValueError("Date must be in YYYY-MM-DD format")
 
+    def _on_method_change(self, event=None):
+        """Handle shredding method change."""
+        method = ShreddingMethod(self.method_var.get())
+        
+        # Show/hide passes spinbox based on method
+        if method == ShreddingMethod.BASIC:
+            self.passes_frame.grid()
+        else:
+            self.passes_frame.grid_remove()
+        
+        # Update shredder configuration
+        self._update_shredder_config()
 
-
-        # Count successful and failed files
-        success_count = 0
-        failed_count = 0
-        for item in self.files_tree.get_children():
-            status = self.files_tree.item(item)['values'][2]
-            if status == "Completed":
-                success_count += 1
-            elif status == "Failed":
-                failed_count += 1
-
-        # Clear the matching files list since they've been processed
-        self.matching_files = []
-
-        # Show summary
-        messagebox.showinfo(
-            "Shredding Complete", 
-            f"Shredding operation complete.\n\n"
-            f"Successfully shredded: {success_count} files\n"
-            f"Failed: {failed_count} files"
-        )
-
-        # Clear the file list
-        self._clear_file_list()
+    def _update_shredder_config(self):
+        """Update the shredder configuration based on UI settings."""
+        method = ShreddingMethod(self.method_var.get())
+        passes = self.passes_var.get() if method == ShreddingMethod.BASIC else 3
+        self.shredder = FileShredder(method=method, passes=passes)
+        
+        # Update status
+        method_name = "DoD 5220.22-M (7-pass)" if method == ShreddingMethod.DOD_5220_22_M else f"Basic ({passes}-pass)"
+        self.status_var.set(f"Shredding method set to: {method_name}")
 
     def _cancel_operation(self):
         """Cancel the current operation."""

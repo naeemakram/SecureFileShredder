@@ -15,6 +15,7 @@ import fnmatch
 import re
 import logging
 import importlib.util
+from enum import Enum
 from typing import List, Tuple, Callable, Optional
 
 # Configure logging
@@ -37,21 +38,38 @@ if ocr_support_available:
 else:
     logger.warning("OCR module not found. Image content search will be disabled.")
 
+class ShreddingMethod(Enum):
+    """Supported file shredding methods."""
+    BASIC = "basic"  # Basic multi-pass random overwrite
+    DOD_5220_22_M = "dod"  # DoD 5220.22-M 7-pass standard
 
 class FileShredder:
     """
     Securely delete files by overwriting their contents multiple times
-    before deleting them.
+    before deletion.
     """
 
-    def __init__(self, passes: int = 3):
+    def __init__(self, method: ShreddingMethod = ShreddingMethod.BASIC, passes: int = 3):
         """
         Initialize the file shredder.
 
         Args:
-            passes: Number of overwrite passes (default: 3)
+            method: Shredding method to use (default: BASIC)
+            passes: Number of overwrite passes for BASIC method (default: 3)
         """
+        self.method = method
         self.passes = passes
+        
+        # DoD 5220.22-M pattern sequence
+        self._dod_patterns = [
+            (b'\xFF', "ones"),           # Pass 1: Write all ones
+            (b'\x00', "zeros"),          # Pass 2: Write all zeros
+            (None, "random"),            # Pass 3: Write random pattern
+            (b'\x00', "zeros"),          # Pass 4: Write all zeros
+            (b'\xFF', "ones"),           # Pass 5: Write all ones
+            (None, "random"),            # Pass 6: Write random pattern
+            (b'\x00', "zeros")           # Pass 7: Write all zeros
+        ]
 
     def find_files(self, directory: str, pattern: str, recursive: bool = False, exclude_pattern: str = "", 
               return_excluded_count: bool = False, owner_pattern: str = None, created_after: float = None, 
@@ -370,19 +388,25 @@ class FileShredder:
                 logger.info(f"Removed empty file: {file_path}")
                 return True
 
+            # Determine total passes based on method
+            total_passes = len(self._dod_patterns) if self.method == ShreddingMethod.DOD_5220_22_M else self.passes
+
             # Perform secure overwrite passes
-            for pass_num in range(1, self.passes + 1):
+            for pass_num in range(1, total_passes + 1):
                 with open(file_path, "rb+") as f:
                     # Determine the pattern for this pass
-                    if pass_num == 1:
-                        # First pass: all ones
-                        pattern = b'\xFF'
-                    elif pass_num == 2:
-                        # Second pass: all zeros
-                        pattern = b'\x00'
-                    else:
-                        # Remaining passes: random data
-                        pattern = bytes([random.randint(0, 255)])
+                    if self.method == ShreddingMethod.DOD_5220_22_M:
+                        pattern, pattern_type = self._dod_patterns[pass_num - 1]
+                        if pattern is None:  # Random pattern
+                            pattern = bytes([random.randint(0, 255)])
+                        logger.debug(f"DoD pass {pass_num}: Writing {pattern_type} pattern")
+                    else:  # BASIC method
+                        if pass_num == 1:
+                            pattern = b'\xFF'  # First pass: all ones
+                        elif pass_num == 2:
+                            pattern = b'\x00'  # Second pass: all zeros
+                        else:
+                            pattern = bytes([random.randint(0, 255)])  # Random data
 
                     # Track progress within this pass
                     bytes_written = 0
@@ -409,15 +433,15 @@ class FileShredder:
 
                         # Report progress if callback provided
                         if callback:
-                            # Calculate overall progress (each pass contributes 1/passes of total)
-                            overall_progress = ((pass_num - 1) + (bytes_written / file_size)) / self.passes
+                            # Calculate overall progress (each pass contributes 1/total_passes of total)
+                            overall_progress = ((pass_num - 1) + (bytes_written / file_size)) / total_passes
                             callback(overall_progress)
 
-                logger.debug(f"Completed pass {pass_num}/{self.passes} for {file_path}")
+                logger.debug(f"Completed pass {pass_num}/{total_passes} for {file_path}")
 
             # After overwriting, delete the file
             os.remove(file_path)
-            logger.info(f"Successfully shredded file: {file_path}")
+            logger.info(f"Successfully shredded file: {file_path} using {self.method.value} method")
 
             # Final progress update
             if callback:
