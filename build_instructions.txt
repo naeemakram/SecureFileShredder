@@ -1,0 +1,17 @@
+# Commands to generate MSI installer for Secure File Shredder
+
+# 1. Install required packages
+pip install -r requirements.txt
+
+# 2. Build the MSI installer
+python setup.py bdist_msi
+
+# The MSI installer will be generated in the 'dist' directory as:
+# dist/SecureFileShredder-1.1-win64.msi
+
+# Note: Make sure you have the following files in your project directory:
+# - setup.py
+# - requirements.txt
+# - gui.py (main application file)
+# - icons/shredder_icon.svg (application icon)
+# - pyproject.toml (package information) 

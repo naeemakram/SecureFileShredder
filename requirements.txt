@@ -1,0 +1,6 @@
+cx_Freeze>=6.15.0
+pywin32>=306
+pytesseract>=0.3.10
+Pillow>=10.0.0
+tomli>=2.0.1
+toml>=0.10.2 
