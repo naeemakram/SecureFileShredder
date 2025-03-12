@@ -43,22 +43,49 @@ class ShreddingMethod(Enum):
     BASIC = "basic"  # Basic multi-pass random overwrite
     DOD_5220_22_M = "dod"  # DoD 5220.22-M 7-pass standard
 
+    @staticmethod
+    def get_description(method: 'ShreddingMethod') -> str:
+        """Get a detailed description of the shredding method."""
+        descriptions = {
+            ShreddingMethod.BASIC: (
+                "Basic multi-pass random overwrite method:\n"
+                "- First pass: Write all ones\n"
+                "- Second pass: Write all zeros\n"
+                "- Remaining passes: Write random data\n"
+                "You can configure the number of passes (default: 3)"
+            ),
+            ShreddingMethod.DOD_5220_22_M: (
+                "DoD 5220.22-M 7-pass standard:\n"
+                "1. Pass 1: Write all ones\n"
+                "2. Pass 2: Write all zeros\n"
+                "3. Pass 3: Write random pattern\n"
+                "4. Pass 4: Write all zeros\n"
+                "5. Pass 5: Write all ones\n"
+                "6. Pass 6: Write random pattern\n"
+                "7. Pass 7: Write all zeros\n"
+                "This is a military-grade data sanitization standard."
+            )
+        }
+        return descriptions.get(method, "Unknown method")
+
 class FileShredder:
     """
     Securely delete files by overwriting their contents multiple times
     before deletion.
     """
 
-    def __init__(self, method: ShreddingMethod = ShreddingMethod.BASIC, passes: int = 3):
+    def __init__(self, method: ShreddingMethod = ShreddingMethod.BASIC, passes: int = 3, verify: bool = True):
         """
         Initialize the file shredder.
 
         Args:
             method: Shredding method to use (default: BASIC)
             passes: Number of overwrite passes for BASIC method (default: 3)
+            verify: Whether to verify each pass (default: True)
         """
         self.method = method
         self.passes = passes
+        self.verify = verify
         
         # DoD 5220.22-M pattern sequence
         self._dod_patterns = [
@@ -364,6 +391,53 @@ class FileShredder:
             logger.error(f"Error checking file content for {file_path}: {str(e)}")
             return False, 0
 
+    def _verify_pattern(self, file_handle, pattern: bytes, file_size: int, chunk_size: int) -> bool:
+        """
+        Verify that the file contains the expected pattern.
+
+        Args:
+            file_handle: Open file handle
+            pattern: Pattern to verify
+            file_size: Size of the file
+            chunk_size: Size of chunks to read
+
+        Returns:
+            True if verification passes, False otherwise
+        """
+        try:
+            file_handle.seek(0)  # Go back to start of file
+            bytes_verified = 0
+
+            while bytes_verified < file_size:
+                remaining = file_size - bytes_verified
+                verify_size = min(chunk_size, remaining)
+                
+                # Read chunk
+                chunk = file_handle.read(verify_size)
+                
+                # For random patterns, we can't verify the exact content
+                if pattern is None:
+                    # Just verify the chunk is not all zeros or all ones
+                    if chunk == b'\x00' * len(chunk) or chunk == b'\xFF' * len(chunk):
+                        logger.error("Verification failed: Random pattern contains all zeros or ones")
+                        return False
+                else:
+                    # For fixed patterns, verify each byte
+                    expected = pattern * (verify_size // len(pattern))
+                    if remaining % len(pattern) != 0:
+                        expected += pattern[:remaining % len(pattern)]
+                    
+                    if chunk != expected:
+                        logger.error("Verification failed: Pattern mismatch")
+                        return False
+                
+                bytes_verified += verify_size
+
+            return True
+        except Exception as e:
+            logger.error(f"Verification error: {str(e)}")
+            return False
+
     def shred_file(self, file_path: str, callback: Optional[Callable[[float], None]] = None) -> bool:
         """
         Securely shred a single file by overwriting its contents multiple times.
@@ -390,6 +464,9 @@ class FileShredder:
 
             # Determine total passes based on method
             total_passes = len(self._dod_patterns) if self.method == ShreddingMethod.DOD_5220_22_M else self.passes
+            
+            # Double the passes if verification is enabled
+            progress_passes = total_passes * 2 if self.verify else total_passes
 
             # Perform secure overwrite passes
             for pass_num in range(1, total_passes + 1):
@@ -433,9 +510,22 @@ class FileShredder:
 
                         # Report progress if callback provided
                         if callback:
-                            # Calculate overall progress (each pass contributes 1/total_passes of total)
-                            overall_progress = ((pass_num - 1) + (bytes_written / file_size)) / total_passes
-                            callback(overall_progress)
+                            # Calculate overall progress including verification passes
+                            write_progress = bytes_written / file_size
+                            pass_progress = (pass_num - 1 + write_progress) / progress_passes
+                            callback(pass_progress)
+
+                    # Verify the pass if enabled
+                    if self.verify:
+                        logger.debug(f"Verifying pass {pass_num}")
+                        if not self._verify_pattern(f, pattern, file_size, chunk_size):
+                            logger.error(f"Verification failed for pass {pass_num}")
+                            return False
+                        
+                        # Update progress after verification
+                        if callback:
+                            verify_progress = (pass_num - 0.5) / total_passes
+                            callback(verify_progress)
 
                 logger.debug(f"Completed pass {pass_num}/{total_passes} for {file_path}")
 

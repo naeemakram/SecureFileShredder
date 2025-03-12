@@ -111,6 +111,7 @@ class FileShredderApp:
         # About menu
         about_menu = tk.Menu(menu_bar, tearoff=0)
         menu_bar.add_cascade(label="Help", menu=about_menu)
+        about_menu.add_command(label="Shredding Methods", command=self._show_method_info)
         about_menu.add_command(label="About", command=self._show_about)
         about_menu.add_command(label="Packages", command=self._show_packages)
 
@@ -127,13 +128,79 @@ class FileShredderApp:
 
     def _show_about(self):
         """Display the About dialog with version and author information."""
-        about_text = (
-            "Secure File Shredder v1.1\n\n"
-            "Created by Naeem Akram Malik, Sr. Test Engineer\n\n"
-            "LinkedIn: https://www.linkedin.com/in/naeemakrammalik/\n"
-            "Gmail: naeem.akram.malik@gmail.com"
-        )
-        messagebox.showinfo("About Secure File Shredder", about_text)
+        # Create a custom dialog
+        dialog = tk.Toplevel(self.root)
+        dialog.title("About Secure File Shredder")
+        dialog.geometry("400x250")
+        dialog.transient(self.root)  # Make dialog modal
+        dialog.grab_set()  # Modal behavior
+        dialog.resizable(False, False)
+
+        # Create main frame
+        frame = ttk.Frame(dialog, padding=20)
+        frame.pack(fill=tk.BOTH, expand=True)
+
+        # App name and version
+        ttk.Label(frame, text="Secure File Shredder v1.1", 
+                 font=("", 12, "bold")).pack(pady=(0, 10))
+
+        # Author info
+        ttk.Label(frame, text="Created by Naeem Akram Malik",
+                 font=("", 10)).pack(pady=(0, 2))
+        ttk.Label(frame, text="Sr. Test Engineer",
+                 font=("", 10)).pack(pady=(0, 10))
+
+        # Create hyperlinks
+        linkedin_url = "https://www.linkedin.com/in/naeemakrammalik/"
+        email = "naeem.akram.malik@gmail.com"
+
+        # LinkedIn link
+        linkedin_frame = ttk.Frame(frame)
+        linkedin_frame.pack(fill=tk.X, pady=2)
+        ttk.Label(linkedin_frame, text="LinkedIn: ").pack(side=tk.LEFT)
+        linkedin_link = ttk.Label(linkedin_frame, text=linkedin_url,
+                                foreground="blue", cursor="hand2")
+        linkedin_link.pack(side=tk.LEFT)
+
+        # Email link
+        email_frame = ttk.Frame(frame)
+        email_frame.pack(fill=tk.X, pady=2)
+        ttk.Label(email_frame, text="Email: ").pack(side=tk.LEFT)
+        email_link = ttk.Label(email_frame, text=email,
+                             foreground="blue", cursor="hand2")
+        email_link.pack(side=tk.LEFT)
+
+        # Bind click events
+        def open_linkedin(event):
+            import webbrowser
+            webbrowser.open(linkedin_url)
+
+        def send_email(event):
+            import webbrowser
+            webbrowser.open(f"mailto:{email}")
+
+        linkedin_link.bind("<Button-1>", open_linkedin)
+        email_link.bind("<Button-1>", send_email)
+
+        # Add hover effect
+        def on_enter(event):
+            event.widget.configure(font=("", 9, "underline"))
+
+        def on_leave(event):
+            event.widget.configure(font=("", 9))
+
+        for link in (linkedin_link, email_link):
+            link.bind("<Enter>", on_enter)
+            link.bind("<Leave>", on_leave)
+
+        # Close button
+        ttk.Button(frame, text="Close", command=dialog.destroy).pack(pady=20)
+
+        # Center the dialog relative to the main window
+        dialog.update_idletasks()
+        x = self.root.winfo_x() + (self.root.winfo_width() // 2) - (dialog.winfo_width() // 2)
+        y = self.root.winfo_y() + (self.root.winfo_height() // 2) - (dialog.winfo_height() // 2)
+        dialog.geometry(f"+{x}+{y}")
 
     def _create_ui(self):
         """Create and layout the UI components."""
@@ -182,15 +249,42 @@ class FileShredderApp:
         method_combo.grid(row=0, column=1, sticky=(tk.W, tk.E), padx=5, pady=5)
         method_combo.bind("<<ComboboxSelected>>", self._on_method_change)
 
+        # Add verification option and passes in a single frame
+        controls_frame = ttk.Frame(method_frame)
+        controls_frame.grid(row=1, column=0, columnspan=2, sticky=(tk.W, tk.E), padx=5, pady=5)
+
+        # Add verification option
+        self.verify_var = tk.BooleanVar(value=True)
+        verify_chk = ttk.Checkbutton(
+            controls_frame,
+            text="Verify overwrite",
+            variable=self.verify_var,
+            command=self._update_shredder_config
+        )
+        verify_chk.grid(row=0, column=0, sticky=tk.W, padx=5, pady=5)
+        self._create_tooltip(verify_chk, 
+            "When enabled, each overwrite pass will be verified\n"
+            "to ensure data was written correctly.\n"
+            "This doubles the operation time but increases security."
+        )
+
         # Add passes spinbox (only for Basic method)
-        self.passes_frame = ttk.Frame(method_frame)
-        self.passes_frame.grid(row=1, column=0, columnspan=2, sticky=(tk.W, tk.E), padx=5, pady=5)
-        
-        ttk.Label(self.passes_frame, text="Number of Passes:").grid(row=0, column=0, sticky=tk.W, padx=5, pady=5)
+        ttk.Label(controls_frame, text="Passes:").grid(row=0, column=1, sticky=tk.W, padx=(15, 5), pady=5)
         self.passes_var = tk.IntVar(value=3)
-        passes_spinbox = ttk.Spinbox(self.passes_frame, from_=1, to=100, width=5, textvariable=self.passes_var)
-        passes_spinbox.grid(row=0, column=1, sticky=tk.W, padx=5, pady=5)
+        passes_spinbox = ttk.Spinbox(controls_frame, from_=1, to=100, width=5, textvariable=self.passes_var)
+        passes_spinbox.grid(row=0, column=2, sticky=tk.W, padx=5, pady=5)
         passes_spinbox.bind("<Return>", lambda e: self._update_shredder_config())
+        self._create_tooltip(passes_spinbox, 
+            "Number of overwrite passes for Basic method.\n"
+            "More passes = more secure, but slower.\n"
+            "DoD method always uses 7 passes."
+        )
+
+        # Store the passes controls for show/hide functionality
+        self.passes_controls = [
+            controls_frame.grid_slaves(row=0, column=1)[0],  # Label
+            passes_spinbox
+        ]
 
         ttk.Label(options_frame, text="File Pattern:").grid(row=1, column=0, sticky=tk.W, padx=5, pady=5)
         self.pattern_var = tk.StringVar(value="*.*")
@@ -284,20 +378,6 @@ class FileShredderApp:
 
         ttk.Label(date_frame, text="(Format: YYYY-MM-DD)").grid(row=2, column=0, columnspan=4, sticky=tk.W, padx=5, pady=2)
 
-        # Number of passes
-        ttk.Label(options_frame, text="Shredding Passes:").grid(row=4, column=0, sticky=tk.W, padx=5, pady=5)
-        self.passes_var = tk.IntVar(value=3)
-        passes_combo = ttk.Combobox(
-            options_frame, 
-            textvariable=self.passes_var,
-            values=[1, 3, 7],
-            width=5,
-            state="readonly"
-        )
-        passes_combo.grid(row=4, column=1, sticky=tk.W, padx=1, pady=5)
-        ttk.Label(options_frame, text="(higher = more secure, but slower)").grid(
-            row=4, column=2, sticky=tk.W, padx=1, pady=5)
-
         # Action buttons
         button_frame = ttk.Frame(main_frame)
         button_frame.pack(fill=tk.X, padx=5, pady=5)
@@ -375,6 +455,7 @@ class FileShredderApp:
         self.context_menu = tk.Menu(self.root, tearoff=0)
         self.context_menu.add_command(label="📂 Open File Location", command=self._open_file_location)
         self.context_menu.add_command(label="📄 Open File", command=self._open_file)
+        self.context_menu.add_command(label="📋 Copy File Name", command=self._copy_file_name)
         self.context_menu.add_command(label="ℹ️ File Properties", command=self._show_file_properties)
         self.context_menu.add_command(label="🔍 Extract Text (OCR)", command=self._show_extracted_text, state=tk.DISABLED)
 
@@ -797,26 +878,50 @@ class FileShredderApp:
 
     def _on_method_change(self, event=None):
         """Handle shredding method change."""
-        method = ShreddingMethod(self.method_var.get())
+        # Extract the actual method value from the selected text
+        selected_text = self.method_var.get()
+        if "Basic" in selected_text:
+            method = ShreddingMethod.BASIC
+        elif "DoD" in selected_text:
+            method = ShreddingMethod.DOD_5220_22_M
+        else:
+            return  # Invalid selection
+        
+        # Set passes to 7 for DoD method
+        if method == ShreddingMethod.DOD_5220_22_M:
+            self.passes_var.set(7)
         
         # Show/hide passes spinbox based on method
         if method == ShreddingMethod.BASIC:
-            self.passes_frame.grid()
+            for control in self.passes_controls:
+                control.grid()
         else:
-            self.passes_frame.grid_remove()
+            for control in self.passes_controls:
+                control.grid_remove()
         
         # Update shredder configuration
         self._update_shredder_config()
 
     def _update_shredder_config(self):
         """Update the shredder configuration based on UI settings."""
-        method = ShreddingMethod(self.method_var.get())
-        passes = self.passes_var.get() if method == ShreddingMethod.BASIC else 3
-        self.shredder = FileShredder(method=method, passes=passes)
+        # Extract the actual method value from the selected text
+        selected_text = self.method_var.get()
+        if "Basic" in selected_text:
+            method = ShreddingMethod.BASIC
+        elif "DoD" in selected_text:
+            method = ShreddingMethod.DOD_5220_22_M
+        else:
+            return  # Invalid selection
+        
+        passes = self.passes_var.get() if method == ShreddingMethod.BASIC else 7
+        verify = self.verify_var.get()
+        
+        self.shredder = FileShredder(method=method, passes=passes, verify=verify)
         
         # Update status
         method_name = "DoD 5220.22-M (7-pass)" if method == ShreddingMethod.DOD_5220_22_M else f"Basic ({passes}-pass)"
-        self.status_var.set(f"Shredding method set to: {method_name}")
+        verify_status = "with verification" if verify else "without verification"
+        self.status_var.set(f"Shredding method set to: {method_name} {verify_status}")
 
     def _cancel_operation(self):
         """Cancel the current operation."""
@@ -975,10 +1080,37 @@ class FileShredderApp:
                         matches_info = f"Content Matches: {values[3]}\n"
                         break
 
-                # Display file properties in a dialog
-                messagebox.showinfo(
-                    "File Properties",
-                    f"File: {os.path.basename(file_path)}\n"
+                # Create a custom dialog
+                dialog = tk.Toplevel(self.root)
+                dialog.title("File Properties")
+                dialog.geometry("500x400")
+                dialog.transient(self.root)
+                dialog.grab_set()
+                dialog.resizable(True, True)
+                dialog.minsize(400, 300)
+
+                # Create main frame
+                frame = ttk.Frame(dialog, padding=10)
+                frame.pack(fill=tk.BOTH, expand=True)
+
+                # Add file name header
+                ttk.Label(frame, text=os.path.basename(file_path),
+                         font=("", 12, "bold")).pack(pady=(0, 10))
+
+                # Create text widget with scrollbar
+                text_frame = ttk.Frame(frame)
+                text_frame.pack(fill=tk.BOTH, expand=True)
+
+                scrollbar = ttk.Scrollbar(text_frame)
+                scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+
+                text_widget = tk.Text(text_frame, wrap=tk.WORD, width=50,
+                                    yscrollcommand=scrollbar.set)
+                text_widget.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+                scrollbar.config(command=text_widget.yview)
+
+                # Insert properties information
+                properties_text = (
                     f"Location: {os.path.dirname(file_path)}\n"
                     f"Size: {size_str} ({stat_info.st_size:,} bytes)\n"
                     f"Owner: {owner}\n"
@@ -988,6 +1120,33 @@ class FileShredderApp:
                     f"Permissions: {oct(stat_info.st_mode)[-3:]}\n"
                     f"{matches_info}"
                 )
+
+                text_widget.insert(tk.END, properties_text)
+                text_widget.configure(state=tk.DISABLED)  # Make read-only
+
+                # Button frame
+                button_frame = ttk.Frame(frame)
+                button_frame.pack(fill=tk.X, pady=10)
+
+                # Copy button
+                def copy_text():
+                    dialog.clipboard_clear()
+                    dialog.clipboard_append(text_widget.get("1.0", tk.END))
+                    self.status_var.set("Properties copied to clipboard")
+
+                copy_btn = ttk.Button(button_frame, text="📋 Copy All", command=copy_text)
+                copy_btn.pack(side=tk.LEFT, padx=5)
+
+                # Close button
+                close_btn = ttk.Button(button_frame, text="Close", command=dialog.destroy)
+                close_btn.pack(side=tk.RIGHT, padx=5)
+
+                # Center the dialog relative to the main window
+                dialog.update_idletasks()
+                x = self.root.winfo_x() + (self.root.winfo_width() // 2) - (dialog.winfo_width() // 2)
+                y = self.root.winfo_y() + (self.root.winfo_height() - dialog.winfo_height()) // 2
+                dialog.geometry(f"+{x}+{y}")
+
             else:
                 messagebox.showwarning("File Not Found", "The selected file no longer exists.")
 
@@ -1212,7 +1371,7 @@ class FileShredderApp:
         # Center the dialog relative to the main window
         dialog.update_idletasks()
         x = self.root.winfo_x() + (self.root.winfo_width() // 2) - (dialog.winfo_width() // 2)
-        y = self.root.winfo_y() + (self.root.winfo_height() // 2) - (dialog.winfo_height() // 2)
+        y = self.root.winfo_y() + (self.root.winfo_height() - dialog.winfo_height()) // 2
         dialog.geometry(f"+{x}+{y}")
 
         # Wait until the dialog is closed
@@ -1348,6 +1507,120 @@ https://github.com/tesseract-ocr/tesseract/releases
 
             except Exception as e:
                 messagebox.showerror("Error", f"Could not retrieve package information: {str(e)}")
+
+    def _create_tooltip(self, widget, text):
+        """Create a tooltip for a widget."""
+        tooltip = tk.Label(self.root, text=text, justify=tk.LEFT,
+                         relief="solid", borderwidth=1)
+        tooltip.configure(bg="lightyellow", padx=5, pady=2)
+        
+        def enter(event):
+            tooltip.lift()
+            x = widget.winfo_rootx()
+            y = widget.winfo_rooty() + widget.winfo_height() + 2
+            tooltip.place(x=x, y=y)
+            
+        def leave(event):
+            tooltip.place_forget()
+            
+        widget.bind("<Enter>", enter)
+        widget.bind("<Leave>", leave)
+
+    def _show_method_info(self):
+        """Show detailed information about shredding methods."""
+        method = ShreddingMethod(self.method_var.get())
+        description = ShreddingMethod.get_description(method)
+        
+        dialog = tk.Toplevel(self.root)
+        dialog.title("Shredding Method Information")
+        dialog.geometry("500x400")  # Increased size
+        dialog.transient(self.root)
+        dialog.grab_set()
+        dialog.resizable(True, True)  # Allow resizing
+        dialog.minsize(400, 300)  # Set minimum size
+        
+        # Main frame with padding
+        main_frame = ttk.Frame(dialog, padding=10)
+        main_frame.pack(fill=tk.BOTH, expand=True)
+        
+        # Method name header
+        method_name = "Basic Multi-pass Random" if method == ShreddingMethod.BASIC else "DoD 5220.22-M (7-pass)"
+        header = ttk.Label(main_frame, text=method_name, font=("", 12, "bold"))
+        header.pack(anchor=tk.W, pady=(0, 10))
+        
+        # Create a frame for scrollable content
+        content_frame = ttk.Frame(main_frame)
+        content_frame.pack(fill=tk.BOTH, expand=True)
+        
+        # Add scrollbar
+        scrollbar = ttk.Scrollbar(content_frame)
+        scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+        
+        # Create text widget for content
+        text_widget = tk.Text(content_frame, wrap=tk.WORD, width=50, height=15,
+                            yscrollcommand=scrollbar.set)
+        text_widget.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+        scrollbar.config(command=text_widget.yview)
+        
+        # Insert description
+        text_widget.insert(tk.END, "Description:\n", "heading")
+        text_widget.insert(tk.END, f"{description}\n\n")
+        
+        # Insert security information
+        text_widget.insert(tk.END, "Security Note:\n", "heading")
+        if method == ShreddingMethod.BASIC:
+            security_info = (
+                "The Basic method is suitable for most personal data deletion needs. "
+                "Increasing the number of passes provides additional security at the "
+                "cost of longer processing time."
+            )
+        else:
+            security_info = (
+                "The DoD 5220.22-M standard is designed for military-grade data sanitization. "
+                "It ensures data cannot be recovered even with advanced forensic tools."
+            )
+        text_widget.insert(tk.END, f"{security_info}\n\n")
+        
+        # Insert verification info
+        text_widget.insert(tk.END, "Verification:\n", "heading")
+        verify_info = (
+            "When verification is enabled, each overwrite pass is checked to ensure "
+            "the data was written correctly. This doubles the processing time but "
+            "provides additional security assurance."
+        )
+        text_widget.insert(tk.END, verify_info)
+        
+        # Configure tags for headings
+        text_widget.tag_configure("heading", font=("", 10, "bold"))
+        
+        # Make text widget read-only
+        text_widget.configure(state=tk.DISABLED)
+        
+        # Close button in its own frame
+        button_frame = ttk.Frame(main_frame)
+        button_frame.pack(fill=tk.X, pady=(10, 0))
+        close_btn = ttk.Button(button_frame, text="Close", command=dialog.destroy)
+        close_btn.pack(side=tk.RIGHT)
+        
+        # Center dialog
+        dialog.update_idletasks()
+        x = self.root.winfo_x() + (self.root.winfo_width() - dialog.winfo_width()) // 2
+        y = self.root.winfo_y() + (self.root.winfo_height() - dialog.winfo_height()) // 2
+        dialog.geometry(f"+{x}+{y}")
+
+    def _copy_file_name(self):
+        """Copy the name of the selected file to clipboard."""
+        file_path = self._get_selected_file_path()
+        if not file_path:
+            return
+
+        # Get just the file name without path
+        file_name = os.path.basename(file_path)
+        
+        # Copy to clipboard
+        self.root.clipboard_clear()
+        self.root.clipboard_append(file_name)
+        self.status_var.set(f"Copied: {file_name}")
 
 
 def main():
