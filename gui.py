@@ -78,7 +78,36 @@ class FileShredderApp:
         # User preferences
         self.ocr_enabled = tk.BooleanVar(value=False)  # Default: OCR disabled
 
-        # UI Components
+        # Create a main container frame that will expand
+        self.container = ttk.Frame(self.root)
+        self.container.pack(fill="both", expand=True)
+
+        # Create canvas and scrollbar
+        self.canvas = tk.Canvas(self.container)
+        self.scrollbar = ttk.Scrollbar(self.container, orient="vertical", command=self.canvas.yview)
+        
+        # Create the scrollable frame inside the canvas
+        self.scrollable_frame = ttk.Frame(self.canvas)
+        self.scrollable_frame.bind("<Configure>", lambda e: self.canvas.configure(scrollregion=self.canvas.bbox("all")))
+        
+        # Create a window inside the canvas to hold the scrollable frame
+        self.canvas_frame = self.canvas.create_window((0, 0), window=self.scrollable_frame, anchor="nw")
+        
+        # Configure canvas to expand with window
+        self.canvas.bind('<Configure>', self._on_canvas_configure)
+        
+        # Pack the canvas and scrollbar to fill the available space
+        self.canvas.pack(side="left", fill="both", expand=True)
+        self.scrollbar.pack(side="right", fill="y")
+        
+        # Configure the canvas scrolling
+        self.canvas.configure(yscrollcommand=self.scrollbar.set)
+
+        # Create main frame for controls that will expand within scrollable frame
+        self.main_frame = ttk.Frame(self.scrollable_frame)
+        self.main_frame.pack(fill="both", expand=True, padx=10, pady=10)
+
+        # Move existing UI components to the scrollable frame
         self._create_ui()
 
         # Bind window close event to clean exit
@@ -86,6 +115,10 @@ class FileShredderApp:
 
         # Create menu bar
         self._create_menu()
+
+    def _on_canvas_configure(self, event):
+        # Update the width of the canvas window when the canvas is resized
+        self.canvas.itemconfig(self.canvas_frame, width=event.width)
 
     def _create_menu(self):
         """Create the application menu bar."""
@@ -107,6 +140,11 @@ class FileShredderApp:
         if not ocr_lib_available:
             options_menu.entryconfig("Enable OCR for image files", state=tk.DISABLED)
             self.ocr_enabled.set(False)
+
+        # Sponsored By menu
+        sponsored_menu = tk.Menu(menu_bar, tearoff=0)
+        menu_bar.add_cascade(label="Sponsored By", menu=sponsored_menu)
+        sponsored_menu.add_command(label="Advertise Here", command=self._show_sponsored_dialog)
 
         # About menu
         about_menu = tk.Menu(menu_bar, tearoff=0)
@@ -202,10 +240,51 @@ class FileShredderApp:
         y = self.root.winfo_y() + (self.root.winfo_height() // 2) - (dialog.winfo_height() // 2)
         dialog.geometry(f"+{x}+{y}")
 
+    def _show_sponsored_dialog(self):
+        """Show a dialog with sponsorship information."""
+        dialog = tk.Toplevel(self.root)
+        dialog.title("Sponsored By")
+        dialog.geometry("400x200")
+        dialog.transient(self.root)
+        dialog.grab_set()
+        dialog.resizable(False, False)
+
+        # Main frame
+        frame = ttk.Frame(dialog, padding=20)
+        frame.pack(fill=tk.BOTH, expand=True)
+
+        # Message
+        message = ttk.Label(frame, text="Advertise Here", font=("", 16, "bold"), foreground="red")
+        message.pack(pady=(0, 10))
+
+        # Email
+        contact_label = ttk.Label(frame, text="Contact:", font=("", 12))
+        contact_label.pack()
+
+        email_label = ttk.Label(frame, text="naeem.akram.malik@gmail.com", font=("", 12), foreground="blue", cursor="hand2")
+        email_label.pack()
+
+        # Make email clickable
+        def send_email(event):
+            import webbrowser
+            webbrowser.open(f"mailto:naeem.akram.malik@gmail.com")
+
+        email_label.bind("<Button-1>", send_email)
+
+        # Close button
+        close_btn = ttk.Button(frame, text="Close", command=dialog.destroy)
+        close_btn.pack(pady=20)
+
+        # Center the dialog
+        dialog.update_idletasks()
+        x = self.root.winfo_x() + (self.root.winfo_width() // 2) - (dialog.winfo_width() // 2)
+        y = self.root.winfo_y() + (self.root.winfo_height() // 2) - (dialog.winfo_height() // 2)
+        dialog.geometry(f"+{x}+{y}")
+
     def _create_ui(self):
         """Create and layout the UI components."""
         # Main frame
-        main_frame = ttk.Frame(self.root, padding="10")
+        main_frame = ttk.Frame(self.main_frame, padding="10")
         main_frame.pack(fill=tk.BOTH, expand=True)
 
         # Create folder selection frame
@@ -422,12 +501,12 @@ class FileShredderApp:
 
         # Results frame
         self.results_frame_text = tk.StringVar(value="Matching Files (0)")
-        results_frame = ttk.LabelFrame(main_frame, text="Matching Files (0)", padding=10)
-        results_frame.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
+        self.results_frame = ttk.LabelFrame(main_frame, text="Matching Files (0)", padding=10)
+        self.results_frame.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
 
         # Create a treeview for files
         self.files_tree = ttk.Treeview(
-            results_frame, 
+            self.results_frame, 
             columns=("path", "size", "status", "matches"),
             show="headings",
             selectmode="browse"  # Allow selecting one item at a time
@@ -445,10 +524,10 @@ class FileShredderApp:
         self.files_tree.column("matches", width=150)
 
         # Add scrollbars
-        y_scroll = ttk.Scrollbar(results_frame, orient=tk.VERTICAL, command=self.files_tree.yview)
+        y_scroll = ttk.Scrollbar(self.results_frame, orient=tk.VERTICAL, command=self.files_tree.yview)
         self.files_tree.configure(yscrollcommand=y_scroll.set)
 
-        x_scroll = ttk.Scrollbar(results_frame, orient=tk.HORIZONTAL, command=self.files_tree.xview)
+        x_scroll = ttk.Scrollbar(self.results_frame, orient=tk.HORIZONTAL, command=self.files_tree.xview)
         self.files_tree.configure(xscrollcommand=x_scroll.set)
 
         # Set up right-click context menu
@@ -467,8 +546,8 @@ class FileShredderApp:
         y_scroll.grid(row=0, column=1, sticky=(tk.N, tk.S))
         x_scroll.grid(row=1, column=0, sticky=(tk.E, tk.W))
 
-        results_frame.grid_columnconfigure(0, weight=1)
-        results_frame.grid_rowconfigure(0, weight=1)
+        self.results_frame.grid_columnconfigure(0, weight=1)
+        self.results_frame.grid_rowconfigure(0, weight=1)
 
         # Status and progress bar
         status_frame = ttk.Frame(main_frame)
@@ -520,6 +599,10 @@ class FileShredderApp:
         self.status_var.set("Searching for files...")
         self.progress_var.set(0)
         self._clear_file_list()
+        
+        # Show busy cursor
+        self.root.config(cursor="wait")
+        self.find_btn.config(state=tk.DISABLED)
         self.root.update()
 
         # Find matching files in a separate thread
@@ -612,6 +695,14 @@ class FileShredderApp:
         except Exception as e:
             # Show error on main thread
             self.root.after(0, lambda: self._show_error(f"Error finding files: {str(e)}"))
+        finally:
+            # Reset cursor and button state in main thread
+            self.root.after(0, lambda: self._reset_search_ui())
+
+    def _reset_search_ui(self):
+        """Reset the UI after search operation completes."""
+        self.root.config(cursor="")
+        self.find_btn.config(state=tk.NORMAL)
 
     def _update_file_list(self):
         """Update the file list treeview with matching files."""
@@ -654,20 +745,11 @@ class FileShredderApp:
                 # If we can't get the size (e.g., permission error), show unknown
                 self.files_tree.insert("", tk.END, values=(file_path, "Unknown", "Pending", matches_display))
 
-        # Update status, results frame title, and enable shred button
+        # Update status and results frame title
         file_count = len(self.matching_files)
-        self.status_var.set(f"Found {file_count} matching files. Excluded: {self.excluded_count}")
+        self.status_var.set(f"Found matching: {file_count}, Excluded: {self.excluded_count}.")
         self.results_frame_text.set(f"Matching Files ({file_count})")
-
-        # Update the frame text directly - search through the main frame to find our results LabelFrame
-        for widget in self.root.winfo_children():
-            if isinstance(widget, ttk.Frame):  # This is the main_frame
-                for child in widget.winfo_children():
-                    if isinstance(child, ttk.LabelFrame):
-                        # Check if this is the results frame by checking if it contains a Treeview
-                        if any(isinstance(c, ttk.Treeview) for c in child.winfo_children()):
-                            child.configure(text=f"Matching Files ({file_count})")
-                            break
+        self.results_frame.configure(text=f"Matching Files ({file_count})")
 
         self.shred_btn.configure(state=tk.NORMAL)
 
@@ -682,16 +764,7 @@ class FileShredderApp:
         for item in self.files_tree.get_children():
             self.files_tree.delete(item)
         self.results_frame_text.set("Matching Files (0)")
-
-        # Also update the actual frame title
-        for widget in self.root.winfo_children():
-            if isinstance(widget, ttk.Frame):  # This is the main_frame
-                for child in widget.winfo_children():
-                    if isinstance(child, ttk.LabelFrame):
-                        # Check if this is the results frame by checking if it contains a Treeview
-                        if any(isinstance(c, ttk.Treeview) for c in child.winfo_children()):
-                            child.configure(text="Matching Files (0)")
-                            break
+        self.results_frame.configure(text="Matching Files (0)")
 
     def _clear_results(self):
         """Clear the matching files list and reset the UI."""
@@ -1203,8 +1276,6 @@ class FileShredderApp:
         # Show loading indicator in dialog
         frame = ttk.Frame(dialog, padding=10)
         frame.pack(fill=tk.BOTH, expand=True)
-
-        ttk.Label(frame, text="Extracting text, please wait...", font=("", 12)).pack(pady=20)
 
         progress = ttk.Progressbar(frame, mode="indeterminate")
         progress.pack(fill=tk.X, padx=50, pady=10)
