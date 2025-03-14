@@ -15,6 +15,7 @@ import threading
 import time
 import importlib.util
 from typing import List, Dict, Any
+import json
 
 from file_shredder import FileShredder, ShreddingMethod
 from utils import resource_path
@@ -24,6 +25,8 @@ pdf_support_available = importlib.util.find_spec("PyPDF2") is not None
 if not pdf_support_available:
     print("PyPDF2 is not available. PDF content search will be disabled.")
     # You might want to log this or display a notification that PDF search is disabled
+else:
+    print("PyPDF2 is available. PDF content search will be enabled.")
 
 # Check for OCR libraries
 ocr_support_available = importlib.util.find_spec("pytesseract") is not None
@@ -43,6 +46,8 @@ else:
 
 class FileShredderApp:
     """Main application window for File Shredder."""
+
+    SETTINGS_FILE = "settings.json"
 
     def __init__(self, root: tk.Tk):
         """
@@ -116,6 +121,9 @@ class FileShredderApp:
         # Create menu bar
         self._create_menu()
 
+        # Load settings
+        self._load_settings()
+
     def _on_canvas_configure(self, event):
         # Update the width of the canvas window when the canvas is resized
         self.canvas.itemconfig(self.canvas_frame, width=event.width)
@@ -152,6 +160,11 @@ class FileShredderApp:
         about_menu.add_command(label="Shredding Methods", command=self._show_method_info)
         about_menu.add_command(label="About", command=self._show_about)
         about_menu.add_command(label="Packages", command=self._show_packages)
+
+        # Clear Settings menu
+        settings_menu = tk.Menu(menu_bar, tearoff=0)
+        menu_bar.add_cascade(label="Settings", menu=settings_menu)
+        settings_menu.add_command(label="Clear Saved Settings", command=self._clear_settings)
 
     def _toggle_ocr(self):
         """Handle OCR toggle and update UI accordingly."""
@@ -1458,126 +1471,65 @@ class FileShredderApp:
             if not response:
                 return
 
+        # Save settings before closing
+        self._save_settings()
+
         self.root.destroy()
 
-    
+    def _save_settings(self):
+        """Save current settings to a JSON file."""
+        settings = {
+            "folder_path": self.folder_path.get(),
+            "recursive": self.recursive_var.get(),
+            "method": self.method_var.get(),
+            "verify": self.verify_var.get(),
+            "pattern": self.pattern_var.get(),
+            "exclude_pattern": self.exclude_pattern_var.get(),
+            "owner_pattern": self.owner_pattern_var.get(),
+            "content_pattern": self.content_pattern_var.get(),
+            "content_min_occurrences": self.content_min_occurrences_var.get(),
+            "exclude_content_pattern": self.exclude_content_pattern_var.get(),
+            "exclude_content_min_occurrences": self.exclude_content_min_occurrences_var.get(),
+            "created_after": self.created_after_var.get(),
+            "created_before": self.created_before_var.get(),
+            "modified_after": self.modified_after_var.get(),
+            "modified_before": self.modified_before_var.get(),
+            "ocr_enabled": self.ocr_enabled.get()
+        }
+        with open(self.SETTINGS_FILE, "w") as f:
+            json.dump(settings, f)
 
-    def _show_packages(self):
-        """Display the Packages dialog with detailed package information."""
+    def _load_settings(self):
+        """Load settings from a JSON file."""
         try:
-            # Parse pyproject.toml to extract dependencies
-            import tomli
+            with open(self.SETTINGS_FILE, "r") as f:
+                settings = json.load(f)
+                self.folder_path.set(settings.get("folder_path", ""))
+                self.recursive_var.set(settings.get("recursive", False))
+                self.method_var.set(settings.get("method", ShreddingMethod.BASIC.value))
+                self.verify_var.set(settings.get("verify", True))
+                self.pattern_var.set(settings.get("pattern", "*.*"))
+                self.exclude_pattern_var.set(settings.get("exclude_pattern", ""))
+                self.owner_pattern_var.set(settings.get("owner_pattern", ""))
+                self.content_pattern_var.set(settings.get("content_pattern", ""))
+                self.content_min_occurrences_var.set(settings.get("content_min_occurrences", 1))
+                self.exclude_content_pattern_var.set(settings.get("exclude_content_pattern", ""))
+                self.exclude_content_min_occurrences_var.set(settings.get("exclude_content_min_occurrences", 1))
+                self.created_after_var.set(settings.get("created_after", ""))
+                self.created_before_var.set(settings.get("created_before", ""))
+                self.modified_after_var.set(settings.get("modified_after", ""))
+                self.modified_before_var.set(settings.get("modified_before", ""))
+                self.ocr_enabled.set(settings.get("ocr_enabled", False))
+        except FileNotFoundError:
+            pass  # No settings file exists yet
 
-            with open("pyproject.toml", "rb") as f:
-                pyproject_data = tomli.load(f)
-
-            # Extract dependencies
-            dependencies = pyproject_data.get("tool", {}).get("poetry", {}).get("dependencies", {})
-
-            # Format dependencies for display
-            dep_text = ""
-            for package, version in dependencies.items():
-                if package == "python":  # Format Python version separately
-                    dep_text += f"Python Runtime: {version}\n\n"
-                else:
-                    dep_text += f"• {package}: {version}\n"
-
-            dep_text += f"""\n\nPre-requisite: Tesseract must be on your machine for OCR.
-The URL for downloading Tesseract is give below:
-https://github.com/tesseract-ocr/tesseract/releases
-"""
-            # Add development dependencies if present
-            dev_dependencies = pyproject_data.get("tool", {}).get("poetry", {}).get("group", {}).get("dev", {}).get("dependencies", {})
-            if dev_dependencies:
-                dep_text += "\nDevelopment Packages:\n\n"
-                for package, version in dev_dependencies.items():
-                    dep_text += f"• {package}: {version}\n"
-
-            # Create a custom dialog for better formatting
-            dialog = tk.Toplevel(self.root)
-            dialog.title("Package Information")
-            dialog.geometry("500x400")
-            dialog.transient(self.root)  # Make dialog modal
-            dialog.grab_set()  # Modal behavior
-            dialog.resizable(True, True)
-
-            # Create a scrollable text area
-            frame = ttk.Frame(dialog, padding=10)
-            frame.pack(fill=tk.BOTH, expand=True)
-
-            # Add a header
-            app_name = pyproject_data.get("tool", {}).get("poetry", {}).get("name", "Secure File Shredder")
-            app_description = pyproject_data.get("tool", {}).get("poetry", {}).get("description", "")
-
-            header = ttk.Label(frame, text=f"{app_name}", font=("", 12, "bold"))
-            header.pack(anchor=tk.W, pady=(0, 5))
-
-            if app_description:
-                desc = ttk.Label(frame, text=app_description, wraplength=480)
-                desc.pack(anchor=tk.W, pady=(0, 10))
-
-            # Add scrolled text widget
-            text_frame = ttk.Frame(frame)
-            text_frame.pack(fill=tk.BOTH, expand=True)
-
-            scrollbar = ttk.Scrollbar(text_frame)
-            scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
-
-            text_widget = tk.Text(text_frame, wrap=tk.WORD, yscrollcommand=scrollbar.set)
-            text_widget.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
-            scrollbar.config(command=text_widget.yview)
-
-            # Insert package data
-            text_widget.insert(tk.END, "Project Dependencies:\n\n", "heading")
-            text_widget.insert(tk.END, dep_text)
-
-            # Configure tags
-            text_widget.tag_configure("heading", font=("", 10, "bold"))
-
-            # Make text read-only
-            text_widget.configure(state=tk.DISABLED)
-
-            # Add a close button
-            close_btn = ttk.Button(frame, text="Close", command=dialog.destroy)
-            close_btn.pack(pady=10)
-
-            # Center dialog on parent window
-            dialog.update_idletasks()
-            x = self.root.winfo_x() + (self.root.winfo_width() - dialog.winfo_width()) // 2
-            y = self.root.winfo_y() + (self.root.winfo_height() - dialog.winfo_height()) // 2
-            dialog.geometry(f"+{x}+{y}")
-
-        except Exception as e:
-            # If tomli is not available, try using toml
-            try:
-                import toml
-                with open("pyproject.toml", "r") as f:
-                    pyproject_data = toml.load(f)
-
-                # Extract dependencies
-                dependencies = pyproject_data.get("tool", {}).get("poetry", {}).get("dependencies", {})
-
-                # Format dependencies for display
-                dep_text = ""
-                for package, version in dependencies.items():
-                    if package == "python":  # Format Python version separately
-                        dep_text += f"Python Runtime: {version}\n\n"
-                    else:
-                        dep_text += f"• {package}: {version}\n"
-
-                # Add development dependencies if present
-                dev_dependencies = pyproject_data.get("tool", {}).get("poetry", {}).get("group", {}).get("dev", {}).get("dependencies", {})
-                if dev_dependencies:
-                    dep_text += "\nDevelopment Packages:\n\n"
-                    for package, version in dev_dependencies.items():
-                        dep_text += f"• {package}: {version}\n"
-
-                
-                
-                messagebox.showinfo("Package Information", dep_text)
-
-            except Exception as e:
-                messagebox.showerror("Error", f"Could not retrieve package information: {str(e)}")
+    def _clear_settings(self):
+        """Clear saved settings by deleting the settings file."""
+        try:
+            os.remove(self.SETTINGS_FILE)
+            messagebox.showinfo("Settings Cleared", "All saved settings have been cleared.")
+        except FileNotFoundError:
+            messagebox.showinfo("No Settings Found", "No saved settings to clear.")
 
     def _create_tooltip(self, widget, text):
         """Create a tooltip for a widget."""
@@ -1692,6 +1644,10 @@ https://github.com/tesseract-ocr/tesseract/releases
         self.root.clipboard_clear()
         self.root.clipboard_append(file_name)
         self.status_var.set(f"Copied: {file_name}")
+
+    def _show_packages(self):
+        """Display a message box with package information."""
+        messagebox.showinfo("Packages", "Package information is not available.")
 
 
 def main():
