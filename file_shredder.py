@@ -138,10 +138,12 @@ class FileShredder:
                 raise ValueError(f"Invalid owner pattern regex: {owner_pattern}")
 
         try:
-            # Split multiple patterns if provided (comma-separated)
-            include_patterns = [p.strip() for p in pattern.split(",")]
-            exclude_patterns = [p.strip() for p in exclude_pattern.split(",")] if exclude_pattern else []
-
+            # Split multiple patterns if provided (comma or semicolon-separated)
+            include_patterns = [p.strip() for p in re.split(r'[,;]', pattern) if p.strip()]
+            exclude_patterns = [p.strip() for p in re.split(r'[,;]', exclude_pattern) if p.strip()] if exclude_pattern else []
+            
+            logger.info(f"Include patterns: {include_patterns}")
+            logger.info(f"Exclude patterns: {exclude_patterns}")
 
             # Handle recursive and non-recursive search differently
             if recursive:

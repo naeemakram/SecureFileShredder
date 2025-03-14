@@ -16,17 +16,20 @@ import time
 import importlib.util
 from typing import List, Dict, Any
 import json
+import logging
 
 from file_shredder import FileShredder, ShreddingMethod
 from utils import resource_path
 
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+
 # Check if PyPDF2 is available
 pdf_support_available = importlib.util.find_spec("PyPDF2") is not None
 if not pdf_support_available:
-    print("PyPDF2 is not available. PDF content search will be disabled.")
-    # You might want to log this or display a notification that PDF search is disabled
+    logging.info("PyPDF2 is not available. PDF content search will be disabled.")
 else:
-    print("PyPDF2 is available. PDF content search will be enabled.")
+    logging.info("PyPDF2 is available. PDF content search will be enabled.")
 
 # Check for OCR libraries
 ocr_support_available = importlib.util.find_spec("pytesseract") is not None
@@ -550,6 +553,8 @@ class FileShredderApp:
         self.context_menu.add_command(label="📋 Copy File Name", command=self._copy_file_name)
         self.context_menu.add_command(label="ℹ️ File Properties", command=self._show_file_properties)
         self.context_menu.add_command(label="🔍 Extract Text (OCR)", command=self._show_extracted_text, state=tk.DISABLED)
+        self.context_menu.add_separator()
+        self.context_menu.add_command(label="❌ Exclude File", command=self._exclude_selected_file)
 
         # Bind right-click event to show context menu
         self.files_tree.bind("<Button-3>", self._show_context_menu)
@@ -936,9 +941,6 @@ class FileShredderApp:
             f"Successfully shredded: {success_count} files\n"
             f"Failed: {failed_count} files"
         )
-
-        # Clear the file list
-        self._clear_file_list()
 
     def _parse_date(self, date_str: str) -> float:
         """
@@ -1648,6 +1650,33 @@ class FileShredderApp:
     def _show_packages(self):
         """Display a message box with package information."""
         messagebox.showinfo("Packages", "Package information is not available.")
+
+    def _exclude_selected_file(self):
+        """Add the selected file's name pattern to the exclude pattern and refresh."""
+        file_path = self._get_selected_file_path()
+        if not file_path:
+            return
+
+        # Get just the file name without path
+        file_name = os.path.basename(file_path)
+        
+        # Add wildcard before and after to match similar files
+        file_pattern = f"*{file_name}*"
+        
+        # Get current exclude pattern
+        current_pattern = self.exclude_pattern_var.get().strip()
+        
+        # Combine patterns if there's an existing pattern
+        if current_pattern:
+            new_pattern = f"{current_pattern};{file_pattern}"
+        else:
+            new_pattern = file_pattern
+            
+        # Update exclude pattern
+        self.exclude_pattern_var.set(new_pattern)
+        
+        # Refresh the file list
+        self._find_files()
 
 
 def main():
