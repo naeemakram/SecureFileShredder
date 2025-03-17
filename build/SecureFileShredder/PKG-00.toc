@@ -1,0 +1,64 @@
+('C:\\Users\\Naeem '
+ 'Malik\\source\\repos\\SecureFileShredder\\build\\SecureFileShredder\\SecureFileShredder.pkg',
+ {'BINARY': True,
+  'DATA': True,
+  'EXECUTABLE': True,
+  'EXTENSION': True,
+  'PYMODULE': True,
+  'PYSOURCE': True,
+  'PYZ': False,
+  'SPLASH': True},
+ [('PYZ-00.pyz',
+   'C:\\Users\\Naeem '
+   'Malik\\source\\repos\\SecureFileShredder\\build\\SecureFileShredder\\PYZ-00.pyz',
+   'PYZ'),
+  ('struct',
+   'C:\\Users\\Naeem '
+   'Malik\\source\\repos\\SecureFileShredder\\build\\SecureFileShredder\\localpycs\\struct.pyc',
+   'PYMODULE'),
+  ('pyimod01_archive',
+   'C:\\Users\\Naeem '
+   'Malik\\source\\repos\\SecureFileShredder\\build\\SecureFileShredder\\localpycs\\pyimod01_archive.pyc',
+   'PYMODULE'),
+  ('pyimod02_importers',
+   'C:\\Users\\Naeem '
+   'Malik\\source\\repos\\SecureFileShredder\\build\\SecureFileShredder\\localpycs\\pyimod02_importers.pyc',
+   'PYMODULE'),
+  ('pyimod03_ctypes',
+   'C:\\Users\\Naeem '
+   'Malik\\source\\repos\\SecureFileShredder\\build\\SecureFileShredder\\localpycs\\pyimod03_ctypes.pyc',
+   'PYMODULE'),
+  ('pyimod04_pywin32',
+   'C:\\Users\\Naeem '
+   'Malik\\source\\repos\\SecureFileShredder\\build\\SecureFileShredder\\localpycs\\pyimod04_pywin32.pyc',
+   'PYMODULE'),
+  ('pyiboot01_bootstrap',
+   'C:\\Users\\Naeem '
+   'Malik\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\repl-nix-iptimezonefinder-6_awQiuo-py3.12\\Lib\\site-packages\\PyInstaller\\loader\\pyiboot01_bootstrap.py',
+   'PYSOURCE'),
+  ('pyi_rth_inspect',
+   'C:\\Users\\Naeem '
+   'Malik\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\repl-nix-iptimezonefinder-6_awQiuo-py3.12\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks\\pyi_rth_inspect.py',
+   'PYSOURCE'),
+  ('pyi_rth__tkinter',
+   'C:\\Users\\Naeem '
+   'Malik\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\repl-nix-iptimezonefinder-6_awQiuo-py3.12\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks\\pyi_rth__tkinter.py',
+   'PYSOURCE'),
+  ('pyi_rth_pkgres',
+   'C:\\Users\\Naeem '
+   'Malik\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\repl-nix-iptimezonefinder-6_awQiuo-py3.12\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks\\pyi_rth_pkgres.py',
+   'PYSOURCE'),
+  ('pyi_rth_pkgutil',
+   'C:\\Users\\Naeem '
+   'Malik\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\repl-nix-iptimezonefinder-6_awQiuo-py3.12\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks\\pyi_rth_pkgutil.py',
+   'PYSOURCE'),
+  ('main',
+   'C:\\Users\\Naeem Malik\\source\\repos\\SecureFileShredder\\main.py',
+   'PYSOURCE')],
+ True,
+ False,
+ False,
+ [],
+ None,
+ None,
+ None)

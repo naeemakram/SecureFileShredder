@@ -1,0 +1,899 @@
+2025-03-07 12:04:08,722 - file_shredder - INFO - Found 2 files matching pattern '*.*'
+2025-03-07 12:04:13,869 - file_shredder - INFO - Successfully shredded file: C:/Users/Naeem Malik/Documents/SillyStuffs\loveletters.txt
+2025-03-07 12:04:13,895 - file_shredder - INFO - Successfully shredded file: C:/Users/Naeem Malik/Documents/SillyStuffs\Moreletters.txt
+2025-03-07 12:04:13,896 - file_shredder - INFO - Shredding complete. Success: 2, Failed: 0
+2025-03-07 12:05:14,202 - file_shredder - INFO - Found 1 files matching pattern '*.*'
+2025-03-07 12:05:26,560 - file_shredder - WARNING - File not found: C:/Users/Naeem Malik/Documents/SillyStuffs\mythings.txt
+2025-03-07 12:05:26,560 - file_shredder - INFO - Shredding complete. Success: 0, Failed: 1
+2025-03-07 12:24:30,857 - file_shredder - INFO - Found 2 files matching pattern '*.*'
+2025-03-07 12:24:38,487 - file_shredder - INFO - Found 2 files matching pattern '*.*'
+2025-03-07 12:24:42,190 - file_shredder - INFO - Found 2 files matching pattern '*.*'
+2025-03-07 12:24:45,999 - file_shredder - INFO - Found 2 files matching pattern '*.*'
+2025-03-07 12:25:21,755 - file_shredder - INFO - Found 2 files matching pattern '*.*'
+2025-03-07 12:25:40,852 - file_shredder - INFO - Removed empty file: C:/Users/Naeem Malik/Documents/SillyStuffs\New Text Document.txt
+2025-03-07 12:25:40,852 - file_shredder - INFO - Removed empty file: C:/Users/Naeem Malik/Documents/SillyStuffs\sdf.txt
+2025-03-07 12:25:40,852 - file_shredder - INFO - Shredding complete. Success: 2, Failed: 0
+2025-03-07 12:25:46,295 - file_shredder - INFO - Found 0 files matching pattern '*.*'
+2025-03-07 12:25:52,480 - file_shredder - INFO - Found 0 files matching pattern '*.*'
+2025-03-09 20:09:43,011 - file_shredder - INFO - Found 1 files matching pattern '*.csv'
+2025-03-09 20:09:50,171 - file_shredder - INFO - Found 1 files matching pattern '*.csv'
+2025-03-09 20:09:50,852 - file_shredder - INFO - Found 1 files matching pattern '*.csv'
+2025-03-09 20:09:53,663 - file_shredder - INFO - Found 1 files matching pattern '*.csv'
+2025-03-09 20:09:54,269 - file_shredder - INFO - Found 1 files matching pattern '*.csv'
+2025-03-09 20:19:27,878 - file_shredder - INFO - Found 3 files matching pattern '*.*'
+2025-03-09 20:19:59,788 - file_shredder - INFO - Found 3 files matching pattern '*.*'
+2025-03-09 20:23:22,653 - file_shredder - INFO - Found 1 files matching pattern '*.*'
+2025-03-09 20:23:28,685 - file_shredder - INFO - Found 3 files matching pattern '*.*'
+2025-03-09 20:23:44,874 - file_shredder - INFO - Found 2 files matching pattern '*.*' (excluding '*.txt')
+2025-03-09 20:24:38,577 - file_shredder - INFO - Found 2 files matching pattern '*.*' (excluding '*.txt')
+2025-03-09 20:25:24,669 - file_shredder - INFO - Successfully shredded file: C:/Users/Naeem Malik/Documents/SillyStuffs\passes.csv
+2025-03-09 20:25:24,694 - file_shredder - INFO - Successfully shredded file: C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\data.csv
+2025-03-09 20:25:24,695 - file_shredder - INFO - Shredding complete. Success: 2, Failed: 0
+2025-03-09 20:26:02,280 - file_shredder - INFO - Found 1 files matching pattern '*.*' (excluding '*.txt')
+2025-03-09 20:26:11,311 - file_shredder - INFO - Successfully shredded file: C:/Users/Naeem Malik/Documents/SillyStuffs\abdc.csv
+2025-03-09 20:26:11,311 - file_shredder - INFO - Shredding complete. Success: 1, Failed: 0
+2025-03-09 20:30:42,058 - file_shredder - INFO - Found 3 files matching pattern '*.*'
+2025-03-09 20:31:00,213 - file_shredder - INFO - Found 2 files matching pattern '*.csv' (excluding '*.txt')
+2025-03-09 20:31:09,492 - file_shredder - INFO - Removed empty file: C:/Users/Naeem Malik/Documents/SillyStuffs\asdaf.csv
+2025-03-09 20:31:09,493 - file_shredder - INFO - Removed empty file: C:/Users/Naeem Malik/Documents/SillyStuffs\tigers.csv
+2025-03-09 20:31:09,496 - file_shredder - INFO - Shredding complete. Success: 2, Failed: 0
+2025-03-09 20:33:19,310 - file_shredder - INFO - Found 1 files matching pattern '*.csv' (excluding 0 files matching '*txt')
+2025-03-09 20:33:28,604 - file_shredder - INFO - Found 2 files matching pattern '*.csv' (excluding 0 files matching '*txt')
+2025-03-09 20:33:47,413 - file_shredder - INFO - Removed empty file: C:/Users/Naeem Malik/Documents/SillyStuffs\asdf.csv
+2025-03-09 20:33:47,414 - file_shredder - INFO - Removed empty file: C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\ijk.csv
+2025-03-09 20:33:47,415 - file_shredder - INFO - Shredding complete. Success: 2, Failed: 0
+2025-03-09 20:38:36,439 - file_shredder - INFO - Found 2 files matching pattern '*.*'
+2025-03-09 20:38:43,064 - file_shredder - INFO - Found 1 files matching pattern '*.csv'
+2025-03-09 20:38:52,743 - file_shredder - INFO - Removed empty file: C:/Users/Naeem Malik/Documents/SillyStuffs\tester.csv
+2025-03-09 20:38:52,744 - file_shredder - INFO - Shredding complete. Success: 1, Failed: 0
+2025-03-09 20:44:12,451 - file_shredder - INFO - Found 2 files matching pattern '*.*'
+2025-03-09 20:44:13,688 - file_shredder - INFO - Found 2 files matching pattern '*.*'
+2025-03-09 20:44:18,620 - file_shredder - INFO - Found 2 files matching pattern '*.*'
+2025-03-09 20:44:19,307 - file_shredder - INFO - Found 2 files matching pattern '*.*'
+2025-03-09 20:44:19,789 - file_shredder - INFO - Found 2 files matching pattern '*.*'
+2025-03-09 20:44:20,468 - file_shredder - INFO - Found 2 files matching pattern '*.*'
+2025-03-09 20:44:25,983 - file_shredder - INFO - Found 1 files matching pattern '*.ini'
+2025-03-09 20:44:29,759 - file_shredder - INFO - Successfully shredded file: C:/Users/Naeem Malik/Documents/SillyStuffs\desktop.ini
+2025-03-09 20:44:29,760 - file_shredder - INFO - Shredding complete. Success: 1, Failed: 0
+2025-03-09 20:44:50,169 - file_shredder - INFO - Found 1 files matching pattern '*.*'
+2025-03-09 20:44:53,771 - file_shredder - INFO - Found 2 files matching pattern '*.*'
+2025-03-09 20:47:04,389 - file_shredder - INFO - Found 0 files matching pattern '*.*' (excluding 2 files matching '*.txt')
+2025-03-09 20:47:11,541 - file_shredder - INFO - Found 0 files matching pattern '*.csv' (excluding 0 files matching '*.txt')
+2025-03-09 20:47:13,401 - file_shredder - INFO - Found 0 files matching pattern '*.csv' (excluding 0 files matching '*.txt')
+2025-03-09 20:47:21,018 - file_shredder - WARNING - Invalid regex pattern: *.txt. Using as glob pattern instead.
+2025-03-09 20:47:21,019 - file_shredder - INFO - Found 0 files matching pattern '*.txt' (excluding 0 files matching '*.txt')
+2025-03-09 20:47:40,269 - file_shredder - WARNING - Invalid regex pattern: *.txt. Using as glob pattern instead.
+2025-03-09 20:47:40,269 - file_shredder - INFO - Found 1 files matching pattern '*.txt' (excluding 0 files matching '*.txt')
+2025-03-09 20:47:51,140 - file_shredder - WARNING - Invalid regex pattern: *.txt. Using as glob pattern instead.
+2025-03-09 20:47:51,141 - file_shredder - INFO - Found 1 files matching pattern '*.txt' (excluding 0 files matching '*.txt')
+2025-03-09 20:47:52,651 - file_shredder - WARNING - Invalid regex pattern: *.txt. Using as glob pattern instead.
+2025-03-09 20:47:52,653 - file_shredder - INFO - Found 1 files matching pattern '*.txt' (excluding 0 files matching '*.txt')
+2025-03-09 20:47:54,220 - file_shredder - INFO - Found 1 files matching pattern '*.csv' (excluding 0 files matching '*.txt')
+2025-03-09 20:47:54,812 - file_shredder - INFO - Found 1 files matching pattern '*.csv' (excluding 0 files matching '*.txt')
+2025-03-09 20:47:55,108 - file_shredder - INFO - Found 1 files matching pattern '*.csv' (excluding 0 files matching '*.txt')
+2025-03-09 20:47:55,395 - file_shredder - INFO - Found 1 files matching pattern '*.csv' (excluding 0 files matching '*.txt')
+2025-03-09 20:47:55,700 - file_shredder - INFO - Found 1 files matching pattern '*.csv' (excluding 0 files matching '*.txt')
+2025-03-09 20:47:57,529 - file_shredder - INFO - Found 1 files matching pattern '*.csv' (excluding 0 files matching '*.txt')
+2025-03-09 20:49:44,247 - file_shredder - INFO - Found 2 files matching pattern '*.*'
+2025-03-09 20:56:54,435 - file_shredder - INFO - Found 1 files matching pattern '*.csv' (excluding 0 files matching '*.txt')
+2025-03-09 20:57:09,556 - file_shredder - INFO - Found 1 files matching pattern '*.csv' (excluding 0 files matching '*.txt')
+2025-03-09 20:57:34,088 - file_shredder - INFO - Found 2 files matching pattern '*.csv' (excluding 0 files matching '*.txt')
+2025-03-09 21:06:59,252 - file_shredder - ERROR - Invalid owner pattern regex: *Naeem*
+2025-03-09 21:07:00,299 - file_shredder - ERROR - Invalid owner pattern regex: *Naeem*
+2025-03-09 21:07:08,791 - file_shredder - INFO - Found 2 files matching pattern '*.*'
+2025-03-09 21:07:18,282 - file_shredder - ERROR - Invalid owner pattern regex: *Naeem
+2025-03-09 21:07:24,914 - file_shredder - INFO - Found 2 files matching pattern '*.*'
+2025-03-09 21:08:04,822 - file_shredder - INFO - Found 2 files matching pattern '*.*'
+2025-03-09 21:08:14,822 - file_shredder - INFO - Found 0 files matching pattern '*.*'
+2025-03-09 21:08:22,130 - file_shredder - INFO - Found 2 files matching pattern '*.*'
+2025-03-09 21:08:28,571 - file_shredder - INFO - Found 2 files matching pattern '*.*'
+2025-03-09 21:08:29,595 - file_shredder - INFO - Found 2 files matching pattern '*.*'
+2025-03-09 21:08:33,452 - file_shredder - INFO - Found 2 files matching pattern '*.*'
+2025-03-09 21:08:33,813 - file_shredder - INFO - Found 2 files matching pattern '*.*'
+2025-03-09 21:08:38,181 - file_shredder - ERROR - Invalid owner pattern regex: *
+2025-03-09 21:09:19,843 - file_shredder - INFO - Found 2 files matching pattern '*.*'
+2025-03-09 21:09:30,671 - file_shredder - INFO - Found 2 files matching pattern '*.*'
+2025-03-09 21:17:02,075 - file_shredder - INFO - Found 2 files matching pattern '*.*'
+2025-03-09 21:17:06,159 - file_shredder - INFO - Found 1 files matching pattern '*.txt'
+2025-03-09 21:17:13,384 - file_shredder - INFO - Found 3 files matching pattern '*.txt'
+2025-03-09 21:17:29,198 - file_shredder - INFO - Found 1 files matching pattern '*.txt'
+2025-03-09 21:19:24,982 - file_shredder - INFO - Found 1 files matching pattern '*.pdf'
+2025-03-09 21:20:10,279 - file_shredder - INFO - Found 1 files matching pattern '*.*'
+2025-03-09 21:20:13,127 - file_shredder - INFO - Found 2 files matching pattern '*.*'
+2025-03-09 21:28:46,241 - file_shredder - INFO - Found 6 files matching pattern '*.*'
+2025-03-09 21:31:07,761 - file_shredder - INFO - Found 2 files matching pattern '*.*'
+2025-03-09 21:31:12,573 - file_shredder - INFO - Found 6 files matching pattern '*.*'
+2025-03-09 21:32:23,142 - file_shredder - INFO - Found 6 files matching pattern '*.*'
+2025-03-09 21:33:07,861 - file_shredder - INFO - Found 2 files matching pattern '*.*'
+2025-03-09 21:45:56,501 - file_shredder - INFO - Found 4 files matching pattern '*.*'
+2025-03-09 21:46:01,256 - file_shredder - INFO - Found 4 files matching pattern '*.*'
+2025-03-09 21:46:04,957 - file_shredder - INFO - Found 4 files matching pattern '*.*'
+2025-03-09 21:46:06,159 - file_shredder - INFO - Found 4 files matching pattern '*.*'
+2025-03-09 21:46:06,455 - file_shredder - INFO - Found 4 files matching pattern '*.*'
+2025-03-09 21:46:06,643 - file_shredder - INFO - Found 4 files matching pattern '*.*'
+2025-03-09 21:46:06,833 - file_shredder - INFO - Found 4 files matching pattern '*.*'
+2025-03-09 21:46:11,963 - file_shredder - INFO - Found 6 files matching pattern '*.*'
+2025-03-09 21:46:20,458 - file_shredder - INFO - Found 1 files matching pattern '*.pdf'
+2025-03-09 21:48:11,763 - file_shredder - INFO - Found 2 files matching pattern '*.pdf'
+2025-03-09 21:48:25,825 - file_shredder - INFO - Found 2 files matching pattern '*.pdf'
+2025-03-09 21:48:26,964 - file_shredder - INFO - Found 2 files matching pattern '*.pdf'
+2025-03-09 21:48:27,588 - file_shredder - INFO - Found 2 files matching pattern '*.pdf'
+2025-03-09 21:54:10,969 - file_shredder - INFO - Found 4 files matching pattern '*.*'
+2025-03-09 21:54:33,118 - file_shredder - INFO - Found 2 files matching pattern '*.*'
+2025-03-09 21:54:57,929 - file_shredder - INFO - Found 4 files matching pattern '*.*'
+2025-03-09 21:55:21,163 - file_shredder - INFO - Found 2 files matching pattern '*.*'
+2025-03-09 21:55:44,779 - file_shredder - INFO - Found 2 files matching pattern '*.*'
+2025-03-09 21:55:45,663 - file_shredder - INFO - Found 2 files matching pattern '*.*'
+2025-03-09 21:58:33,283 - file_shredder - INFO - Found 3 files matching pattern '*.*'
+2025-03-09 22:15:42,415 - file_shredder - INFO - Found 6 files matching pattern '*.*'
+2025-03-09 22:15:53,143 - file_shredder - INFO - Found 3 files matching pattern '*.*'
+2025-03-09 22:19:16,947 - file_shredder - INFO - Found 6 files matching pattern '*.*'
+2025-03-09 22:19:33,222 - file_shredder - INFO - Found 3 files matching pattern '*.*'
+2025-03-09 22:21:40,438 - file_shredder - INFO - Found 6 files matching pattern '*.*'
+2025-03-09 22:21:58,248 - file_shredder - INFO - Found 3 files matching pattern '*.*'
+2025-03-09 22:22:59,083 - file_shredder - INFO - Found 3 files matching pattern '*.*'
+2025-03-09 22:24:35,965 - file_shredder - INFO - Found 9 files matching pattern '*.*'
+2025-03-09 22:25:33,870 - file_shredder - INFO - Found 4 files matching pattern '*.*'
+2025-03-09 22:34:19,477 - file_shredder - INFO - Found 3 files matching pattern '*.*'
+2025-03-09 22:34:21,379 - file_shredder - INFO - Found 9 files matching pattern '*.*'
+2025-03-09 22:34:33,405 - file_shredder - INFO - Found 4 files matching pattern '*.*'
+2025-03-09 22:38:10,532 - file_shredder - INFO - Found 3 files matching pattern '*.*'
+2025-03-09 22:38:24,703 - file_shredder - INFO - Found 9 files matching pattern '*.*'
+2025-03-09 22:43:08,026 - file_shredder - INFO - Found 3 files matching pattern '*.*'
+2025-03-09 22:43:09,931 - file_shredder - INFO - Found 9 files matching pattern '*.*'
+2025-03-10 12:35:17,490 - file_shredder - INFO - Found 6 files matching pattern '*.*'
+2025-03-10 12:35:20,460 - file_shredder - INFO - Found 0 files matching pattern '*.*'
+2025-03-10 12:35:23,694 - file_shredder - INFO - Found 0 files matching pattern '*.*'
+2025-03-10 12:35:24,293 - file_shredder - INFO - Found 0 files matching pattern '*.*'
+2025-03-10 12:35:25,415 - file_shredder - INFO - Found 0 files matching pattern '*.*'
+2025-03-10 12:35:25,621 - file_shredder - INFO - Found 0 files matching pattern '*.*'
+2025-03-10 12:35:25,763 - file_shredder - INFO - Found 0 files matching pattern '*.*'
+2025-03-10 12:35:29,875 - file_shredder - INFO - Found 0 files matching pattern '*.*'
+2025-03-10 12:48:49,126 - file_shredder - INFO - Found 6 files matching pattern '*.*'
+2025-03-10 12:48:54,221 - file_shredder - INFO - Found 6 files matching pattern '*.*'
+2025-03-10 12:48:58,135 - file_shredder - INFO - Found 6 files matching pattern '*.*'
+2025-03-10 12:49:56,872 - file_shredder - INFO - Found 3 files matching pattern '*.*' (excluding 3 files matching '*.csv')
+2025-03-10 12:50:29,029 - file_shredder - INFO - Found 2 files matching pattern '*.*' (excluding 4 files matching '*.csv')
+2025-03-10 12:56:56,066 - file_shredder - INFO - Found 6 files matching pattern '*.*'
+2025-03-10 12:57:03,457 - file_shredder - INFO - Found 6 files matching pattern '*.*'
+2025-03-10 12:57:48,187 - file_shredder - INFO - Found 9 files matching pattern '*.*'
+2025-03-10 12:58:04,554 - file_shredder - INFO - Found 4 files matching pattern '*.*'
+2025-03-10 17:16:53,864 - file_shredder - INFO - Found 3 files matching pattern '*.*'
+2025-03-10 17:17:08,551 - file_shredder - INFO - Found 3 files matching pattern '*.*'
+2025-03-10 17:17:10,384 - file_shredder - INFO - Found 9 files matching pattern '*.*'
+2025-03-10 17:17:12,116 - file_shredder - INFO - Found 9 files matching pattern '*.*'
+2025-03-10 17:18:02,567 - file_shredder - INFO - Found 2 files matching pattern '*.*'
+2025-03-10 17:20:00,587 - file_shredder - INFO - Found 2 files matching pattern '*.*'
+2025-03-10 17:20:29,374 - file_shredder - INFO - Found 9 files matching pattern '*.*'
+2025-03-10 17:20:34,896 - file_shredder - INFO - Found 9 files matching pattern '*.*'
+2025-03-10 17:20:37,909 - file_shredder - INFO - Found 9 files matching pattern '*.*'
+2025-03-10 17:20:54,622 - file_shredder - INFO - Found 2 files matching pattern '*.*'
+2025-03-10 17:21:08,892 - file_shredder - INFO - Found 9 files matching pattern '*.*'
+2025-03-10 17:21:13,036 - file_shredder - INFO - Found 9 files matching pattern '*.*'
+2025-03-10 17:27:02,858 - file_shredder - INFO - Found 3 files matching pattern '*.*'
+2025-03-10 17:27:05,233 - file_shredder - INFO - Found 9 files matching pattern '*.*'
+2025-03-10 17:27:41,575 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\fgf.txt
+2025-03-10 17:27:41,575 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\New Text Document.csv
+2025-03-10 17:27:41,575 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\another.csv
+2025-03-10 17:27:41,575 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\myfile.csv
+2025-03-10 17:27:41,575 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Microsoft Excel Worksheet.csv
+2025-03-10 17:27:41,591 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Text Document.txt
+2025-03-10 17:27:41,591 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\tides.txt
+2025-03-10 17:27:41,592 - file_shredder - INFO - Found 4 files matching pattern '*.*'
+2025-03-10 17:29:40,700 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\fgf.txt
+2025-03-10 17:29:40,700 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\New Text Document.csv
+2025-03-10 17:29:40,700 - file_shredder - INFO - Found 1 files matching pattern '*.*'
+2025-03-10 17:29:48,417 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\fgf.txt
+2025-03-10 17:29:48,418 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\New Text Document.csv
+2025-03-10 17:29:48,418 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\test.pdf
+2025-03-10 17:29:48,592 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\another.csv
+2025-03-10 17:29:48,592 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\Dummy Project Proposal.pdf
+2025-03-10 17:29:48,597 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\myfile.csv
+2025-03-10 17:29:48,597 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Microsoft Excel Worksheet.csv
+2025-03-10 17:29:48,597 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Text Document.txt
+2025-03-10 17:29:48,602 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\tides.txt
+2025-03-10 17:29:48,602 - file_shredder - INFO - Found 4 files matching pattern '*.*'
+2025-03-11 05:46:50,798 - file_shredder - INFO - Found 3 files matching pattern '*.*'
+2025-03-11 05:46:53,604 - file_shredder - INFO - Found 9 files matching pattern '*.*'
+2025-03-11 05:47:01,839 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\fgf.txt
+2025-03-11 05:47:01,839 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\New Text Document.csv
+2025-03-11 05:47:01,839 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\test.pdf
+2025-03-11 05:47:02,349 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\another.csv
+2025-03-11 05:47:02,349 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\Dummy Project Proposal.pdf
+2025-03-11 05:47:02,385 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\myfile.csv
+2025-03-11 05:47:02,389 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Microsoft Excel Worksheet.csv
+2025-03-11 05:47:02,396 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Text Document.txt
+2025-03-11 05:47:02,396 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\tides.txt
+2025-03-11 05:47:02,396 - file_shredder - INFO - Found 4 files matching pattern '*.*'
+2025-03-11 05:47:34,159 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\fgf.txt
+2025-03-11 05:47:34,159 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\New Text Document.csv
+2025-03-11 05:47:34,159 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\test.pdf
+2025-03-11 05:47:34,159 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\test.pdf
+2025-03-11 05:47:34,173 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\another.csv
+2025-03-11 05:47:34,173 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\Dummy Project Proposal.pdf
+2025-03-11 05:47:34,186 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\Dummy Project Proposal.pdf
+2025-03-11 05:47:34,191 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\myfile.csv
+2025-03-11 05:47:34,194 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\myfile.csv
+2025-03-11 05:47:34,194 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Microsoft Excel Worksheet.csv
+2025-03-11 05:47:34,194 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Text Document.txt
+2025-03-11 05:47:34,194 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Text Document.txt
+2025-03-11 05:47:34,194 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\tides.txt
+2025-03-11 05:47:34,194 - file_shredder - INFO - Found 3 files matching pattern '*.*'
+2025-03-11 05:47:40,555 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\fgf.txt
+2025-03-11 05:47:40,555 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\New Text Document.csv
+2025-03-11 05:47:40,555 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\test.pdf
+2025-03-11 05:47:40,566 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\another.csv
+2025-03-11 05:47:40,566 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\Dummy Project Proposal.pdf
+2025-03-11 05:47:40,572 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\myfile.csv
+2025-03-11 05:47:40,572 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Microsoft Excel Worksheet.csv
+2025-03-11 05:47:40,572 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Text Document.txt
+2025-03-11 05:47:40,572 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\tides.txt
+2025-03-11 05:47:40,579 - file_shredder - INFO - Found 4 files matching pattern '*.*'
+2025-03-11 05:47:46,790 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\fgf.txt
+2025-03-11 05:47:46,790 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\New Text Document.csv
+2025-03-11 05:47:46,791 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\test.pdf
+2025-03-11 05:47:46,795 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\test.pdf
+2025-03-11 05:47:46,805 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\another.csv
+2025-03-11 05:47:46,805 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\Dummy Project Proposal.pdf
+2025-03-11 05:47:46,805 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\Dummy Project Proposal.pdf
+2025-03-11 05:47:46,821 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\myfile.csv
+2025-03-11 05:47:46,821 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\myfile.csv
+2025-03-11 05:47:46,824 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Microsoft Excel Worksheet.csv
+2025-03-11 05:47:46,824 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Text Document.txt
+2025-03-11 05:47:46,826 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Text Document.txt
+2025-03-11 05:47:46,826 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\tides.txt
+2025-03-11 05:47:46,827 - file_shredder - INFO - Found 3 files matching pattern '*.*'
+2025-03-11 07:27:55,085 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-11 07:28:03,240 - file_shredder - INFO - Found 3 files matching pattern '*.*'
+2025-03-11 07:28:04,982 - file_shredder - INFO - Found 10 files matching pattern '*.*'
+2025-03-11 07:28:10,876 - file_shredder - INFO - Found 1 files matching pattern '*.png'
+2025-03-11 07:28:16,191 - file_shredder - INFO - Found 1 files matching pattern '*.png'
+2025-03-11 07:28:22,243 - file_shredder - INFO - Found 1 files matching pattern '*.png'
+2025-03-11 07:28:23,267 - file_shredder - INFO - Found 1 files matching pattern '*.png'
+2025-03-11 07:28:24,168 - file_shredder - INFO - Found 1 files matching pattern '*.png'
+2025-03-11 07:28:24,895 - file_shredder - INFO - Found 1 files matching pattern '*.png'
+2025-03-11 07:28:33,174 - file_shredder - INFO - Found 1 files matching pattern '*.png'
+2025-03-11 07:29:11,229 - file_shredder - INFO - Found 1 files matching pattern '*.png'
+2025-03-11 07:29:12,195 - file_shredder - INFO - Found 1 files matching pattern '*.png'
+2025-03-11 07:29:20,826 - file_shredder - INFO - Found 2 files matching pattern '*.png, *.bmp'
+2025-03-11 07:53:22,022 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-11 07:53:31,672 - file_shredder - INFO - Found 3 files matching pattern '*.*'
+2025-03-11 07:53:32,955 - file_shredder - INFO - Found 12 files matching pattern '*.*'
+2025-03-11 07:53:41,277 - file_shredder - INFO - Found 3 files matching pattern '*.png, *.bmp'
+2025-03-11 07:54:38,254 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-11 07:54:45,454 - file_shredder - INFO - Found 3 files matching pattern '*.*'
+2025-03-11 07:54:46,869 - file_shredder - INFO - Found 12 files matching pattern '*.*'
+2025-03-11 07:54:55,733 - file_shredder - INFO - Found 3 files matching pattern '*.png, *.bmp'
+2025-03-11 07:55:11,983 - file_shredder - INFO - Found 3 files matching pattern '*.png, *.bmp'
+2025-03-11 08:09:08,979 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-11 08:09:15,991 - file_shredder - INFO - Found 3 files matching pattern '*.*'
+2025-03-11 08:09:16,459 - file_shredder - INFO - Found 12 files matching pattern '*.*'
+2025-03-11 08:09:28,324 - file_shredder - INFO - Found 2 files matching pattern '*.png'
+2025-03-11 08:09:40,163 - file_shredder - INFO - Found 2 files matching pattern '*.png'
+2025-03-11 08:09:41,104 - file_shredder - INFO - Found 2 files matching pattern '*.png'
+2025-03-11 08:11:55,568 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-11 08:12:10,395 - file_shredder - INFO - Found 3 files matching pattern '*.*'
+2025-03-11 08:12:11,443 - file_shredder - INFO - Found 12 files matching pattern '*.*'
+2025-03-11 08:12:27,362 - file_shredder - INFO - Found 3 files matching pattern '*.png, *.bmp'
+2025-03-11 08:18:42,400 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-11 08:18:54,431 - file_shredder - INFO - Found 3 files matching pattern '*.*'
+2025-03-11 08:18:55,877 - file_shredder - INFO - Found 12 files matching pattern '*.*'
+2025-03-11 08:19:05,653 - file_shredder - INFO - Found 2 files matching pattern '*.png, *.jpg'
+2025-03-11 08:19:12,003 - file_shredder - INFO - Found 3 files matching pattern '*.png, *.jpg, *.bmp'
+2025-03-11 08:19:23,003 - file_shredder - INFO - Found 3 files matching pattern '*.png, *.jpg, *.bmp'
+2025-03-11 08:19:45,036 - file_shredder - INFO - Found 3 files matching pattern '*.png, *.jpg, *.bmp'
+2025-03-11 08:22:22,209 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-11 08:22:28,923 - file_shredder - INFO - Found 3 files matching pattern '*.*'
+2025-03-11 08:22:39,814 - file_shredder - INFO - Found 0 files matching pattern '*.png'
+2025-03-11 08:22:46,904 - file_shredder - INFO - Found 0 files matching pattern '*.png'
+2025-03-11 08:22:48,975 - file_shredder - INFO - Found 2 files matching pattern '*.png'
+2025-03-11 08:23:01,188 - file_shredder - INFO - Found 2 files matching pattern '*.png'
+2025-03-11 08:23:13,721 - file_shredder - INFO - Found 2 files matching pattern '*.png'
+2025-03-11 08:25:09,911 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-11 08:25:19,662 - file_shredder - INFO - Found 3 files matching pattern '*.*'
+2025-03-11 08:25:21,017 - file_shredder - INFO - Found 12 files matching pattern '*.*'
+2025-03-11 08:25:27,626 - file_shredder - INFO - Found 2 files matching pattern '*.png'
+2025-03-11 08:25:35,823 - file_shredder - INFO - Found 2 files matching pattern '*.png'
+2025-03-11 08:26:26,038 - file_shredder - INFO - Found 2 files matching pattern '*.png'
+2025-03-11 08:27:13,833 - file_shredder - INFO - Found 2 files matching pattern '*.png'
+2025-03-11 08:29:33,314 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-11 08:29:41,288 - file_shredder - INFO - Found 3 files matching pattern '*.*'
+2025-03-11 08:29:42,255 - file_shredder - INFO - Found 12 files matching pattern '*.*'
+2025-03-11 08:29:54,219 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\fgf.txt
+2025-03-11 08:29:54,219 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\New Text Document.csv
+2025-03-11 08:29:54,219 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\test.pdf
+2025-03-11 08:29:54,643 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\another.csv
+2025-03-11 08:29:54,655 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\Dummy Project Proposal.pdf
+2025-03-11 08:29:54,691 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\myfile.csv
+2025-03-11 08:29:54,691 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Microsoft Excel Worksheet.csv
+2025-03-11 08:29:54,722 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Text Document.txt
+2025-03-11 08:29:54,738 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\tides.txt
+2025-03-11 08:29:54,738 - file_shredder - INFO - Found 7 files matching pattern '*.*'
+2025-03-11 08:30:04,174 - file_shredder - INFO - Found 2 files matching pattern '*.png'
+2025-03-11 08:35:35,943 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-11 08:36:08,401 - file_shredder - INFO - Found 3 files matching pattern '*.*'
+2025-03-11 08:36:16,647 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\fgf.txt
+2025-03-11 08:36:16,649 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\New Text Document.csv
+2025-03-11 08:36:16,649 - file_shredder - INFO - Found 1 files matching pattern '*.*'
+2025-03-11 08:36:26,755 - file_shredder - INFO - Found 0 files matching pattern '*.png'
+2025-03-11 08:36:32,390 - file_shredder - INFO - Found 2 files matching pattern '*.png'
+2025-03-11 08:36:35,367 - file_shredder - INFO - Found 2 files matching pattern '*.png'
+2025-03-11 08:37:41,668 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\New Text Document.csv
+2025-03-11 08:37:41,669 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\another.csv
+2025-03-11 08:37:41,670 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\myfile.csv
+2025-03-11 08:37:41,671 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Microsoft Excel Worksheet.csv
+2025-03-11 08:37:41,671 - file_shredder - INFO - Found 1 files matching pattern '*.csv'
+2025-03-11 08:39:40,390 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-11 08:39:51,943 - file_shredder - INFO - Found 12 files matching pattern '*.*'
+2025-03-11 08:40:00,583 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\fgf.txt
+2025-03-11 08:40:00,583 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\New Text Document.csv
+2025-03-11 08:40:00,583 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\test.pdf
+2025-03-11 08:40:00,753 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\another.csv
+2025-03-11 08:40:00,753 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\Dummy Project Proposal.pdf
+2025-03-11 08:40:00,759 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\myfile.csv
+2025-03-11 08:40:00,759 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Microsoft Excel Worksheet.csv
+2025-03-11 08:40:00,759 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Text Document.txt
+2025-03-11 08:40:00,761 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\tides.txt
+2025-03-11 08:40:00,763 - file_shredder - INFO - Found 7 files matching pattern '*.*'
+2025-03-11 08:40:15,561 - file_shredder - INFO - Found 2 files matching pattern '*.png'
+2025-03-11 08:42:07,679 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-11 08:42:15,749 - file_shredder - INFO - Found 3 files matching pattern '*.*'
+2025-03-11 08:42:16,883 - file_shredder - INFO - Found 12 files matching pattern '*.*'
+2025-03-11 08:42:29,999 - file_shredder - INFO - Found 2 files matching pattern '*.png'
+2025-03-11 08:42:42,238 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\git-replit.png
+2025-03-11 08:42:43,115 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\justanimg.png
+2025-03-11 08:42:43,647 - file_shredder - INFO - Found 1 files matching pattern '*.png'
+2025-03-11 08:44:20,470 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\git-replit.png
+2025-03-11 08:44:20,898 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\justanimg.png
+2025-03-11 08:44:21,227 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\Screenshot 2025-03-11 084339.png
+2025-03-11 08:44:21,711 - file_shredder - INFO - Found 2 files matching pattern '*.png'
+2025-03-11 08:46:07,595 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-11 08:47:44,180 - file_shredder - INFO - Found 3 files matching pattern '*.*'
+2025-03-11 08:47:46,446 - file_shredder - INFO - Found 13 files matching pattern '*.*'
+2025-03-11 08:47:55,167 - file_shredder - INFO - Found 4 files matching pattern '*.png,*.bmp'
+2025-03-11 08:48:01,053 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\git-replit.png
+2025-03-11 08:48:02,296 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\justanimg.bmp
+2025-03-11 08:48:03,010 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\justanimg.png
+2025-03-11 08:48:03,819 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\Screenshot 2025-03-11 084339.png
+2025-03-11 08:48:04,787 - file_shredder - INFO - Found 2 files matching pattern '*.png,*.bmp'
+2025-03-11 08:48:14,125 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\git-replit.png
+2025-03-11 08:48:15,054 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\justanimg.bmp
+2025-03-11 08:48:15,775 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\justanimg.png
+2025-03-11 08:48:16,603 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\justanimg.png
+2025-03-11 08:48:17,240 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\Screenshot 2025-03-11 084339.png
+2025-03-11 08:48:18,439 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\Screenshot 2025-03-11 084339.png
+2025-03-11 08:48:19,546 - file_shredder - INFO - Found 2 files matching pattern '*.png,*.bmp'
+2025-03-11 08:49:01,295 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\git-replit.png
+2025-03-11 08:49:02,113 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\justanimg.bmp
+2025-03-11 08:49:02,733 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\justanimg.png
+2025-03-11 08:49:03,502 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\justanimg.png
+2025-03-11 08:49:04,392 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\Screenshot 2025-03-11 084339.png
+2025-03-11 08:49:05,588 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\Screenshot 2025-03-11 084339.png
+2025-03-11 08:49:06,747 - file_shredder - INFO - Found 1 files matching pattern '*.png,*.bmp'
+2025-03-11 08:49:27,403 - file_shredder - INFO - Successfully shredded file: C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\Screenshot 2025-03-11 084339.png
+2025-03-11 08:49:27,405 - file_shredder - INFO - Shredding complete. Success: 1, Failed: 0
+2025-03-11 09:03:55,119 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-11 09:04:20,255 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-11 09:04:44,774 - file_shredder - INFO - Found 3 files matching pattern '*.*'
+2025-03-11 09:04:55,938 - file_shredder - INFO - Found 12 files matching pattern '*.*'
+2025-03-11 09:05:09,727 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\fgf.txt
+2025-03-11 09:05:09,727 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\New Text Document.csv
+2025-03-11 09:05:09,727 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\another.csv
+2025-03-11 09:05:09,727 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\myfile.csv
+2025-03-11 09:05:09,727 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Microsoft Excel Worksheet.csv
+2025-03-11 09:05:09,733 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Text Document.txt
+2025-03-11 09:05:09,734 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\tides.txt
+2025-03-11 09:05:09,737 - file_shredder - INFO - Found 7 files matching pattern '*.*'
+2025-03-11 09:05:32,826 - file_shredder - INFO - Found 2 files matching pattern '*.png'
+2025-03-11 09:05:58,807 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\git-replit.png
+2025-03-11 09:05:59,294 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\justanimg.png
+2025-03-11 09:05:59,649 - file_shredder - INFO - Found 1 files matching pattern '*.png'
+2025-03-11 09:06:30,206 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-11 09:13:35,023 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-11 09:15:34,944 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-11 09:21:31,360 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-11 09:21:44,126 - file_shredder - INFO - Found 3 files matching pattern '*.*'
+2025-03-11 09:21:46,058 - file_shredder - INFO - Found 12 files matching pattern '*.*'
+2025-03-11 09:22:02,842 - file_shredder - INFO - Found 12 files matching pattern '*.*'
+2025-03-11 09:22:11,248 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\fgf.txt
+2025-03-11 09:22:11,248 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\New Text Document.csv
+2025-03-11 09:22:11,248 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\another.csv
+2025-03-11 09:22:11,248 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\git-replit.png
+2025-03-11 09:22:11,811 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\justanimg.bmp
+2025-03-11 09:22:12,177 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\justanimg.png
+2025-03-11 09:22:12,584 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\myfile.csv
+2025-03-11 09:22:12,584 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Microsoft Excel Worksheet.csv
+2025-03-11 09:22:12,584 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Text Document.txt
+2025-03-11 09:22:12,584 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\tides.txt
+2025-03-11 09:22:12,584 - file_shredder - INFO - Found 5 files matching pattern '*.*'
+2025-03-11 09:39:44,178 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-11 09:40:25,041 - file_shredder - INFO - Found 3 files matching pattern '*.*'
+2025-03-11 09:40:37,284 - file_shredder - INFO - Found 12 files matching pattern '*.*'
+2025-03-11 09:47:34,778 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-11 09:49:42,207 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-11 09:50:51,691 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-11 09:51:39,495 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-11 09:52:03,793 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-11 09:56:52,128 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-11 09:57:17,704 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-11 09:57:47,976 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-11 09:58:50,093 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-11 09:59:02,764 - file_shredder - INFO - Found 0 files matching pattern '*.png'
+2025-03-11 09:59:05,833 - file_shredder - INFO - Found 0 files matching pattern '*.png'
+2025-03-11 09:59:07,653 - file_shredder - INFO - Found 2 files matching pattern '*.png'
+2025-03-11 09:59:14,115 - file_shredder - INFO - Found 2 files matching pattern '*.png'
+2025-03-11 09:59:26,111 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\git-replit.png
+2025-03-11 09:59:26,871 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\justanimg.png
+2025-03-11 09:59:27,435 - file_shredder - INFO - Found 1 files matching pattern '*.png'
+2025-03-11 12:23:24,530 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-11 12:23:50,390 - file_shredder - INFO - Found 13 files matching pattern '*.*'
+2025-03-11 12:25:44,433 - file_shredder - INFO - Found 13 files matching pattern '*.*'
+2025-03-11 12:25:51,462 - file_shredder - INFO - Found 13 files matching pattern '*.*'
+2025-03-11 12:26:00,031 - file_shredder - INFO - Found 13 files matching pattern '*.*'
+2025-03-11 12:26:07,958 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\fgf.txt
+2025-03-11 12:26:07,959 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\how-to-user-ocr-fileshredder.png
+2025-03-11 12:26:09,768 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\New Text Document.csv
+2025-03-11 12:26:09,768 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\another.csv
+2025-03-11 12:26:09,768 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\git-replit.png
+2025-03-11 12:26:10,072 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\justanimg.bmp
+2025-03-11 12:26:10,275 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\justanimg.png
+2025-03-11 12:26:10,504 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\myfile.csv
+2025-03-11 12:26:10,515 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Microsoft Excel Worksheet.csv
+2025-03-11 12:26:10,520 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Text Document.txt
+2025-03-11 12:26:10,528 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\tides.txt
+2025-03-11 12:26:10,528 - file_shredder - INFO - Found 6 files matching pattern '*.*'
+2025-03-12 10:41:20,973 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-12 10:41:34,607 - file_shredder - INFO - Found 4 files matching pattern '*.*'
+2025-03-12 10:41:36,174 - file_shredder - INFO - Found 13 files matching pattern '*.*'
+2025-03-12 10:42:18,892 - file_shredder - INFO - Found 3 files matching pattern '*.png'
+2025-03-12 10:43:08,280 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-12 10:43:19,702 - file_shredder - INFO - Found 4 files matching pattern '*.*'
+2025-03-12 10:43:20,726 - file_shredder - INFO - Found 13 files matching pattern '*.*'
+2025-03-12 10:45:24,790 - file_shredder - INFO - Found 4 files matching pattern '*.csv'
+2025-03-12 10:45:30,005 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\New Text Document.csv
+2025-03-12 10:45:30,005 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\another.csv
+2025-03-12 10:45:30,021 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\myfile.csv
+2025-03-12 10:45:30,033 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Microsoft Excel Worksheet.csv
+2025-03-12 10:45:30,072 - file_shredder - INFO - Found 1 files matching pattern '*.csv'
+2025-03-12 10:45:35,413 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\New Text Document.csv
+2025-03-12 10:45:35,415 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\another.csv
+2025-03-12 10:45:35,416 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\myfile.csv
+2025-03-12 10:45:35,416 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Microsoft Excel Worksheet.csv
+2025-03-12 10:45:35,416 - file_shredder - INFO - Found 1 files matching pattern '*.csv'
+2025-03-12 10:45:42,379 - file_shredder - INFO - Successfully shredded file: C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\myfile.csv
+2025-03-12 10:45:42,382 - file_shredder - INFO - Shredding complete. Success: 1, Failed: 0
+2025-03-12 12:59:37,118 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-12 13:00:01,429 - file_shredder - INFO - Found 4 files matching pattern '*.*'
+2025-03-12 13:08:58,757 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-12 13:09:42,845 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-12 13:11:02,855 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-12 13:11:54,869 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-12 13:12:17,404 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-12 13:12:54,648 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-12 13:15:44,772 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-12 13:15:56,346 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-12 13:21:21,647 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-12 13:22:49,091 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-12 13:51:53,000 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-12 13:56:24,573 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-12 13:59:17,070 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-12 14:04:22,211 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-12 14:05:03,068 - file_shredder - INFO - Found 4 files matching pattern '*.*'
+2025-03-12 14:05:05,493 - file_shredder - INFO - Found 12 files matching pattern '*.*'
+2025-03-12 14:06:29,721 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-12 14:06:35,950 - file_shredder - INFO - Found 4 files matching pattern '*.*'
+2025-03-12 14:12:41,932 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-12 14:13:05,634 - file_shredder - INFO - Found 4 files matching pattern '*.*'
+2025-03-12 14:13:07,260 - file_shredder - INFO - Found 12 files matching pattern '*.*'
+2025-03-12 14:13:46,663 - file_shredder - INFO - Found 1 files matching pattern 'fgf.txt'
+2025-03-12 14:14:17,103 - file_shredder - INFO - Removed empty file: C:/Users/Naeem Malik/Documents/SillyStuffs\fgf.txt
+2025-03-12 14:14:17,105 - file_shredder - INFO - Shredding complete. Success: 1, Failed: 0
+2025-03-12 14:17:34,356 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-12 14:20:26,915 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-12 14:27:09,576 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-12 14:29:09,243 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-12 14:36:34,572 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-12 14:36:42,409 - file_shredder - INFO - Found 3 files matching pattern '*.*'
+2025-03-12 14:36:43,580 - file_shredder - INFO - Found 11 files matching pattern '*.*'
+2025-03-13 19:41:12,525 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-13 19:52:38,506 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-13 19:55:21,295 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-13 19:55:47,502 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-13 19:56:18,446 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-13 20:17:16,456 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-13 20:19:28,429 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-13 20:19:48,945 - file_shredder - INFO - Found 3 files matching pattern '*.*'
+2025-03-13 20:19:52,266 - file_shredder - INFO - Found 11 files matching pattern '*.*'
+2025-03-13 20:20:02,478 - file_shredder - INFO - Found 3 files matching pattern '*.png'
+2025-03-13 20:20:30,611 - file_shredder - INFO - Found 3 files matching pattern '*.png'
+2025-03-13 20:20:37,489 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\how-to-user-ocr-fileshredder.png
+2025-03-13 20:20:42,043 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\git-replit.png
+2025-03-13 20:20:44,482 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\justanimg.png
+2025-03-13 20:20:45,208 - file_shredder - INFO - Found 2 files matching pattern '*.png'
+2025-03-13 20:21:45,859 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-13 20:24:43,012 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-13 20:24:54,981 - file_shredder - INFO - Found 3 files matching pattern '*.*'
+2025-03-13 20:25:01,705 - file_shredder - INFO - Found 1 files matching pattern '*.png'
+2025-03-13 20:25:07,499 - file_shredder - INFO - Found 3 files matching pattern '*.png'
+2025-03-13 20:25:14,884 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\how-to-user-ocr-fileshredder.png
+2025-03-13 20:25:15,627 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\git-replit.png
+2025-03-13 20:25:16,004 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\justanimg.png
+2025-03-13 20:25:16,279 - file_shredder - INFO - Found 2 files matching pattern '*.png'
+2025-03-13 20:25:24,363 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\how-to-user-ocr-fileshredder.png
+2025-03-13 20:25:25,096 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\git-replit.png
+2025-03-13 20:25:25,419 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\justanimg.png
+2025-03-13 20:25:25,684 - file_shredder - INFO - Found 2 files matching pattern '*.png'
+2025-03-13 20:26:14,050 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-13 20:26:25,238 - file_shredder - INFO - Found 3 files matching pattern '*.*'
+2025-03-13 20:26:34,204 - file_shredder - INFO - Found 11 files matching pattern '*.*'
+2025-03-13 20:26:40,483 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\how-to-user-ocr-fileshredder.png
+2025-03-13 20:26:41,217 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\New Text Document.csv
+2025-03-13 20:26:41,219 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\another.csv
+2025-03-13 20:26:41,229 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\git-replit.png
+2025-03-13 20:26:41,594 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\justanimg.bmp
+2025-03-13 20:26:41,831 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\justanimg.png
+2025-03-13 20:26:42,092 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Microsoft Excel Worksheet.csv
+2025-03-13 20:26:42,108 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Text Document.txt
+2025-03-13 20:26:42,115 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\tides.txt
+2025-03-13 20:26:42,116 - file_shredder - INFO - Found 5 files matching pattern '*.*'
+2025-03-13 20:27:02,002 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\how-to-user-ocr-fileshredder.png
+2025-03-13 20:27:02,727 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\New Text Document.csv
+2025-03-13 20:27:02,727 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\another.csv
+2025-03-13 20:27:02,740 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\git-replit.png
+2025-03-13 20:27:03,074 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\justanimg.bmp
+2025-03-13 20:27:03,303 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\justanimg.png
+2025-03-13 20:27:03,560 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Microsoft Excel Worksheet.csv
+2025-03-13 20:27:03,562 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Text Document.txt
+2025-03-13 20:27:03,564 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\tides.txt
+2025-03-13 20:27:03,564 - file_shredder - INFO - Found 5 files matching pattern '*.*'
+2025-03-13 20:28:32,379 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\how-to-user-ocr-fileshredder.png
+2025-03-13 20:28:33,077 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\New Text Document.csv
+2025-03-13 20:28:33,078 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\another.csv
+2025-03-13 20:28:33,078 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\git-replit.png
+2025-03-13 20:28:33,419 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\justanimg.bmp
+2025-03-13 20:28:33,651 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\justanimg.png
+2025-03-13 20:28:33,919 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Microsoft Excel Worksheet.csv
+2025-03-13 20:28:33,919 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Text Document.txt
+2025-03-13 20:28:33,919 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\tides.txt
+2025-03-13 20:28:33,919 - file_shredder - INFO - Found 5 files matching pattern '*.*'
+2025-03-13 20:28:48,706 - file_shredder - INFO - Found 11 files matching pattern '*.*'
+2025-03-13 20:30:20,416 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-13 20:30:28,488 - file_shredder - INFO - Found 3 files matching pattern '*.*'
+2025-03-13 20:32:08,791 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-13 20:32:21,892 - file_shredder - INFO - Found 3 files matching pattern '*.*'
+2025-03-13 20:34:52,239 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-13 20:35:07,482 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-13 20:40:36,096 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-13 20:40:43,258 - file_shredder - INFO - Found 3 files matching pattern '*.*'
+2025-03-13 20:40:44,723 - file_shredder - INFO - Found 11 files matching pattern '*.*'
+2025-03-13 20:41:14,032 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\how-to-user-ocr-fileshredder.png
+2025-03-13 20:41:14,624 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\New Text Document.csv
+2025-03-13 20:41:14,624 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\another.csv
+2025-03-13 20:41:14,626 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\git-replit.png
+2025-03-13 20:41:14,874 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\justanimg.bmp
+2025-03-13 20:41:15,046 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\justanimg.png
+2025-03-13 20:41:15,260 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Microsoft Excel Worksheet.csv
+2025-03-13 20:41:15,260 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Text Document.txt
+2025-03-13 20:41:15,260 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\tides.txt
+2025-03-13 20:41:15,260 - file_shredder - INFO - Found 5 files matching pattern '*.*'
+2025-03-13 20:42:09,985 - file_shredder - INFO - Found 1 files matching pattern 'Dummy Project Proposal.pdf'
+2025-03-13 20:46:31,997 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-14 08:41:03,395 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-14 09:01:12,408 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-14 09:03:49,526 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-14 09:04:08,056 - file_shredder - INFO - Found 3 files matching pattern '*.*'
+2025-03-14 09:04:17,307 - file_shredder - INFO - Found 3 files matching pattern '*.*'
+2025-03-14 09:04:19,519 - file_shredder - INFO - Found 11 files matching pattern '*.*'
+2025-03-14 09:04:21,166 - file_shredder - INFO - Found 11 files matching pattern '*.*'
+2025-03-14 09:04:28,001 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-14 09:04:41,527 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-14 09:06:00,215 - file_shredder - INFO - Found 11 files matching pattern '*.*'
+2025-03-14 09:06:28,945 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-14 09:06:44,844 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-14 09:06:56,161 - file_shredder - INFO - Found 11 files matching pattern '*.*'
+2025-03-14 09:13:05,950 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-14 16:07:09,484 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-14 18:27:47,392 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-14 18:27:56,732 - file_shredder - INFO - Found 12 files matching pattern '*.*'
+2025-03-14 18:27:58,479 - file_shredder - INFO - Found 3 files matching pattern '*.*'
+2025-03-14 18:28:00,213 - file_shredder - INFO - Found 3 files matching pattern '*.*'
+2025-03-14 18:28:02,252 - file_shredder - INFO - Found 12 files matching pattern '*.*'
+2025-03-14 18:28:05,397 - file_shredder - INFO - Found 12 files matching pattern '*.*'
+2025-03-14 18:30:29,506 - file_shredder - INFO - Found 1 files matching pattern 'New Text Document.csv'
+2025-03-14 18:30:35,723 - file_shredder - INFO - Removed empty file: C:/Users/Naeem Malik/Documents/SillyStuffs\New Text Document.csv
+2025-03-14 18:30:35,724 - file_shredder - INFO - Shredding complete. Success: 1, Failed: 0
+2025-03-14 19:57:04,225 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-14 20:03:33,053 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-14 20:03:51,918 - file_shredder - INFO - Found 11 files matching pattern '*.*'
+2025-03-14 20:04:23,536 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\another.csv
+2025-03-14 20:04:23,553 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Microsoft Excel Worksheet.csv
+2025-03-14 20:04:23,574 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Text Document.txt
+2025-03-14 20:04:23,593 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\tides.txt
+2025-03-14 20:04:23,595 - file_shredder - INFO - Found 8 files matching pattern '*.*'
+2025-03-14 20:06:30,543 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-14 20:06:37,705 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\test.pdf
+2025-03-14 20:06:37,993 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\another.csv
+2025-03-14 20:06:37,993 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\Dummy Project Proposal.pdf
+2025-03-14 20:06:38,008 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Microsoft Excel Worksheet.csv
+2025-03-14 20:06:38,008 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Text Document.txt
+2025-03-14 20:06:38,008 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\tides.txt
+2025-03-14 20:06:38,008 - file_shredder - INFO - Found 8 files matching pattern '*.*'
+2025-03-14 20:11:53,652 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-14 20:11:59,725 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\test.pdf
+2025-03-14 20:11:59,906 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\another.csv
+2025-03-14 20:11:59,907 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\Dummy Project Proposal.pdf
+2025-03-14 20:11:59,919 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Microsoft Excel Worksheet.csv
+2025-03-14 20:11:59,920 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Text Document.txt
+2025-03-14 20:11:59,922 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\tides.txt
+2025-03-14 20:11:59,922 - file_shredder - INFO - Found 8 files matching pattern '*.*'
+2025-03-14 20:12:11,541 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\test.pdf
+2025-03-14 20:12:11,555 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\another.csv
+2025-03-14 20:12:11,555 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\Dummy Project Proposal.pdf
+2025-03-14 20:12:11,562 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Microsoft Excel Worksheet.csv
+2025-03-14 20:12:11,567 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Text Document.txt
+2025-03-14 20:12:11,569 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\tides.txt
+2025-03-14 20:12:11,569 - file_shredder - INFO - Found 7 files matching pattern '*.*' (excluding 4 files matching '*justanimg.bmp*')
+2025-03-14 20:12:20,424 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\test.pdf
+2025-03-14 20:12:20,443 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\another.csv
+2025-03-14 20:12:20,443 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\Dummy Project Proposal.pdf
+2025-03-14 20:12:20,456 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Microsoft Excel Worksheet.csv
+2025-03-14 20:12:20,456 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Text Document.txt
+2025-03-14 20:12:20,456 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\tides.txt
+2025-03-14 20:12:20,462 - file_shredder - INFO - Found 7 files matching pattern '*.*' (excluding 4 files matching '*justanimg.bmp*')
+2025-03-14 20:12:29,597 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\test.pdf
+2025-03-14 20:12:29,612 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\another.csv
+2025-03-14 20:12:29,612 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\Dummy Project Proposal.pdf
+2025-03-14 20:12:29,623 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Microsoft Excel Worksheet.csv
+2025-03-14 20:12:29,623 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Text Document.txt
+2025-03-14 20:12:29,623 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\tides.txt
+2025-03-14 20:12:29,623 - file_shredder - INFO - Found 7 files matching pattern '*.*' (excluding 4 files matching '*justanimg.bmp')
+2025-03-14 20:12:36,027 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\test.pdf
+2025-03-14 20:12:36,046 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\another.csv
+2025-03-14 20:12:36,046 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\Dummy Project Proposal.pdf
+2025-03-14 20:12:36,059 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Microsoft Excel Worksheet.csv
+2025-03-14 20:12:36,059 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Text Document.txt
+2025-03-14 20:12:36,062 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\tides.txt
+2025-03-14 20:12:36,062 - file_shredder - INFO - Found 7 files matching pattern '*.*' (excluding 4 files matching 'justanimg.bmp')
+2025-03-14 20:12:49,776 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\test.pdf
+2025-03-14 20:12:49,796 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\another.csv
+2025-03-14 20:12:49,800 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\Dummy Project Proposal.pdf
+2025-03-14 20:12:49,810 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Microsoft Excel Worksheet.csv
+2025-03-14 20:12:49,810 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Text Document.txt
+2025-03-14 20:12:49,812 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\tides.txt
+2025-03-14 20:12:49,812 - file_shredder - INFO - Found 4 files matching pattern '*.*' (excluding 7 files matching '*.png')
+2025-03-14 20:12:56,938 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\test.pdf
+2025-03-14 20:12:56,954 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\another.csv
+2025-03-14 20:12:56,954 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\Dummy Project Proposal.pdf
+2025-03-14 20:12:56,974 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Microsoft Excel Worksheet.csv
+2025-03-14 20:12:56,974 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Text Document.txt
+2025-03-14 20:12:56,974 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\tides.txt
+2025-03-14 20:12:56,974 - file_shredder - INFO - Found 8 files matching pattern '*.*'
+2025-03-14 20:13:00,420 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\another.csv
+2025-03-14 20:13:00,422 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\Dummy Project Proposal.pdf
+2025-03-14 20:13:00,429 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Microsoft Excel Worksheet.csv
+2025-03-14 20:13:00,429 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Text Document.txt
+2025-03-14 20:13:00,429 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\tides.txt
+2025-03-14 20:13:00,429 - file_shredder - INFO - Found 7 files matching pattern '*.*' (excluding 4 files matching '*test.pdf*')
+2025-03-14 20:13:03,636 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\another.csv
+2025-03-14 20:13:03,636 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\Dummy Project Proposal.pdf
+2025-03-14 20:13:03,641 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Microsoft Excel Worksheet.csv
+2025-03-14 20:13:03,641 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Text Document.txt
+2025-03-14 20:13:03,641 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\tides.txt
+2025-03-14 20:13:03,641 - file_shredder - INFO - Found 7 files matching pattern '*.*' (excluding 4 files matching '*test.pdf*')
+2025-03-14 20:13:04,186 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\another.csv
+2025-03-14 20:13:04,188 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\Dummy Project Proposal.pdf
+2025-03-14 20:13:04,190 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Microsoft Excel Worksheet.csv
+2025-03-14 20:13:04,202 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Text Document.txt
+2025-03-14 20:13:04,202 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\tides.txt
+2025-03-14 20:13:04,202 - file_shredder - INFO - Found 7 files matching pattern '*.*' (excluding 4 files matching '*test.pdf*')
+2025-03-14 20:13:04,485 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\another.csv
+2025-03-14 20:13:04,485 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\Dummy Project Proposal.pdf
+2025-03-14 20:13:04,500 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Microsoft Excel Worksheet.csv
+2025-03-14 20:13:04,500 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Text Document.txt
+2025-03-14 20:13:04,500 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\tides.txt
+2025-03-14 20:13:04,500 - file_shredder - INFO - Found 7 files matching pattern '*.*' (excluding 4 files matching '*test.pdf*')
+2025-03-14 20:13:05,771 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\another.csv
+2025-03-14 20:13:05,773 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\Dummy Project Proposal.pdf
+2025-03-14 20:13:05,776 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Microsoft Excel Worksheet.csv
+2025-03-14 20:13:05,787 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Text Document.txt
+2025-03-14 20:13:05,787 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\tides.txt
+2025-03-14 20:13:05,787 - file_shredder - INFO - Found 7 files matching pattern '*.*' (excluding 4 files matching '*test.pdf*')
+2025-03-14 20:13:13,147 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\another.csv
+2025-03-14 20:13:13,147 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\Dummy Project Proposal.pdf
+2025-03-14 20:13:13,157 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Microsoft Excel Worksheet.csv
+2025-03-14 20:13:13,157 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Text Document.txt
+2025-03-14 20:13:13,157 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\tides.txt
+2025-03-14 20:13:13,157 - file_shredder - INFO - Found 7 files matching pattern '*.*' (excluding 4 files matching '*test*')
+2025-03-14 20:13:17,209 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\test.pdf
+2025-03-14 20:13:17,222 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\another.csv
+2025-03-14 20:13:17,224 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\Dummy Project Proposal.pdf
+2025-03-14 20:13:17,232 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Microsoft Excel Worksheet.csv
+2025-03-14 20:13:17,232 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Text Document.txt
+2025-03-14 20:13:17,232 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\tides.txt
+2025-03-14 20:13:17,232 - file_shredder - INFO - Found 8 files matching pattern '*.*' (excluding 3 files matching 'test')
+2025-03-14 20:13:24,315 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\another.csv
+2025-03-14 20:13:24,315 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\Dummy Project Proposal.pdf
+2025-03-14 20:13:24,327 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Microsoft Excel Worksheet.csv
+2025-03-14 20:13:24,329 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Text Document.txt
+2025-03-14 20:13:24,331 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\tides.txt
+2025-03-14 20:13:24,331 - file_shredder - INFO - Found 7 files matching pattern '*.*' (excluding 4 files matching 'test.*')
+2025-03-14 20:13:39,626 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\another.csv
+2025-03-14 20:13:39,626 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Microsoft Excel Worksheet.csv
+2025-03-14 20:13:39,626 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Text Document.txt
+2025-03-14 20:13:39,626 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\tides.txt
+2025-03-14 20:13:39,626 - file_shredder - INFO - Found 6 files matching pattern '*.*' (excluding 5 files matching '*.pdf')
+2025-03-14 20:13:44,575 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\test.pdf
+2025-03-14 20:13:44,587 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\another.csv
+2025-03-14 20:13:44,592 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\Dummy Project Proposal.pdf
+2025-03-14 20:13:44,603 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Microsoft Excel Worksheet.csv
+2025-03-14 20:13:44,603 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Text Document.txt
+2025-03-14 20:13:44,606 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\tides.txt
+2025-03-14 20:13:44,608 - file_shredder - INFO - Found 4 files matching pattern '*.*' (excluding 7 files matching '*.png')
+2025-03-14 20:13:50,576 - file_shredder - INFO - Found 0 files matching pattern '*.*' (excluding 11 files matching '*.*')
+2025-03-14 20:13:52,480 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\test.pdf
+2025-03-14 20:13:52,493 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\another.csv
+2025-03-14 20:13:52,493 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\Dummy Project Proposal.pdf
+2025-03-14 20:13:52,502 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Microsoft Excel Worksheet.csv
+2025-03-14 20:13:52,502 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Text Document.txt
+2025-03-14 20:13:52,502 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\tides.txt
+2025-03-14 20:13:52,502 - file_shredder - INFO - Found 8 files matching pattern '*.*'
+2025-03-14 20:14:17,590 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\test.pdf
+2025-03-14 20:14:17,611 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\another.csv
+2025-03-14 20:14:17,611 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\Dummy Project Proposal.pdf
+2025-03-14 20:14:17,615 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Microsoft Excel Worksheet.csv
+2025-03-14 20:14:17,624 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Text Document.txt
+2025-03-14 20:14:17,624 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\tides.txt
+2025-03-14 20:14:17,624 - file_shredder - INFO - Found 8 files matching pattern '*.*'
+2025-03-14 20:14:46,187 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\test.pdf
+2025-03-14 20:14:46,200 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\another.csv
+2025-03-14 20:14:46,200 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\Dummy Project Proposal.pdf
+2025-03-14 20:14:46,211 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Microsoft Excel Worksheet.csv
+2025-03-14 20:14:46,211 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Text Document.txt
+2025-03-14 20:14:46,227 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\tides.txt
+2025-03-14 20:14:46,227 - file_shredder - INFO - Found 8 files matching pattern '*.*'
+2025-03-14 20:15:01,098 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\another.csv
+2025-03-14 20:15:01,098 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\Dummy Project Proposal.pdf
+2025-03-14 20:15:01,120 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Microsoft Excel Worksheet.csv
+2025-03-14 20:15:01,120 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Text Document.txt
+2025-03-14 20:15:01,122 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\tides.txt
+2025-03-14 20:15:01,122 - file_shredder - INFO - Found 7 files matching pattern '*.*' (excluding 4 files matching '*test.pdf*')
+2025-03-14 20:17:37,416 - file_shredder - INFO - Found 1 files matching pattern '*.*' (excluding 1 files matching '*test.pdf*')
+2025-03-14 20:17:47,216 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\test.pdf
+2025-03-14 20:17:47,236 - file_shredder - INFO - Found 2 files matching pattern '*.*'
+2025-03-14 20:17:48,579 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\test.pdf
+2025-03-14 20:17:48,591 - file_shredder - INFO - Found 2 files matching pattern '*.*'
+2025-03-14 20:17:49,716 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\test.pdf
+2025-03-14 20:17:49,731 - file_shredder - INFO - Found 2 files matching pattern '*.*'
+2025-03-14 20:17:54,788 - file_shredder - INFO - Found 1 files matching pattern '*.*' (excluding 1 files matching '*test.pdf*')
+2025-03-14 20:24:42,711 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-14 20:24:46,688 - file_shredder - INFO - Include patterns: ['*.*']
+2025-03-14 20:24:46,688 - file_shredder - INFO - Exclude patterns: ['*test.pdf*']
+2025-03-14 20:24:46,695 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\another.csv
+2025-03-14 20:24:46,696 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Microsoft Excel Worksheet.csv
+2025-03-14 20:24:46,697 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Text Document.txt
+2025-03-14 20:24:46,700 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\tides.txt
+2025-03-14 20:24:46,701 - file_shredder - INFO - Found 7 files matching pattern '*.*' (excluding 4 files matching '*test.pdf*')
+2025-03-14 20:24:52,377 - file_shredder - INFO - Include patterns: ['*.*']
+2025-03-14 20:24:52,381 - file_shredder - INFO - Exclude patterns: ['*test.pdf*']
+2025-03-14 20:24:52,382 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\another.csv
+2025-03-14 20:24:52,384 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Microsoft Excel Worksheet.csv
+2025-03-14 20:24:52,384 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Text Document.txt
+2025-03-14 20:24:52,387 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\tides.txt
+2025-03-14 20:24:52,387 - file_shredder - INFO - Found 7 files matching pattern '*.*' (excluding 4 files matching '*test.pdf*')
+2025-03-14 20:24:59,697 - file_shredder - INFO - Include patterns: ['*.*']
+2025-03-14 20:24:59,697 - file_shredder - INFO - Exclude patterns: []
+2025-03-14 20:24:59,699 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\another.csv
+2025-03-14 20:24:59,699 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Microsoft Excel Worksheet.csv
+2025-03-14 20:24:59,699 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Text Document.txt
+2025-03-14 20:24:59,699 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\tides.txt
+2025-03-14 20:24:59,705 - file_shredder - INFO - Found 8 files matching pattern '*.*'
+2025-03-14 20:27:23,561 - file_shredder - INFO - Include patterns: ['*.*']
+2025-03-14 20:27:23,565 - file_shredder - INFO - Exclude patterns: []
+2025-03-14 20:27:23,567 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\another.csv
+2025-03-14 20:27:23,568 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Microsoft Excel Worksheet.csv
+2025-03-14 20:27:23,568 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Text Document.txt
+2025-03-14 20:27:23,571 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\tides.txt
+2025-03-14 20:27:23,571 - file_shredder - INFO - Found 9 files matching pattern '*.*'
+2025-03-14 20:27:34,672 - file_shredder - INFO - Include patterns: ['*.*']
+2025-03-14 20:27:34,672 - file_shredder - INFO - Exclude patterns: []
+2025-03-14 20:27:34,672 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\how-to-user-ocr-fileshredder.png
+2025-03-14 20:27:39,218 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\another.csv
+2025-03-14 20:27:39,218 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\cursor-ai-usage-details.png
+2025-03-14 20:27:41,025 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\git-replit.png
+2025-03-14 20:27:41,592 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\justanimg.bmp
+2025-03-14 20:27:42,127 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\justanimg.png
+2025-03-14 20:27:42,877 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Bitmap image.bmp
+2025-03-14 20:27:43,408 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Microsoft Excel Worksheet.csv
+2025-03-14 20:27:43,408 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Text Document.txt
+2025-03-14 20:27:43,415 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\tides.txt
+2025-03-14 20:27:43,415 - file_shredder - INFO - Found 6 files matching pattern '*.*'
+2025-03-14 20:28:02,933 - file_shredder - INFO - Include patterns: ['*.*']
+2025-03-14 20:28:02,933 - file_shredder - INFO - Exclude patterns: ['*New Bitmap image.bmp*']
+2025-03-14 20:28:02,933 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\how-to-user-ocr-fileshredder.png
+2025-03-14 20:28:03,896 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\another.csv
+2025-03-14 20:28:03,896 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\cursor-ai-usage-details.png
+2025-03-14 20:28:05,474 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\git-replit.png
+2025-03-14 20:28:05,962 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\justanimg.bmp
+2025-03-14 20:28:06,232 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\justanimg.png
+2025-03-14 20:28:06,579 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Microsoft Excel Worksheet.csv
+2025-03-14 20:28:06,580 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Text Document.txt
+2025-03-14 20:28:06,580 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\tides.txt
+2025-03-14 20:28:06,580 - file_shredder - INFO - Found 5 files matching pattern '*.*' (excluding 7 files matching '*New Bitmap image.bmp*')
+2025-03-14 20:28:15,574 - file_shredder - INFO - Include patterns: ['*.*']
+2025-03-14 20:28:15,576 - file_shredder - INFO - Exclude patterns: []
+2025-03-14 20:28:15,577 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\how-to-user-ocr-fileshredder.png
+2025-03-14 20:28:16,517 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\another.csv
+2025-03-14 20:28:16,518 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\cursor-ai-usage-details.png
+2025-03-14 20:28:18,234 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\git-replit.png
+2025-03-14 20:28:18,698 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\justanimg.bmp
+2025-03-14 20:28:19,040 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\justanimg.png
+2025-03-14 20:28:19,427 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Bitmap image.bmp
+2025-03-14 20:28:19,732 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Microsoft Excel Worksheet.csv
+2025-03-14 20:28:19,735 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Text Document.txt
+2025-03-14 20:28:19,736 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\tides.txt
+2025-03-14 20:28:19,736 - file_shredder - INFO - Found 6 files matching pattern '*.*'
+2025-03-14 20:28:29,565 - file_shredder - INFO - Include patterns: ['*.*']
+2025-03-14 20:28:29,565 - file_shredder - INFO - Exclude patterns: ['*New Bitmap image.bmp*']
+2025-03-14 20:28:29,565 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\how-to-user-ocr-fileshredder.png
+2025-03-14 20:28:30,479 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\another.csv
+2025-03-14 20:28:30,479 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\cursor-ai-usage-details.png
+2025-03-14 20:28:32,032 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\git-replit.png
+2025-03-14 20:28:32,430 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\justanimg.bmp
+2025-03-14 20:28:32,740 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\justanimg.png
+2025-03-14 20:28:33,090 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Microsoft Excel Worksheet.csv
+2025-03-14 20:28:33,090 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Text Document.txt
+2025-03-14 20:28:33,090 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\tides.txt
+2025-03-14 20:28:33,090 - file_shredder - INFO - Found 5 files matching pattern '*.*' (excluding 7 files matching '*New Bitmap image.bmp*')
+2025-03-17 06:39:49,642 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-17 06:41:31,981 - file_shredder - INFO - OCR module found. Image content search will be enabled.
+2025-03-17 06:41:38,611 - file_shredder - INFO - Include patterns: ['*.*']
+2025-03-17 06:41:38,611 - file_shredder - INFO - Exclude patterns: ['*New Bitmap image.bmp*']
+2025-03-17 06:41:38,612 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\how-to-user-ocr-fileshredder.png
+2025-03-17 06:41:40,272 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\another.csv
+2025-03-17 06:41:40,279 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\cursor-ai-usage-details.png
+2025-03-17 06:41:41,268 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\git-replit.png
+2025-03-17 06:41:41,515 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\justanimg.bmp
+2025-03-17 06:41:41,697 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\justanimg.png
+2025-03-17 06:41:41,906 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Microsoft Excel Worksheet.csv
+2025-03-17 06:41:41,917 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Text Document.txt
+2025-03-17 06:41:41,921 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\tides.txt
+2025-03-17 06:41:41,921 - file_shredder - INFO - Found 5 files matching pattern '*.*' (excluding 7 files matching '*New Bitmap image.bmp*')
+2025-03-17 06:42:28,777 - file_shredder - INFO - Include patterns: ['*.*']
+2025-03-17 06:42:28,777 - file_shredder - INFO - Exclude patterns: []
+2025-03-17 06:42:28,778 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\how-to-user-ocr-fileshredder.png
+2025-03-17 06:42:29,325 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\another.csv
+2025-03-17 06:42:29,325 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\cursor-ai-usage-details.png
+2025-03-17 06:42:30,281 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\git-replit.png
+2025-03-17 06:42:30,527 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\justanimg.bmp
+2025-03-17 06:42:30,703 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\justanimg.png
+2025-03-17 06:42:30,912 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Bitmap image.bmp
+2025-03-17 06:42:31,116 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Microsoft Excel Worksheet.csv
+2025-03-17 06:42:31,117 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Text Document.txt
+2025-03-17 06:42:31,117 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\tides.txt
+2025-03-17 06:42:31,117 - file_shredder - INFO - Found 6 files matching pattern '*.*'
+2025-03-17 06:42:42,161 - file_shredder - INFO - Include patterns: ['*.*']
+2025-03-17 06:42:42,161 - file_shredder - INFO - Exclude patterns: ['*Dummy Project Proposal.pdf*']
+2025-03-17 06:42:42,162 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\how-to-user-ocr-fileshredder.png
+2025-03-17 06:42:42,724 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\another.csv
+2025-03-17 06:42:42,727 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\cursor-ai-usage-details.png
+2025-03-17 06:42:43,609 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\git-replit.png
+2025-03-17 06:42:43,842 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\justanimg.bmp
+2025-03-17 06:42:44,015 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\justanimg.png
+2025-03-17 06:42:44,222 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Bitmap image.bmp
+2025-03-17 06:42:44,443 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Microsoft Excel Worksheet.csv
+2025-03-17 06:42:44,444 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Text Document.txt
+2025-03-17 06:42:44,444 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\tides.txt
+2025-03-17 06:42:44,445 - file_shredder - INFO - Found 5 files matching pattern '*.*' (excluding 7 files matching '*Dummy Project Proposal.pdf*')
+2025-03-17 06:42:51,752 - file_shredder - INFO - Include patterns: ['*.*']
+2025-03-17 06:42:51,753 - file_shredder - INFO - Exclude patterns: []
+2025-03-17 06:42:51,754 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\how-to-user-ocr-fileshredder.png
+2025-03-17 06:42:52,312 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\another.csv
+2025-03-17 06:42:52,312 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\cursor-ai-usage-details.png
+2025-03-17 06:42:53,198 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\git-replit.png
+2025-03-17 06:42:53,447 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\justanimg.bmp
+2025-03-17 06:42:53,621 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\justanimg.png
+2025-03-17 06:42:53,822 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Bitmap image.bmp
+2025-03-17 06:42:54,023 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Microsoft Excel Worksheet.csv
+2025-03-17 06:42:54,023 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\New Text Document.txt
+2025-03-17 06:42:54,023 - file_shredder - INFO - File in process C:/Users/Naeem Malik/Documents/SillyStuffs\Subfolder\tides.txt
+2025-03-17 06:42:54,023 - file_shredder - INFO - Found 6 files matching pattern '*.*'

@@ -1,0 +1,10 @@
+*.log
+*.pyc
+pyenv.cfg
+*.lock
+Lib/
+Scripts/
+images/
+dist/
+build/
+attached_assets/
